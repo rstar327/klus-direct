@@ -18,8 +18,8 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 23 92% 50%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -35,9 +35,26 @@
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --ring: 23 92% 50%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
+
+    /* KlusDirect Brand Colors */
+    --klusdirect-orange: 23 92% 50%;
+    --klusdirect-orange-dark: 23 92% 40%;
+    --klusdirect-blue: 221 83% 53%;
+    --klusdirect-blue-dark: 221 83% 43%;
+
+    --klusdirect-gray-50: 210 40% 98%;
+    --klusdirect-gray-100: 210 40% 96%;
+    --klusdirect-gray-200: 214 32% 91%;
+    --klusdirect-gray-300: 213 27% 84%;
+    --klusdirect-gray-400: 215 20% 65%;
+    --klusdirect-gray-500: 215 16% 47%;
+    --klusdirect-gray-600: 215 19% 35%;
+    --klusdirect-gray-700: 215 25% 27%;
+    --klusdirect-gray-800: 217 33% 17%;
+    --klusdirect-gray-900: 222 84% 5%;
 
     --sidebar-background: 0 0% 98%;
 
@@ -66,8 +83,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
+    --primary: 23 92% 50%;
+    --primary-foreground: 0 0% 100%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -83,7 +100,13 @@
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
+    --ring: 23 92% 50%;
+
+    /* KlusDirect Brand Colors - Dark Mode */
+    --klusdirect-orange: 23 92% 55%;
+    --klusdirect-orange-dark: 23 92% 45%;
+    --klusdirect-blue: 221 83% 58%;
+    --klusdirect-blue-dark: 221 83% 48%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -102,5 +125,28 @@
 
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-klusdirect-gray-100;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-klusdirect-gray-300 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-klusdirect-gray-400;
+  }
+
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
   }
 }
