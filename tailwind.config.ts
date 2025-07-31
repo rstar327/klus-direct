@@ -57,33 +57,65 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        klusdirect: {
+          orange: "hsl(var(--klusdirect-orange))",
+          "orange-dark": "hsl(var(--klusdirect-orange-dark))",
+          blue: "hsl(var(--klusdirect-blue))",
+          "blue-dark": "hsl(var(--klusdirect-blue-dark))",
+          gray: {
+            50: "hsl(var(--klusdirect-gray-50))",
+            100: "hsl(var(--klusdirect-gray-100))",
+            200: "hsl(var(--klusdirect-gray-200))",
+            300: "hsl(var(--klusdirect-gray-300))",
+            400: "hsl(var(--klusdirect-gray-400))",
+            500: "hsl(var(--klusdirect-gray-500))",
+            600: "hsl(var(--klusdirect-gray-600))",
+            700: "hsl(var(--klusdirect-gray-700))",
+            800: "hsl(var(--klusdirect-gray-800))",
+            900: "hsl(var(--klusdirect-gray-900))",
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
       },
-      keyframes: {
-        "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
-        },
-        "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
-        },
-      },
+
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.5s ease-out",
+        "slide-up": "slide-up 0.3s ease-out",
+        "bounce-subtle": "bounce-subtle 2s infinite",
+      },
+      keyframes: {
+        "fade-in": {
+          from: {
+            opacity: "0",
+            transform: "translateY(10px)",
+          },
+          to: {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "slide-up": {
+          from: {
+            transform: "translateY(100%)",
+          },
+          to: {
+            transform: "translateY(0)",
+          },
+        },
+        "bounce-subtle": {
+          "0%, 100%": {
+            transform: "translateY(0)",
+          },
+          "50%": {
+            transform: "translateY(-5px)",
+          },
+        },
       },
     },
   },
