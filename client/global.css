@@ -138,7 +138,8 @@
   }
 
   body {
-    @apply bg-premium-900 text-premium-50;
+    background-color: hsl(var(--premium-900));
+    color: hsl(var(--premium-50));
     font-feature-settings: "rlig" 1, "calt" 1;
     background-image: radial-gradient(circle at 25% 25%, rgba(251, 146, 60, 0.05) 0%, transparent 50%),
                       radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
