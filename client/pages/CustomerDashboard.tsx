@@ -2,17 +2,18 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  Plus, 
-  Calendar, 
-  MapPin, 
-  Euro, 
+import {
+  ArrowLeft,
+  Plus,
+  Calendar,
+  MapPin,
+  Euro,
   MessageCircle,
   Clock,
   CheckCircle,
   Star,
-  Home
+  Home,
+  Crown
 } from "lucide-react";
 
 export default function CustomerDashboard() {
