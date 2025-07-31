@@ -151,15 +151,16 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-premium-800;
+    background-color: hsl(var(--premium-800));
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-premium-600 rounded-full;
+    background-color: hsl(var(--premium-600));
+    border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-klusdirect-orange;
+    background-color: hsl(var(--klusdirect-orange));
   }
 
   /* Premium glass effect */
