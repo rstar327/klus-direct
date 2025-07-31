@@ -62,6 +62,20 @@ export default {
           "orange-dark": "hsl(var(--klusdirect-orange-dark))",
           blue: "hsl(var(--klusdirect-blue))",
           "blue-dark": "hsl(var(--klusdirect-blue-dark))",
+          gold: "hsl(var(--klusdirect-gold))",
+          "gold-dark": "hsl(var(--klusdirect-gold-dark))",
+          premium: {
+            900: "hsl(var(--premium-900))",
+            800: "hsl(var(--premium-800))",
+            700: "hsl(var(--premium-700))",
+            600: "hsl(var(--premium-600))",
+            500: "hsl(var(--premium-500))",
+            400: "hsl(var(--premium-400))",
+            300: "hsl(var(--premium-300))",
+            200: "hsl(var(--premium-200))",
+            100: "hsl(var(--premium-100))",
+            50: "hsl(var(--premium-50))",
+          },
           gray: {
             50: "hsl(var(--klusdirect-gray-50))",
             100: "hsl(var(--klusdirect-gray-100))",
@@ -88,6 +102,8 @@ export default {
         "fade-in": "fade-in 0.5s ease-out",
         "slide-up": "slide-up 0.3s ease-out",
         "bounce-subtle": "bounce-subtle 2s infinite",
+        "glow": "glow 2s infinite alternate",
+        "shimmer": "shimmer 3s infinite",
       },
       keyframes: {
         "fade-in": {
@@ -116,7 +132,28 @@ export default {
             transform: "translateY(-5px)",
           },
         },
+        "glow": {
+          "0%": {
+            "box-shadow": "0 0 20px rgba(251, 146, 60, 0.5)",
+          },
+          "100%": {
+            "box-shadow": "0 0 30px rgba(251, 146, 60, 0.8), 0 0 40px rgba(59, 130, 246, 0.3)",
+          },
+        },
+        "shimmer": {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(100%)",
+          },
+        },
       },
+    },
+    backgroundImage: {
+      "premium-gradient": "linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 50%, #0f0f0f 100%)",
+      "gold-gradient": "linear-gradient(135deg, #d97706 0%, #f59e0b 50%, #d97706 100%)",
+      "shimmer": "linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)",
     },
   },
   plugins: [require("tailwindcss-animate")],
