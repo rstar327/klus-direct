@@ -19,41 +19,54 @@ export default function CustomerDashboard() {
   const mockJobs = [
     {
       id: 1,
-      title: "Lekkage badkamer repareren",
-      status: "Wachten op offertes",
+      title: "Luxe badkamer renovatie",
+      status: "Premium offertes ontvangen",
       location: "Amsterdam",
-      budget: "€150-250",
+      budget: "€2.500-4.000",
       date: "15 dec 2024",
-      quotes: 0
+      quotes: 3
     },
     {
       id: 2,
-      title: "Keuken tegels plaatsen",
-      status: "Offerte ontvangen",
+      title: "Design keuken installatie",
+      status: "Elite vakman toegewezen",
       location: "Amsterdam",
-      budget: "€800-1200",
+      budget: "€5.000-8.000",
       date: "10 jan 2025",
-      quotes: 3
+      quotes: 5
     }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-klusdirect-gray-50 to-white">
+    <div className="min-h-screen bg-premium-900 relative overflow-hidden">
+      {/* Background Effects */}
+      <div className="absolute inset-0 bg-gradient-to-br from-premium-900 via-premium-800 to-premium-900"></div>
+      <div className="absolute inset-0">
+        <div className="absolute top-20 left-10 w-72 h-72 bg-klusdirect-blue/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-klusdirect-orange/5 rounded-full blur-3xl"></div>
+      </div>
+
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-klusdirect-gray-200 sticky top-0 z-50">
+      <header className="relative z-50 glass border-b border-premium-700/50 sticky top-0">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-10 h-10 bg-gradient-to-br from-klusdirect-orange to-klusdirect-orange-dark rounded-xl flex items-center justify-center">
-                <Home className="w-6 h-6 text-white" />
+            <Link to="/" className="flex items-center space-x-3">
+              <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-blue to-klusdirect-blue-dark rounded-xl flex items-center justify-center glow-orange">
+                <Home className="w-7 h-7 text-white" />
               </div>
-              <h1 className="text-2xl font-bold bg-gradient-to-r from-klusdirect-orange to-klusdirect-blue bg-clip-text text-transparent">
-                KlusDirect
-              </h1>
+              <div>
+                <h1 className="text-2xl font-bold text-premium-gradient">
+                  KlusDirect
+                </h1>
+                <div className="flex items-center space-x-1">
+                  <Crown className="w-3 h-3 text-klusdirect-gold" />
+                  <span className="text-xs text-klusdirect-gold font-medium">PREMIUM</span>
+                </div>
+              </div>
             </Link>
             <div className="flex items-center space-x-4">
-              <span className="text-klusdirect-gray-600">Welkom, Jan</span>
-              <Button variant="outline" size="sm">
+              <span className="text-premium-200">Welkom, <span className="text-klusdirect-blue font-medium">Jan</span></span>
+              <Button variant="outline" size="sm" className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10">
                 Uitloggen
               </Button>
             </div>
@@ -61,127 +74,139 @@ export default function CustomerDashboard() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
+      <div className="relative z-10 container mx-auto px-4 py-8">
         <div className="max-w-6xl mx-auto">
           {/* Page Header */}
           <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
             <div>
-              <h2 className="text-3xl font-bold text-klusdirect-gray-900 mb-2">
-                Mijn Dashboard
+              <h2 className="text-4xl font-bold text-premium-50 mb-2">
+                Premium Dashboard
               </h2>
-              <p className="text-klusdirect-gray-600">
-                Beheer jouw klussen en bekijk offertes
+              <p className="text-premium-200 text-lg">
+                Beheer jouw exclusive klussen en bekijk elite offertes
               </p>
             </div>
-            <Button className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-orange-dark mt-4 md:mt-0">
+            <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white mt-4 md:mt-0 font-semibold">
               <Plus className="w-4 h-4 mr-2" />
-              Nieuwe klus plaatsen
+              Nieuwe Premium Klus
             </Button>
           </div>
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <Card>
+            <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-klusdirect-gray-600 text-sm">Actieve klussen</p>
-                    <p className="text-2xl font-bold text-klusdirect-gray-900">2</p>
+                    <p className="text-premium-300 text-sm">Premium klussen</p>
+                    <p className="text-3xl font-bold text-premium-50">2</p>
                   </div>
-                  <Clock className="w-8 h-8 text-klusdirect-blue" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-blue/20 to-klusdirect-blue/10 rounded-xl flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-klusdirect-blue" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
-            
-            <Card>
+
+            <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-klusdirect-gray-600 text-sm">Ontvangen offertes</p>
-                    <p className="text-2xl font-bold text-klusdirect-gray-900">3</p>
+                    <p className="text-premium-300 text-sm">Elite offertes</p>
+                    <p className="text-3xl font-bold text-premium-50">8</p>
                   </div>
-                  <MessageCircle className="w-8 h-8 text-klusdirect-orange" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-orange/10 rounded-xl flex items-center justify-center">
+                    <MessageCircle className="w-6 h-6 text-klusdirect-orange" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
-            
-            <Card>
+
+            <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-klusdirect-gray-600 text-sm">Afgeronde klussen</p>
-                    <p className="text-2xl font-bold text-klusdirect-gray-900">7</p>
+                    <p className="text-premium-300 text-sm">Voltooide projecten</p>
+                    <p className="text-3xl font-bold text-premium-50">15</p>
                   </div>
-                  <CheckCircle className="w-8 h-8 text-green-500" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-xl flex items-center justify-center">
+                    <CheckCircle className="w-6 h-6 text-green-400" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
-            
-            <Card>
+
+            <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-klusdirect-gray-600 text-sm">Gemiddelde beoordeling</p>
-                    <p className="text-2xl font-bold text-klusdirect-gray-900">4.8</p>
+                    <p className="text-premium-300 text-sm">Luxe waardering</p>
+                    <p className="text-3xl font-bold text-premium-50">4.9</p>
                   </div>
-                  <Star className="w-8 h-8 text-yellow-500" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-yellow-500/20 to-yellow-500/10 rounded-xl flex items-center justify-center">
+                    <Star className="w-6 h-6 text-yellow-400" />
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </div>
 
           {/* Recent Jobs */}
-          <Card>
+          <Card className="glass border border-premium-600/30 mb-8">
             <CardHeader>
-              <CardTitle className="text-xl text-klusdirect-gray-900">
-                Mijn klussen
+              <CardTitle className="text-xl text-premium-50 flex items-center">
+                <Crown className="w-5 h-5 mr-2 text-klusdirect-gold" />
+                Mijn Premium Klussen
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 {mockJobs.map((job) => (
-                  <div key={job.id} className="border border-klusdirect-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                  <div key={job.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-gold/30 transition-all duration-300">
                     <div className="flex flex-col md:flex-row md:items-center justify-between">
                       <div className="flex-1">
-                        <div className="flex items-start justify-between mb-2">
-                          <h3 className="text-lg font-semibold text-klusdirect-gray-900">
+                        <div className="flex items-start justify-between mb-3">
+                          <h3 className="text-lg font-semibold text-premium-50">
                             {job.title}
                           </h3>
-                          <Badge 
-                            variant={job.status === "Offerte ontvangen" ? "default" : "secondary"}
-                            className={job.status === "Offerte ontvangen" ? "bg-green-100 text-green-800" : ""}
+                          <Badge
+                            className={job.status.includes("Premium") || job.status.includes("Elite")
+                              ? "bg-gradient-to-r from-klusdirect-gold/20 to-klusdirect-orange/20 text-klusdirect-gold border border-klusdirect-gold/30"
+                              : "bg-gradient-to-r from-klusdirect-blue/20 to-klusdirect-blue/10 text-klusdirect-blue border border-klusdirect-blue/30"
+                            }
                           >
+                            <Crown className="w-3 h-3 mr-1" />
                             {job.status}
                           </Badge>
                         </div>
-                        
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-klusdirect-gray-600 mb-4">
+
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-premium-300 mb-4">
                           <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1" />
+                            <MapPin className="w-4 h-4 mr-1 text-klusdirect-blue" />
                             {job.location}
                           </div>
                           <div className="flex items-center">
-                            <Euro className="w-4 h-4 mr-1" />
+                            <Euro className="w-4 h-4 mr-1 text-green-400" />
                             {job.budget}
                           </div>
                           <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1" />
+                            <Calendar className="w-4 h-4 mr-1 text-klusdirect-orange" />
                             {job.date}
                           </div>
                           <div className="flex items-center">
-                            <MessageCircle className="w-4 h-4 mr-1" />
-                            {job.quotes} offertes
+                            <MessageCircle className="w-4 h-4 mr-1 text-yellow-400" />
+                            {job.quotes} elite offertes
                           </div>
                         </div>
                       </div>
-                      
-                      <div className="flex gap-2 mt-4 md:mt-0">
-                        <Button variant="outline" size="sm">
+
+                      <div className="flex gap-3 mt-4 md:mt-0">
+                        <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
                           Details
                         </Button>
                         {job.quotes > 0 && (
-                          <Button size="sm" className="bg-klusdirect-orange hover:bg-klusdirect-orange-dark">
-                            Bekijk offertes
+                          <Button size="sm" className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform">
+                            Bekijk Premium Offertes
                           </Button>
                         )}
                       </div>
@@ -192,18 +217,18 @@ export default function CustomerDashboard() {
               
               {mockJobs.length === 0 && (
                 <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-klusdirect-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                    <Plus className="w-8 h-8 text-klusdirect-gray-400" />
+                  <div className="w-20 h-20 bg-gradient-to-br from-klusdirect-gold/20 to-klusdirect-orange/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-klusdirect-gold/30">
+                    <Plus className="w-10 h-10 text-klusdirect-gold" />
                   </div>
-                  <h3 className="text-lg font-semibold text-klusdirect-gray-900 mb-2">
-                    Nog geen klussen geplaatst
+                  <h3 className="text-xl font-semibold text-premium-50 mb-3">
+                    Nog geen premium klussen geplaatst
                   </h3>
-                  <p className="text-klusdirect-gray-600 mb-6">
-                    Plaats jouw eerste klus en ontvang offertes van vakmensen
+                  <p className="text-premium-200 mb-8">
+                    Plaats jouw eerste premium klus en ontvang elite offertes van de beste vakmensen
                   </p>
-                  <Button className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-orange-dark">
+                  <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white font-semibold">
                     <Plus className="w-4 h-4 mr-2" />
-                    Plaats eerste klus
+                    Plaats Premium Klus
                   </Button>
                 </div>
               )}
@@ -211,17 +236,20 @@ export default function CustomerDashboard() {
           </Card>
 
           {/* Coming Soon Message */}
-          <Card className="mt-8 border-2 border-dashed border-klusdirect-gray-300">
+          <Card className="glass border-2 border-dashed border-premium-600/50">
             <CardContent className="p-8 text-center">
-              <h3 className="text-xl font-semibold text-klusdirect-gray-900 mb-4">
-                Dashboard in ontwikkeling
+              <div className="w-16 h-16 bg-gradient-to-br from-klusdirect-blue/20 to-klusdirect-blue/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-klusdirect-blue/30">
+                <Star className="w-8 h-8 text-klusdirect-blue" />
+              </div>
+              <h3 className="text-xl font-semibold text-premium-50 mb-4">
+                Premium Dashboard in ontwikkeling
               </h3>
-              <p className="text-klusdirect-gray-600 mb-6">
-                Dit is een preview van het klant dashboard. Alle functionaliteiten worden momenteel ontwikkeld, 
-                inclusief klus plaatsen, offertes beheren, betalingen en communicatie met vakmensen.
+              <p className="text-premium-200 mb-6 max-w-2xl mx-auto">
+                Dit is een preview van het premium klant dashboard. Alle luxury functionaliteiten worden momenteel ontwikkeld,
+                inclusief exclusive klus plaatsen, elite offertes beheren, premium betalingen en directe communicatie met top vakmensen.
               </p>
               <Link to="/">
-                <Button variant="outline">
+                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Terug naar home
                 </Button>
