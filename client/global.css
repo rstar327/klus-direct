@@ -9,6 +9,85 @@
    * A different format will require also updating the theme in tailwind.config.ts.
   */
   :root {
+    --background: 0 0% 6%;
+    --foreground: 0 0% 95%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 23 92% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 95%;
+
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 12%;
+    --accent-foreground: 0 0% 95%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 95%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 23 92% 50%;
+
+    --radius: 0.75rem;
+
+    /* KlusDirect Premium Colors */
+    --klusdirect-orange: 23 92% 50%;
+    --klusdirect-orange-dark: 23 92% 40%;
+    --klusdirect-blue: 221 83% 53%;
+    --klusdirect-blue-dark: 221 83% 43%;
+    --klusdirect-gold: 45 93% 58%;
+    --klusdirect-gold-dark: 45 93% 48%;
+
+    /* Premium Black Palette */
+    --premium-900: 0 0% 3%;
+    --premium-800: 0 0% 6%;
+    --premium-700: 0 0% 10%;
+    --premium-600: 0 0% 15%;
+    --premium-500: 0 0% 25%;
+    --premium-400: 0 0% 40%;
+    --premium-300: 0 0% 55%;
+    --premium-200: 0 0% 70%;
+    --premium-100: 0 0% 85%;
+    --premium-50: 0 0% 95%;
+
+    --klusdirect-gray-50: 0 0% 95%;
+    --klusdirect-gray-100: 0 0% 90%;
+    --klusdirect-gray-200: 0 0% 80%;
+    --klusdirect-gray-300: 0 0% 70%;
+    --klusdirect-gray-400: 0 0% 55%;
+    --klusdirect-gray-500: 0 0% 40%;
+    --klusdirect-gray-600: 0 0% 25%;
+    --klusdirect-gray-700: 0 0% 15%;
+    --klusdirect-gray-800: 0 0% 10%;
+    --klusdirect-gray-900: 0 0% 6%;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .light {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
@@ -37,76 +116,11 @@
     --input: 214.3 31.8% 91.4%;
     --ring: 23 92% 50%;
 
-    --radius: 0.75rem;
-
-    /* KlusDirect Brand Colors */
+    /* KlusDirect Brand Colors - Light Mode */
     --klusdirect-orange: 23 92% 50%;
     --klusdirect-orange-dark: 23 92% 40%;
     --klusdirect-blue: 221 83% 53%;
     --klusdirect-blue-dark: 221 83% 43%;
-
-    --klusdirect-gray-50: 210 40% 98%;
-    --klusdirect-gray-100: 210 40% 96%;
-    --klusdirect-gray-200: 214 32% 91%;
-    --klusdirect-gray-300: 213 27% 84%;
-    --klusdirect-gray-400: 215 20% 65%;
-    --klusdirect-gray-500: 215 16% 47%;
-    --klusdirect-gray-600: 215 19% 35%;
-    --klusdirect-gray-700: 215 25% 27%;
-    --klusdirect-gray-800: 217 33% 17%;
-    --klusdirect-gray-900: 222 84% 5%;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 23 92% 50%;
-    --primary-foreground: 0 0% 100%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 23 92% 50%;
-
-    /* KlusDirect Brand Colors - Dark Mode */
-    --klusdirect-orange: 23 92% 55%;
-    --klusdirect-orange-dark: 23 92% 45%;
-    --klusdirect-blue: 221 83% 58%;
-    --klusdirect-blue-dark: 221 83% 48%;
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -124,25 +138,73 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-premium-900 text-premium-50;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: radial-gradient(circle at 25% 25%, rgba(251, 146, 60, 0.05) 0%, transparent 50%),
+                      radial-gradient(circle at 75% 75%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
   }
 
-  /* Custom scrollbar */
+  /* Premium Custom scrollbar */
   ::-webkit-scrollbar {
     width: 8px;
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-klusdirect-gray-100;
+    @apply bg-premium-800;
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-klusdirect-gray-300 rounded-full;
+    @apply bg-premium-600 rounded-full;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-klusdirect-gray-400;
+    @apply bg-klusdirect-orange;
+  }
+
+  /* Premium glass effect */
+  .glass {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Premium glow effects */
+  .glow-orange {
+    box-shadow: 0 0 20px rgba(251, 146, 60, 0.3);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+  }
+
+  /* Premium text gradient */
+  .text-premium-gradient {
+    background: linear-gradient(135deg, #fb923c 0%, #fbbf24 50%, #fb923c 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .shimmer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.1),
+      transparent
+    );
+    animation: shimmer 3s infinite;
   }
 
   /* Smooth scrolling */
