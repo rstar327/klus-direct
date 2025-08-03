@@ -1,12 +1,14 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { 
-  ArrowLeft, 
-  MapPin, 
-  Euro, 
+import JobApplicationModal from "@/components/JobApplicationModal";
+import { useState } from "react";
+import {
+  ArrowLeft,
+  MapPin,
+  Euro,
   Clock,
   Calendar,
   User,
