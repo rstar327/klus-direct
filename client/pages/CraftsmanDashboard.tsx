@@ -76,7 +76,7 @@ export default function CraftsmanDashboard() {
         "Volledige klantdetails",
         "Directe contactgegevens",
         "Premium ondersteuning",
-        "Slechts 7,5% commissie",
+        "Slechts 5% commissie",
         "Geavanceerde tools"
       ],
       current: false,
