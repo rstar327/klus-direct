@@ -309,10 +309,22 @@ export default function JobDetails() {
                     </p>
                   </div>
                   
-                  <Button className="w-full bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold text-lg py-6 hover:scale-105 transition-transform">
-                    <Target className="w-5 h-5 mr-2" />
-                    Aanmelden voor klus
-                  </Button>
+                  {hasApplied ? (
+                    <div className="text-center">
+                      <div className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold text-lg py-6 rounded-lg flex items-center justify-center">
+                        <CheckCircle className="w-5 h-5 mr-2" />
+                        Aangemeld
+                      </div>
+                      <p className="text-premium-300 text-sm mt-3">
+                        Je bent succesvol aangemeld voor deze klus
+                      </p>
+                    </div>
+                  ) : (
+                    <JobApplicationModal
+                      job={job}
+                      onApplicationSubmit={handleApplicationSubmit}
+                    />
+                  )}
                   
                   <div className="mt-4 text-center">
                     <p className="text-premium-400 text-xs">
