@@ -27,6 +27,16 @@ import {
 } from "lucide-react";
 
 export default function CraftsmanDashboard() {
+  const [activeOffers, setActiveOffers] = useState(8);
+
+  useEffect(() => {
+    // Load active offers from localStorage
+    const storedOffers = localStorage.getItem('activeOffers');
+    if (storedOffers) {
+      setActiveOffers(parseInt(storedOffers));
+    }
+  }, []);
+
   const mockJobs = [
     {
       id: 1,
