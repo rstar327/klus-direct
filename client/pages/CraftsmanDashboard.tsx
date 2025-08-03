@@ -88,7 +88,7 @@ export default function CraftsmanDashboard() {
       name: "Elite",
       price: "€100",
       period: "/maand",
-      commission: "7,5%",
+      commission: "5%",
       features: [
         "Alles van Professional",
         "Push notificaties voor klussen",
