@@ -28,6 +28,8 @@ import {
 
 export default function JobDetails() {
   const { jobId } = useParams();
+  const navigate = useNavigate();
+  const [hasApplied, setHasApplied] = useState(false);
 
   // Mock job data - in real app this would come from API
   const jobData = {
