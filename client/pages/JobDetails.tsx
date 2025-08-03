@@ -120,6 +120,20 @@ export default function JobDetails() {
 
   const job = jobData[jobId as keyof typeof jobData] || jobData[1];
 
+  const handleApplicationSubmit = () => {
+    setHasApplied(true);
+    // Store the application state in localStorage to persist across navigation
+    localStorage.setItem(`applied_job_${job.id}`, 'true');
+    // Increment the active offers counter
+    const currentOffers = parseInt(localStorage.getItem('activeOffers') || '8');
+    localStorage.setItem('activeOffers', (currentOffers + 1).toString());
+
+    // Navigate back to dashboard after a brief delay
+    setTimeout(() => {
+      navigate('/craftsman/dashboard');
+    }, 3000);
+  };
+
   return (
     <div className="min-h-screen bg-premium-900 relative overflow-hidden">
       {/* Background Effects */}
