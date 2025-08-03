@@ -12,6 +12,7 @@ import CustomerRegister from "./pages/CustomerRegister";
 import CraftsmanRegister from "./pages/CraftsmanRegister";
 import CustomerDashboard from "./pages/CustomerDashboard";
 import CraftsmanDashboard from "./pages/CraftsmanDashboard";
+import JobDetails from "./pages/JobDetails";
 
 const queryClient = new QueryClient();
 
