@@ -421,8 +421,8 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
 
                   {/* Credit Card Payment */}
                   <Card className={`glass cursor-pointer transition-all duration-200 ${
-                    paymentMethod === "card" 
-                      ? "border-klusdirect-orange/50 bg-klusdirect-orange/5" 
+                    paymentMethod === "card"
+                      ? "border-klusdirect-orange/50 bg-klusdirect-orange/5"
                       : "border-premium-600/30 hover:border-premium-500/50"
                   }`}>
                     <CardContent className="p-4">
@@ -443,6 +443,81 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
                           <span className="text-xs">SSL</span>
                         </div>
                       </div>
+
+                      {paymentMethod === "card" && (
+                        <div className="mt-4 pt-4 border-t border-premium-600/30">
+                          <div className="space-y-4">
+                            <div>
+                              <Label className="text-premium-200 text-sm mb-2 block">Kaarthouder naam *</Label>
+                              <Input
+                                type="text"
+                                value={cardData.cardholderName}
+                                onChange={(e) => handleCardInputChange('cardholderName', e.target.value)}
+                                className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                                placeholder="Naam zoals op de kaart"
+                              />
+                            </div>
+
+                            <div>
+                              <Label className="text-premium-200 text-sm mb-2 block">Kaartnummer *</Label>
+                              <Input
+                                type="text"
+                                value={cardData.cardNumber}
+                                onChange={(e) => {
+                                  // Format card number with spaces
+                                  let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+                                  value = value.replace(/(\d{4})/g, '$1 ').trim();
+                                  if (value.length <= 19) { // Max 16 digits + 3 spaces
+                                    handleCardInputChange('cardNumber', value);
+                                  }
+                                }}
+                                className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                                placeholder="1234 5678 9012 3456"
+                                maxLength={19}
+                              />
+                            </div>
+
+                            <div className="grid grid-cols-2 gap-4">
+                              <div>
+                                <Label className="text-premium-200 text-sm mb-2 block">Vervaldatum *</Label>
+                                <Input
+                                  type="text"
+                                  value={cardData.expiryDate}
+                                  onChange={(e) => {
+                                    let value = e.target.value.replace(/\D/g, '');
+                                    if (value.length >= 2) {
+                                      value = value.substring(0, 2) + '/' + value.substring(2, 4);
+                                    }
+                                    if (value.length <= 5) {
+                                      handleCardInputChange('expiryDate', value);
+                                    }
+                                  }}
+                                  className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                                  placeholder="MM/YY"
+                                  maxLength={5}
+                                />
+                              </div>
+
+                              <div>
+                                <Label className="text-premium-200 text-sm mb-2 block">CVV *</Label>
+                                <Input
+                                  type="text"
+                                  value={cardData.cvv}
+                                  onChange={(e) => {
+                                    const value = e.target.value.replace(/\D/g, '');
+                                    if (value.length <= 4) {
+                                      handleCardInputChange('cvv', value);
+                                    }
+                                  }}
+                                  className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                                  placeholder="123"
+                                  maxLength={4}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </CardContent>
                   </Card>
                 </RadioGroup>
