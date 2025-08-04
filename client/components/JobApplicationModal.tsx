@@ -142,7 +142,7 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
     }, 3000);
   };
 
-  const isStep1Valid = applicationData.message.length > 20 && applicationData.proposedBudget && applicationData.startDate;
+  const isStep1Valid = applicationData.message.length >= 10 && applicationData.proposedBudget && applicationData.startDate;
   const isStep2Valid = applicationData.estimatedHours && applicationData.acceptTerms;
 
   return (
