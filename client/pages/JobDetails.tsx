@@ -73,7 +73,8 @@ export default function JobDetails() {
       ],
       responses: 3,
       views: 12,
-      customerDetails: "Volledige contactgegevens beschikbaar"
+      customerDetails: "Volledige contactgegevens beschikbaar",
+      category: "Sanitair & Badkamer"
     },
     2: {
       id: 2,
