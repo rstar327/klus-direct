@@ -65,6 +65,18 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
     acceptMarketing: false
   });
 
+  const [cardData, setCardData] = useState({
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    cardholderName: "",
+    verificationCode: ""
+  });
+
+  const [idealData, setIdealData] = useState({
+    verificationCode: ""
+  });
+
   const dutchBanks = [
     { id: "ing", name: "ING", logo: "🟠" },
     { id: "rabobank", name: "Rabobank", logo: "🔵" },
