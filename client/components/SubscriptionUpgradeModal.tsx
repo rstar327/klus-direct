@@ -165,7 +165,10 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
             Upgrade naar {plan.name}
           </DialogTitle>
           <DialogDescription className="text-premium-300">
-            Stap {step} van 2: {step === 1 ? "Facturatiegegevens" : "Betaalmethode"}
+            {verificationStep
+              ? "Verificatie: Bevestig je betaling"
+              : `Stap ${step} van 2: ${step === 1 ? "Facturatiegegevens" : "Betaalmethode"}`
+            }
           </DialogDescription>
         </DialogHeader>
 
