@@ -407,6 +407,90 @@ export default function CraftsmanDashboard() {
             </CardContent>
           </Card>
 
+          {/* Pending Invoices Section */}
+          {pendingInvoices.length > 0 && (
+            <Card className="mb-8 glass border border-premium-600/30">
+              <CardHeader>
+                <CardTitle className="text-xl text-premium-50 flex items-center">
+                  <FileText className="w-5 h-5 mr-2 text-klusdirect-gold" />
+                  Facturen in behandeling ({pendingInvoices.length})
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {pendingInvoices.map((invoice: any, index: number) => (
+                    <div key={index} className="glass border border-premium-600/30 rounded-lg p-4 hover:border-klusdirect-gold/30 transition-all duration-300">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-3">
+                            <h3 className="text-lg font-semibold text-premium-50">
+                              {invoice.jobTitle}
+                            </h3>
+                            <div className="flex items-center space-x-2">
+                              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
+                              <span className="text-yellow-400 text-sm font-medium">In behandeling</span>
+                            </div>
+                          </div>
+
+                          <div className="flex items-center mb-3">
+                            <p className="text-premium-200 mr-4">
+                              Klant: <span className="text-klusdirect-gold font-medium">{invoice.clientName}</span>
+                            </p>
+                            <div className="flex items-center text-premium-400">
+                              <Calendar className="w-4 h-4 mr-1" />
+                              <span className="text-sm">Ingediend: {new Date(invoice.applicationDate).toLocaleDateString('nl-NL')}</span>
+                            </div>
+                          </div>
+
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-premium-300">
+                            <div className="flex items-center">
+                              <Euro className="w-4 h-4 mr-1 text-green-400" />
+                              Offerte: €{invoice.proposedAmount?.toLocaleString()}
+                            </div>
+                            <div className="flex items-center">
+                              <FileText className="w-4 h-4 mr-1 text-klusdirect-orange" />
+                              Commissie: €{invoice.commissionAmount?.toLocaleString()} ({invoice.commissionRate}%)
+                            </div>
+                            <div className="flex items-center">
+                              <Euro className="w-4 h-4 mr-1 text-green-400" />
+                              Netto: €{invoice.netAmount?.toLocaleString()}
+                            </div>
+                            <div className="flex items-center">
+                              <ClockIcon className="w-4 h-4 mr-1 text-klusdirect-blue" />
+                              Factuur: {invoice.invoiceNumber}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="flex gap-3 mt-4 md:mt-0">
+                          <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                            <Eye className="w-4 h-4 mr-2" />
+                            Bekijk offerte
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="bg-klusdirect-blue/10 border border-klusdirect-blue/20 rounded-lg p-4">
+                    <div className="flex items-start space-x-3">
+                      <AlertCircle className="w-5 h-5 text-klusdirect-blue mt-0.5" />
+                      <div>
+                        <h4 className="text-klusdirect-blue font-medium text-sm mb-1">
+                          Factuur status
+                        </h4>
+                        <p className="text-premium-300 text-sm">
+                          Facturen worden automatisch gegenereerd zodra de klant je offerte accepteert.
+                          De commissie wordt automatisch ingehouden bij betaling.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Dashboard Stats */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <Card className="glass border border-premium-600/30">
