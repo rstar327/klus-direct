@@ -95,6 +95,20 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
     }));
   };
 
+  const handleCardInputChange = (field: string, value: string) => {
+    setCardData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleIdealInputChange = (field: string, value: string) => {
+    setIdealData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
   const handleUpgrade = async () => {
     setIsProcessing(true);
     
