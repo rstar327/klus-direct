@@ -314,8 +314,8 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
                       Vul alle verplichte velden in om door te gaan:
                     </p>
                     <ul className="text-premium-400 text-xs space-y-1">
-                      {applicationData.message.length <= 20 && (
-                        <li>• Persoonlijk bericht (minimaal 20 karakters - nu: {applicationData.message.length})</li>
+                      {applicationData.message.length < 10 && (
+                        <li>• Persoonlijk bericht (minimaal 10 karakters - nu: {applicationData.message.length})</li>
                       )}
                       {!applicationData.proposedBudget && (
                         <li>• Voorgestelde prijs</li>
