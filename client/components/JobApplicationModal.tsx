@@ -465,6 +465,23 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
                     )}
                   </Button>
                 </div>
+
+                {/* Step 2 Validation feedback */}
+                {!isStep2Valid && (
+                  <div className="text-center mt-4">
+                    <p className="text-premium-400 text-sm mb-2">
+                      Vul alle verplichte velden in om de offerte te verzenden:
+                    </p>
+                    <ul className="text-premium-400 text-xs space-y-1">
+                      {!applicationData.estimatedHours && (
+                        <li>• Geschatte uren</li>
+                      )}
+                      {!applicationData.acceptTerms && (
+                        <li>• Accepteer de voorwaarden</li>
+                      )}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
           </div>
