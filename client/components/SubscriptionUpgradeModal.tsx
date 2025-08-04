@@ -27,7 +27,8 @@ import {
   Euro,
   Zap,
   Star,
-  AlertTriangle
+  AlertTriangle,
+  MessageCircle
 } from "lucide-react";
 
 interface SubscriptionUpgradeModalProps {
