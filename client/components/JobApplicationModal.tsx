@@ -440,10 +440,17 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
                   >
                     Vorige
                   </Button>
-                  <Button 
-                    onClick={handleSubmit}
+                  <Button
+                    onClick={() => {
+                      console.log('Verzend offerte button clicked');
+                      console.log('Step 2 valid:', isStep2Valid);
+                      console.log('Estimated hours:', applicationData.estimatedHours);
+                      console.log('Accept terms:', applicationData.acceptTerms);
+                      console.log('Is submitting:', isSubmitting);
+                      handleSubmit();
+                    }}
                     disabled={!isStep2Valid || isSubmitting}
-                    className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100"
+                    className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100 disabled:cursor-not-allowed"
                   >
                     {isSubmitting ? (
                       <>
