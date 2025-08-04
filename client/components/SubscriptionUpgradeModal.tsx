@@ -569,10 +569,29 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
                 {/* Payment validation feedback */}
                 {!isStep2Valid && (
                   <div className="text-center">
-                    <p className="text-premium-400 text-sm">
-                      {paymentMethod === "ideal" && !selectedBank && "Kies je bank om door te gaan"}
-                      {!paymentMethod && "Kies een betaalmethode"}
+                    <p className="text-premium-400 text-sm mb-2">
+                      Vul alle verplichte velden in:
                     </p>
+                    <ul className="text-premium-400 text-xs space-y-1">
+                      {paymentMethod === "ideal" && !selectedBank && (
+                        <li>• Kies je bank</li>
+                      )}
+                      {paymentMethod === "card" && !cardData.cardholderName && (
+                        <li>• Kaarthouder naam</li>
+                      )}
+                      {paymentMethod === "card" && !cardData.cardNumber && (
+                        <li>• Kaartnummer</li>
+                      )}
+                      {paymentMethod === "card" && !cardData.expiryDate && (
+                        <li>• Vervaldatum</li>
+                      )}
+                      {paymentMethod === "card" && !cardData.cvv && (
+                        <li>• CVV code</li>
+                      )}
+                      {!paymentMethod && (
+                        <li>• Kies een betaalmethode</li>
+                      )}
+                    </ul>
                   </div>
                 )}
               </div>
