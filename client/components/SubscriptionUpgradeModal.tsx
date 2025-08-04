@@ -50,6 +50,8 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
   const [selectedBank, setSelectedBank] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [verificationStep, setVerificationStep] = useState(false);
   
   const [billingData, setBillingData] = useState({
     companyName: "",
