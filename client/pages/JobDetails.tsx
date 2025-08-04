@@ -115,7 +115,8 @@ export default function JobDetails() {
       ],
       responses: 5,
       views: 18,
-      customerDetails: "Premium klant - directe toegang"
+      customerDetails: "Premium klant - directe toegang",
+      category: "Keuken Installatie"
     }
   };
 
