@@ -404,10 +404,10 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
                         onCheckedChange={(checked) => handleInputChange('acceptTerms', checked as boolean)}
                         className="border-premium-600 data-[state=checked]:bg-klusdirect-orange data-[state=checked]:border-klusdirect-orange"
                       />
-                      <Label htmlFor="acceptTerms" className="text-premium-200 text-sm">
-                        Ik ga akkoord met de <span className="text-klusdirect-gold hover:underline cursor-pointer">voorwaarden</span> en 
-                        bevestig dat alle informatie correct is. Bij acceptatie door de klant wordt de commissie automatisch 
-                        ingehouden bij betaling. *
+                      <Label htmlFor="acceptTerms" className="text-premium-200 text-sm cursor-pointer">
+                        Ik ga akkoord met de <span className="text-klusdirect-gold hover:underline">voorwaarden</span> en
+                        bevestig dat alle informatie correct is. Bij acceptatie door de klant wordt de commissie automatisch
+                        ingehouden bij betaling. <span className="text-red-400 font-semibold">*</span>
                       </Label>
                     </div>
                   </div>
