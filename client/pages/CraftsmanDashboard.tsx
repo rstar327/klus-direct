@@ -296,17 +296,31 @@ export default function CraftsmanDashboard() {
                         ))}
                       </ul>
                       
-                      <Button 
-                        className={`w-full ${
-                          tier.current 
-                            ? 'bg-premium-600 hover:bg-premium-500 text-premium-200' 
-                            : `bg-gradient-to-r ${tier.color} text-white hover:scale-105 transition-transform`
-                        }`}
-                        disabled={tier.current}
-                      >
-                        {tier.current && <CheckCircle className="w-4 h-4 mr-2" />}
-                        {tier.buttonText}
-                      </Button>
+                      {tier.current ? (
+                        <Button
+                          className="w-full bg-premium-600 hover:bg-premium-500 text-premium-200"
+                          disabled={true}
+                        >
+                          <CheckCircle className="w-4 h-4 mr-2" />
+                          {tier.buttonText}
+                        </Button>
+                      ) : (
+                        <SubscriptionUpgradeModal plan={{
+                          name: tier.name,
+                          price: parseInt(tier.price.replace('€', '')),
+                          period: tier.period,
+                          commission: tier.commission,
+                          features: tier.features,
+                          buttonText: tier.buttonText,
+                          color: tier.color
+                        }}>
+                          <Button
+                            className={`w-full bg-gradient-to-r ${tier.color} text-white hover:scale-105 transition-transform`}
+                          >
+                            {tier.buttonText}
+                          </Button>
+                        </SubscriptionUpgradeModal>
+                      )}
                     </CardContent>
                   </Card>
                 ))}
