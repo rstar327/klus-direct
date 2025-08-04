@@ -28,12 +28,19 @@ import {
 
 export default function CraftsmanDashboard() {
   const [activeOffers, setActiveOffers] = useState(8);
+  const [pendingInvoices, setPendingInvoices] = useState([]);
 
   useEffect(() => {
     // Load active offers from localStorage
     const storedOffers = localStorage.getItem('activeOffers');
     if (storedOffers) {
       setActiveOffers(parseInt(storedOffers));
+    }
+
+    // Load pending invoices from localStorage
+    const storedInvoices = localStorage.getItem('pendingInvoices');
+    if (storedInvoices) {
+      setPendingInvoices(JSON.parse(storedInvoices));
     }
   }, []);
 
