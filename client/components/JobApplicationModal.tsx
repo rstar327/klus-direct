@@ -294,14 +294,38 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
                   >
                     Annuleren
                   </Button>
-                  <Button 
-                    onClick={() => setStep(2)}
+                  <Button
+                    onClick={() => {
+                      console.log('Volgende button clicked, step 1 valid:', isStep1Valid);
+                      console.log('Application data:', applicationData);
+                      setStep(2);
+                    }}
                     disabled={!isStep1Valid}
-                    className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold disabled:opacity-50"
+                    className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Volgende: Offerte details
                   </Button>
                 </div>
+
+                {/* Validation feedback */}
+                {!isStep1Valid && (
+                  <div className="text-center mt-4">
+                    <p className="text-premium-400 text-sm mb-2">
+                      Vul alle verplichte velden in om door te gaan:
+                    </p>
+                    <ul className="text-premium-400 text-xs space-y-1">
+                      {applicationData.message.length <= 20 && (
+                        <li>• Persoonlijk bericht (minimaal 20 karakters - nu: {applicationData.message.length})</li>
+                      )}
+                      {!applicationData.proposedBudget && (
+                        <li>• Voorgestelde prijs</li>
+                      )}
+                      {!applicationData.startDate && (
+                        <li>• Gewenste startdatum</li>
+                      )}
+                    </ul>
+                  </div>
+                )}
               </div>
             )}
 
