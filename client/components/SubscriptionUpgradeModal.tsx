@@ -83,7 +83,7 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
     { id: "abn_amro", name: "ABN AMRO", logo: "🟡" },
     { id: "sns", name: "SNS Bank", logo: "🟣" },
     { id: "asn", name: "ASN Bank", logo: "🟢" },
-    { id: "triodos", name: "Triodos Bank", logo: "���" },
+    { id: "triodos", name: "Triodos Bank", logo: "🔷" },
     { id: "knab", name: "Knab", logo: "⚫" },
     { id: "bunq", name: "bunq", logo: "🌈" }
   ];
@@ -572,6 +572,119 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
                     <p className="text-premium-400 text-sm">
                       {paymentMethod === "ideal" && !selectedBank && "Kies je bank om door te gaan"}
                       {!paymentMethod && "Kies een betaalmethode"}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Verification Step */}
+            {verificationStep && (
+              <div className="space-y-6">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-gradient-to-br from-green-500/20 to-green-400/20 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-green-500/30">
+                    <Shield className="w-8 h-8 text-green-400" />
+                  </div>
+                  <h3 className="text-xl font-semibold text-premium-50 mb-2">
+                    Verificatie vereist
+                  </h3>
+                  <p className="text-premium-300">
+                    {paymentMethod === "ideal"
+                      ? "Je bank heeft een verificatiecode verzonden via je banking app"
+                      : "We hebben een verificatiecode verzonden naar je mobiele telefoon"
+                    }
+                  </p>
+                </div>
+
+                <Card className="glass border border-klusdirect-gold/30 bg-klusdirect-gold/5">
+                  <CardContent className="p-6">
+                    <div className="text-center">
+                      <div className="flex items-center justify-center space-x-2 mb-4">
+                        {paymentMethod === "ideal" ? (
+                          <>
+                            <Smartphone className="w-5 h-5 text-klusdirect-blue" />
+                            <span className="text-premium-50 font-medium">{dutchBanks.find(b => b.id === selectedBank)?.name} App</span>
+                          </>
+                        ) : (
+                          <>
+                            <MessageCircle className="w-5 h-5 text-klusdirect-orange" />
+                            <span className="text-premium-50 font-medium">SMS Verificatie</span>
+                          </>
+                        )}
+                      </div>
+
+                      <div className="mb-4">
+                        <Label className="text-premium-200 text-sm mb-3 block">
+                          Voer de 6-cijferige verificatiecode in:
+                        </Label>
+                        <Input
+                          type="text"
+                          value={paymentMethod === "ideal" ? idealData.verificationCode : cardData.verificationCode}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/\D/g, '');
+                            if (value.length <= 6) {
+                              if (paymentMethod === "ideal") {
+                                handleIdealInputChange('verificationCode', value);
+                              } else {
+                                handleCardInputChange('verificationCode', value);
+                              }
+                            }
+                          }}
+                          className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 text-center text-2xl tracking-widest"
+                          placeholder="123456"
+                          maxLength={6}
+                        />
+                      </div>
+
+                      <div className="text-center">
+                        <p className="text-premium-400 text-sm mb-4">
+                          Geen code ontvangen?
+                          <button className="text-klusdirect-gold hover:underline ml-1">
+                            Verstuur opnieuw
+                          </button>
+                        </p>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <div className="flex gap-3 pt-4">
+                  <Button
+                    onClick={() => {
+                      setVerificationStep(false);
+                      setCardData(prev => ({ ...prev, verificationCode: "" }));
+                      setIdealData(prev => ({ ...prev, verificationCode: "" }));
+                    }}
+                    variant="outline"
+                    className="flex-1 border-premium-600 text-premium-200 hover:bg-premium-700"
+                    disabled={isProcessing}
+                  >
+                    Terug
+                  </Button>
+                  <Button
+                    onClick={handleUpgrade}
+                    disabled={!isVerificationValid || isProcessing}
+                    className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100"
+                  >
+                    {isProcessing ? (
+                      <>
+                        <div className="w-4 h-4 mr-2 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                        Betaling verwerken...
+                      </>
+                    ) : (
+                      <>
+                        <Euro className="w-4 h-4 mr-2" />
+                        Betaal €{plan.price} en voltooi upgrade
+                      </>
+                    )}
+                  </Button>
+                </div>
+
+                {/* Verification validation feedback */}
+                {!isVerificationValid && (
+                  <div className="text-center">
+                    <p className="text-premium-400 text-sm">
+                      Voer de volledige 6-cijferige verificatiecode in
                     </p>
                   </div>
                 )}
