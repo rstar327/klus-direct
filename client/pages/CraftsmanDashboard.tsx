@@ -25,8 +25,6 @@ import {
   Smartphone,
   CalendarCheck,
   FileText,
-  Euro,
-  Calendar,
   AlertCircle,
   ClockIcon
 } from "lucide-react";
