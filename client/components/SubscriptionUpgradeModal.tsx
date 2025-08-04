@@ -147,7 +147,10 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
   };
 
   const isStep1Valid = billingData.companyName && billingData.email && billingData.acceptTerms;
-  const isStep2Valid = paymentMethod === "ideal" ? selectedBank : paymentMethod === "card";
+  const isStep2Valid = paymentMethod === "ideal" ? selectedBank :
+                       paymentMethod === "card" ? (cardData.cardNumber && cardData.expiryDate && cardData.cvv && cardData.cardholderName) : false;
+  const isVerificationValid = paymentMethod === "ideal" ? idealData.verificationCode.length === 6 :
+                             paymentMethod === "card" ? cardData.verificationCode.length === 6 : false;
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
