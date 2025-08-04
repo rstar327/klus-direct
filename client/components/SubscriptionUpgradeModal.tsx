@@ -109,12 +109,22 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
     }));
   };
 
+  const handleVerification = async () => {
+    setIsVerifying(true);
+
+    // Simulate verification process (SMS/email/bank authentication)
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    setIsVerifying(false);
+    setVerificationStep(true);
+  };
+
   const handleUpgrade = async () => {
     setIsProcessing(true);
-    
+
     // Simulate Mollie payment processing
     await new Promise(resolve => setTimeout(resolve, 3000));
-    
+
     // Store the subscription upgrade
     localStorage.setItem('userPlan', plan.name.toLowerCase());
     localStorage.setItem('subscriptionData', JSON.stringify({
@@ -125,10 +135,10 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
       paymentMethod,
       status: 'active'
     }));
-    
+
     setIsProcessing(false);
     setIsSuccess(true);
-    
+
     // Wait and then close modal with page refresh
     setTimeout(() => {
       setIsOpen(false);
