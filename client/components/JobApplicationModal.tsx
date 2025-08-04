@@ -227,7 +227,7 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
                       placeholder="Beschrijf je ervaring met dit type project, je aanpak en waarom je de juiste keuze bent voor deze klus..."
                     />
                     <p className="text-premium-400 text-sm mt-1">
-                      Minimum 20 karakters ({applicationData.message.length}/20)
+                      Minimum 10 karakters ({applicationData.message.length}/10)
                     </p>
                   </div>
 
