@@ -23,7 +23,12 @@ import {
   Eye,
   Target,
   Smartphone,
-  CalendarCheck
+  CalendarCheck,
+  FileText,
+  Euro,
+  Calendar,
+  AlertCircle,
+  ClockIcon
 } from "lucide-react";
 
 export default function CraftsmanDashboard() {
