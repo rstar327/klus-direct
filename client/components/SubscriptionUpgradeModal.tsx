@@ -83,7 +83,7 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
     { id: "abn_amro", name: "ABN AMRO", logo: "🟡" },
     { id: "sns", name: "SNS Bank", logo: "🟣" },
     { id: "asn", name: "ASN Bank", logo: "🟢" },
-    { id: "triodos", name: "Triodos Bank", logo: "🔷" },
+    { id: "triodos", name: "Triodos Bank", logo: "���" },
     { id: "knab", name: "Knab", logo: "⚫" },
     { id: "bunq", name: "bunq", logo: "🌈" }
   ];
@@ -547,20 +547,20 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
                   >
                     Vorige
                   </Button>
-                  <Button 
-                    onClick={handleUpgrade}
-                    disabled={!isStep2Valid || isProcessing}
+                  <Button
+                    onClick={handleVerification}
+                    disabled={!isStep2Valid || isVerifying}
                     className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform disabled:opacity-50 disabled:scale-100"
                   >
-                    {isProcessing ? (
+                    {isVerifying ? (
                       <>
                         <div className="w-4 h-4 mr-2 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                        Betaling verwerken...
+                        Verificatie starten...
                       </>
                     ) : (
                       <>
-                        <Euro className="w-4 h-4 mr-2" />
-                        Betaal €{plan.price} en start upgrade
+                        <Shield className="w-4 h-4 mr-2" />
+                        Verifieer betaalmethode
                       </>
                     )}
                   </Button>
