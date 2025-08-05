@@ -71,6 +71,20 @@ export default function AgendaModal({ children }: AgendaModalProps) {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingItem, setEditingItem] = useState<AgendaItem | null>(null);
   const [statusFilter, setStatusFilter] = useState<string>('all');
+  const [showAvailabilityForm, setShowAvailabilityForm] = useState(false);
+  const [availabilitySettings, setAvailabilitySettings] = useState({
+    workingDays: [1, 2, 3, 4, 5], // Monday to Friday
+    workingHours: {
+      start: '08:00',
+      end: '18:00'
+    },
+    breakTime: {
+      start: '12:00',
+      end: '13:00'
+    },
+    minSlotDuration: 60, // minutes
+    bufferTime: 30 // minutes between appointments
+  });
 
   const [newItem, setNewItem] = useState<Partial<AgendaItem>>({
     title: '',
