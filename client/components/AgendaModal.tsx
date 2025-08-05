@@ -498,6 +498,16 @@ export default function AgendaModal({ children }: AgendaModalProps) {
                             +{items.length - 2} meer
                           </div>
                         )}
+                        {items.length === 0 && isWorkingDayValue && availableSlots.length > 0 && (
+                          <div className="text-xs text-green-400 px-1">
+                            {availableSlots.length} vrije slots
+                          </div>
+                        )}
+                        {!isWorkingDayValue && (
+                          <div className="text-xs text-red-400 px-1">
+                            Niet beschikbaar
+                          </div>
+                        )}
                       </div>
                     </div>
                   );
