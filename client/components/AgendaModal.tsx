@@ -630,6 +630,166 @@ export default function AgendaModal({ children }: AgendaModalProps) {
             </CardContent>
           </Card>
 
+          {/* Availability Settings Form */}
+          {showAvailabilityForm && (
+            <Card className="glass border border-klusdirect-blue/30 bg-klusdirect-blue/5">
+              <CardHeader>
+                <CardTitle className="text-lg text-premium-50 flex items-center">
+                  <Settings className="w-5 h-5 mr-2 text-klusdirect-blue" />
+                  Beschikbaarheid instellen
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {/* Working Days */}
+                  <div>
+                    <Label className="text-premium-200 text-sm mb-3 block">Werkdagen</Label>
+                    <div className="grid grid-cols-7 gap-2">
+                      {['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'].map((day, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          onClick={() => {
+                            const newDays = availabilitySettings.workingDays.includes(index)
+                              ? availabilitySettings.workingDays.filter(d => d !== index)
+                              : [...availabilitySettings.workingDays, index];
+                            setAvailabilitySettings(prev => ({ ...prev, workingDays: newDays }));
+                          }}
+                          className={`p-2 rounded-md text-sm transition-all ${
+                            availabilitySettings.workingDays.includes(index)
+                              ? 'bg-klusdirect-blue text-white'
+                              : 'bg-premium-700/50 text-premium-300 hover:bg-premium-600/50'
+                          }`}
+                        >
+                          {day}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Working Hours */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-premium-200 text-sm mb-2 block">Start werktijd</Label>
+                      <Input
+                        type="time"
+                        value={availabilitySettings.workingHours.start}
+                        onChange={(e) => setAvailabilitySettings(prev => ({
+                          ...prev,
+                          workingHours: { ...prev.workingHours, start: e.target.value }
+                        }))}
+                        className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-premium-200 text-sm mb-2 block">Eind werktijd</Label>
+                      <Input
+                        type="time"
+                        value={availabilitySettings.workingHours.end}
+                        onChange={(e) => setAvailabilitySettings(prev => ({
+                          ...prev,
+                          workingHours: { ...prev.workingHours, end: e.target.value }
+                        }))}
+                        className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Break Time */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-premium-200 text-sm mb-2 block">Pauze start</Label>
+                      <Input
+                        type="time"
+                        value={availabilitySettings.breakTime.start}
+                        onChange={(e) => setAvailabilitySettings(prev => ({
+                          ...prev,
+                          breakTime: { ...prev.breakTime, start: e.target.value }
+                        }))}
+                        className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-premium-200 text-sm mb-2 block">Pauze eind</Label>
+                      <Input
+                        type="time"
+                        value={availabilitySettings.breakTime.end}
+                        onChange={(e) => setAvailabilitySettings(prev => ({
+                          ...prev,
+                          breakTime: { ...prev.breakTime, end: e.target.value }
+                        }))}
+                        className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Additional Settings */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-premium-200 text-sm mb-2 block">Min. afspraak duur (minuten)</Label>
+                      <Input
+                        type="number"
+                        value={availabilitySettings.minSlotDuration}
+                        onChange={(e) => setAvailabilitySettings(prev => ({
+                          ...prev,
+                          minSlotDuration: parseInt(e.target.value) || 60
+                        }))}
+                        className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                        placeholder="60"
+                      />
+                    </div>
+                    <div>
+                      <Label className="text-premium-200 text-sm mb-2 block">Buffer tijd (minuten)</Label>
+                      <Input
+                        type="number"
+                        value={availabilitySettings.bufferTime}
+                        onChange={(e) => setAvailabilitySettings(prev => ({
+                          ...prev,
+                          bufferTime: parseInt(e.target.value) || 30
+                        }))}
+                        className="glass border-premium-600/30 bg-premium-800/50 text-premium-50"
+                        placeholder="30"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="bg-klusdirect-blue/10 border border-klusdirect-blue/20 rounded-lg p-4">
+                    <div className="flex items-start space-x-3">
+                      <AlertCircle className="w-5 h-5 text-klusdirect-blue mt-0.5" />
+                      <div>
+                        <h4 className="text-klusdirect-blue font-medium text-sm mb-1">
+                          Beschikbaarheid instellingen
+                        </h4>
+                        <p className="text-premium-300 text-sm">
+                          Deze instellingen bepalen wanneer klanten afspraken kunnen inplannen.
+                          Buffer tijd zorgt voor reistijd tussen afspraken.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <Button
+                    onClick={() => setShowAvailabilityForm(false)}
+                    variant="outline"
+                    className="flex-1 border-premium-600 text-premium-200 hover:bg-premium-700"
+                  >
+                    <X className="w-4 h-4 mr-2" />
+                    Annuleren
+                  </Button>
+                  <Button
+                    onClick={saveAvailabilitySettings}
+                    className="flex-1 bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white font-semibold"
+                  >
+                    <Save className="w-4 h-4 mr-2" />
+                    Opslaan
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Add/Edit Form */}
           {showAddForm && (
             <Card className="glass border border-klusdirect-orange/30 bg-klusdirect-orange/5">
