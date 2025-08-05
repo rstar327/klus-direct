@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SubscriptionUpgradeModal from "@/components/SubscriptionUpgradeModal";
-import AgendaModal from "@/components/AgendaModal";
+import SimpleAgendaModal from "@/components/SimpleAgendaModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
