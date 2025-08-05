@@ -118,7 +118,30 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
     const existingInvoices = JSON.parse(localStorage.getItem('pendingInvoices') || '[]');
     existingInvoices.push(applicationWithInvoice);
     localStorage.setItem('pendingInvoices', JSON.stringify(existingInvoices));
-    
+
+    // Add to agenda automatically when application is submitted
+    const agendaItem = {
+      id: `job-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      title: job.title,
+      clientName: job.client.name,
+      clientEmail: '', // Would be filled from actual job data
+      clientPhone: '', // Would be filled from actual job data
+      location: 'Locatie nog te bepalen',
+      date: applicationData.startDate,
+      startTime: '09:00',
+      endTime: '17:00',
+      status: 'scheduled' as const,
+      amount: proposedAmount,
+      commissionRate: commissionRate,
+      notes: `Aangenomen offerte - ${applicationData.message.substring(0, 100)}...`,
+      jobType: job.category || 'Klus',
+      estimatedDuration: parseInt(applicationData.estimatedHours) || 8
+    };
+
+    const existingAgenda = JSON.parse(localStorage.getItem('agendaItems') || '[]');
+    existingAgenda.push(agendaItem);
+    localStorage.setItem('agendaItems', JSON.stringify(existingAgenda));
+
     setIsSubmitting(false);
     setIsSubmitted(true);
     
