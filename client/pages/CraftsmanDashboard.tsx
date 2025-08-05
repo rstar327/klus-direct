@@ -56,7 +56,7 @@ export default function CraftsmanDashboard() {
       title: "Luxe badkamer renovatie",
       client: "Jan de Vries",
       location: "Amsterdam Noord",
-      budget: "��2.500-4.000",
+      budget: "€2.500-4.000",
       distance: "2.1 km",
       posted: "15 min geleden",
       urgency: "Premium",
@@ -181,10 +181,12 @@ export default function CraftsmanDashboard() {
               </p>
             </div>
             <div className="flex gap-3 mt-4 md:mt-0">
-              <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
-                <Settings className="w-4 h-4 mr-2" />
-                Profiel bewerken
-              </Button>
+              <ProfileEditModal>
+                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                  <Settings className="w-4 h-4 mr-2" />
+                  Profiel bewerken
+                </Button>
+              </ProfileEditModal>
               <SimpleAgendaModal>
                 <Button className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold">
                   <CalendarCheck className="w-4 h-4 mr-2" />
