@@ -284,6 +284,335 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
     }
   };
 
+  const generateAndDownloadInvoice = () => {
+    const invoice = localStorage.getItem('latestInvoice');
+    if (!invoice) return;
+
+    const invoiceData = JSON.parse(invoice);
+    const htmlContent = generateInvoiceHTML(invoiceData);
+
+    // Create a hidden iframe to generate PDF
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'fixed';
+    iframe.style.top = '-1000px';
+    iframe.style.left = '-1000px';
+    iframe.style.width = '210mm';
+    iframe.style.height = '297mm';
+    document.body.appendChild(iframe);
+
+    const iframeDoc = iframe.contentDocument || iframe.contentWindow?.document;
+    if (iframeDoc) {
+      iframeDoc.open();
+      iframeDoc.write(htmlContent);
+      iframeDoc.close();
+
+      // Wait for content to load, then trigger print
+      setTimeout(() => {
+        if (iframe.contentWindow) {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+        }
+
+        // Clean up
+        setTimeout(() => {
+          document.body.removeChild(iframe);
+        }, 1000);
+      }, 500);
+    }
+  };
+
+  const generateInvoiceHTML = (invoiceData: any) => {
+    const currentDate = new Date().toLocaleDateString('nl-NL', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    const dueDate = new Date(invoiceData.dueDate).toLocaleDateString('nl-NL', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    return `
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Factuur ${invoiceData.invoiceNumber}</title>
+    <style>
+        @media print {
+            body { margin: 0; }
+            .no-print { display: none; }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: white;
+        }
+
+        .invoice-container {
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+            min-height: 297mm;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            border-bottom: 3px solid #FF6B35;
+            padding-bottom: 20px;
+        }
+
+        .company-info h1 {
+            color: #FF6B35;
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .company-info p {
+            color: #666;
+            margin: 2px 0;
+        }
+
+        .invoice-meta {
+            text-align: right;
+        }
+
+        .invoice-meta h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .invoice-meta p {
+            margin: 3px 0;
+            color: #666;
+        }
+
+        .billing-section {
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 0;
+        }
+
+        .billing-info {
+            width: 45%;
+        }
+
+        .billing-info h3 {
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .billing-info p {
+            margin: 2px 0;
+            color: #666;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+        }
+
+        .items-table th {
+            background: #FF6B35;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .items-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .items-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .totals {
+            margin: 40px 0;
+            text-align: right;
+        }
+
+        .totals table {
+            margin-left: auto;
+            border-collapse: collapse;
+        }
+
+        .totals td {
+            padding: 8px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .totals .total-row {
+            background: #FF6B35;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .payment-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 40px 0;
+            border-left: 4px solid #FF6B35;
+        }
+
+        .payment-info h3 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            margin-top: 60px;
+            text-align: center;
+            color: #666;
+            font-size: 12px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="header">
+            <div class="company-info">
+                <h1>KlusDirect</h1>
+                <p>Vakmannen Platform Nederland</p>
+                <p>info@klusdirect.nl</p>
+                <p>+31 (0)20 123 4567</p>
+                <p>KvK: 12345678</p>
+                <p>BTW: NL123456789B01</p>
+            </div>
+            <div class="invoice-meta">
+                <h2>FACTUUR</h2>
+                <p><strong>Factuurnummer:</strong> ${invoiceData.invoiceNumber}</p>
+                <p><strong>Factuurdatum:</strong> ${currentDate}</p>
+                <p><strong>Vervaldatum:</strong> ${dueDate}</p>
+                <p><strong>Status:</strong> <span class="status-badge">Betaald</span></p>
+            </div>
+        </div>
+
+        <div class="billing-section">
+            <div class="billing-info">
+                <h3>Gegevens Klant</h3>
+                <p><strong>${invoiceData.company.companyName}</strong></p>
+                ${invoiceData.company.vatNumber ? `<p>BTW-nummer: ${invoiceData.company.vatNumber}</p>` : ''}
+                <p>${invoiceData.company.address}</p>
+                <p>${invoiceData.company.postalCode} ${invoiceData.company.city}</p>
+                <p>Email: ${invoiceData.company.email}</p>
+                ${invoiceData.company.phone ? `<p>Telefoon: ${invoiceData.company.phone}</p>` : ''}
+            </div>
+            <div class="billing-info">
+                <h3>KlusDirect B.V.</h3>
+                <p>Damrak 123</p>
+                <p>1012 AB Amsterdam</p>
+                <p>Nederland</p>
+                <p>Email: facturen@klusdirect.nl</p>
+                <p>Telefoon: +31 (0)20 123 4567</p>
+            </div>
+        </div>
+
+        <table class="items-table">
+            <thead>
+                <tr>
+                    <th>Omschrijving</th>
+                    <th>Periode</th>
+                    <th>Aantal</th>
+                    <th>Prijs excl. BTW</th>
+                    <th>Totaal excl. BTW</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${invoiceData.items.map((item: any) => `
+                <tr>
+                    <td>${item.description}</td>
+                    <td>1 maand</td>
+                    <td>${item.quantity}</td>
+                    <td>€${item.price.toFixed(2)}</td>
+                    <td>€${item.total.toFixed(2)}</td>
+                </tr>
+                `).join('')}
+            </tbody>
+        </table>
+
+        <div class="totals">
+            <table>
+                <tr>
+                    <td><strong>Subtotaal:</strong></td>
+                    <td><strong>€${invoiceData.subtotal.toFixed(2)}</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>BTW (21%):</strong></td>
+                    <td><strong>€${invoiceData.vat.toFixed(2)}</strong></td>
+                </tr>
+                <tr class="total-row">
+                    <td><strong>Totaal incl. BTW:</strong></td>
+                    <td><strong>€${invoiceData.total.toFixed(2)}</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="payment-info">
+            <h3>Betaalmethode & Status</h3>
+            <p><strong>Betaalmethode:</strong> ${paymentMethod === 'ideal' ? 'iDEAL' : 'Creditcard'}</p>
+            <p><strong>Transactie ID:</strong> ${invoiceData.transactionId}</p>
+            <p><strong>Betaalstatus:</strong> Succesvol betaald op ${currentDate}</p>
+            <p><strong>Volgende factuurdatum:</strong> ${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString('nl-NL')}</p>
+        </div>
+
+        <div class="payment-info">
+            <h3>Abonnement Details</h3>
+            <p><strong>Plan:</strong> ${plan.name} Abonnement</p>
+            <p><strong>Commissie tarief:</strong> ${plan.commission} per klus</p>
+            <p><strong>Abonnement periode:</strong> Maandelijks (automatische verlenging)</p>
+            <p><strong>Ingangsdatum:</strong> ${currentDate}</p>
+        </div>
+
+        <div class="footer">
+            <p><strong>KlusDirect B.V.</strong> | Damrak 123, 1012 AB Amsterdam, Nederland</p>
+            <p>KvK: 12345678 | BTW: NL123456789B01 | IBAN: NL12 ABNA 0123 4567 89</p>
+            <p>Voor vragen over deze factuur kunt u contact opnemen via facturen@klusdirect.nl</p>
+            <p style="margin-top: 20px; font-style: italic;">Deze factuur is automatisch gegenereerd en geldig zonder handtekening.</p>
+        </div>
+    </div>
+</body>
+</html>`;
+  };
+
   const handleCloseSuccess = () => {
     setIsOpen(false);
     setTimeout(() => {
@@ -1072,24 +1401,13 @@ export default function SubscriptionUpgradeModal({ plan, children }: Subscriptio
                 <CheckCircle className="w-4 h-4 mr-2" />
                 Ga naar dashboard
               </Button>
-              <Button 
-                variant="outline" 
-                onClick={() => {
-                  const invoice = localStorage.getItem('latestInvoice');
-                  if (invoice) {
-                    // Simulate invoice download
-                    const blob = new Blob([JSON.stringify(JSON.parse(invoice), null, 2)], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `Factuur-${invoiceNumber}.json`;
-                    a.click();
-                  }
-                }}
+              <Button
+                variant="outline"
+                onClick={() => generateAndDownloadInvoice()}
                 className="border-premium-600 text-premium-200 hover:bg-premium-700"
               >
-                <Download className="w-4 h-4 mr-2" />
-                Download factuur
+                <Receipt className="w-4 h-4 mr-2" />
+                Download factuur PDF
               </Button>
             </div>
 
