@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import SubscriptionUpgradeModal from "@/components/SubscriptionUpgradeModal";
 import SimpleAgendaModal from "@/components/SimpleAgendaModal";
+import ProfileEditModal from "@/components/ProfileEditModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -55,7 +56,7 @@ export default function CraftsmanDashboard() {
       title: "Luxe badkamer renovatie",
       client: "Jan de Vries",
       location: "Amsterdam Noord",
-      budget: "€2.500-4.000",
+      budget: "��2.500-4.000",
       distance: "2.1 km",
       posted: "15 min geleden",
       urgency: "Premium",
