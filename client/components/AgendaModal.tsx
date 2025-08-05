@@ -391,13 +391,23 @@ export default function AgendaModal({ children }: AgendaModalProps) {
               </div>
             </div>
 
-            <Button
-              onClick={() => setShowAddForm(true)}
-              className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold"
-            >
-              <Plus className="w-4 h-4 mr-2" />
-              Nieuwe afspraak
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() => setShowAvailabilityForm(true)}
+                variant="outline"
+                className="border-premium-600 text-premium-200 hover:bg-premium-700"
+              >
+                <Settings className="w-4 h-4 mr-2" />
+                Beschikbaarheid
+              </Button>
+              <Button
+                onClick={() => setShowAddForm(true)}
+                className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold"
+              >
+                <Plus className="w-4 h-4 mr-2" />
+                Nieuwe afspraak
+              </Button>
+            </div>
           </div>
 
           {/* Calendar Navigation */}
