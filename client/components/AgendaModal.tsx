@@ -110,6 +110,12 @@ export default function AgendaModal({ children }: AgendaModalProps) {
       setAgendaItems(JSON.parse(storedItems));
     }
 
+    // Load availability settings
+    const storedAvailability = localStorage.getItem('availabilitySettings');
+    if (storedAvailability) {
+      setAvailabilitySettings(JSON.parse(storedAvailability));
+    }
+
     // Load accepted job applications and convert to agenda items
     const pendingInvoices = localStorage.getItem('pendingInvoices');
     if (pendingInvoices) {
