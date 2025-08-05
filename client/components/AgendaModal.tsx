@@ -464,13 +464,17 @@ export default function AgendaModal({ children }: AgendaModalProps) {
                   const items = getItemsForDate(day);
                   const isCurrentMonth = day.getMonth() === currentDate.getMonth();
                   const isToday = day.toDateString() === new Date().toDateString();
-                  
+                  const availableSlots = getAvailableTimeSlots(day);
+                  const isWorkingDayValue = isWorkingDay(day);
+
                   return (
                     <div
                       key={index}
                       className={`min-h-[80px] p-1 border border-premium-700/30 rounded-md cursor-pointer transition-all hover:bg-premium-700/30 ${
                         !isCurrentMonth ? 'opacity-40' : ''
-                      } ${isToday ? 'bg-klusdirect-orange/10 border-klusdirect-orange/30' : ''}`}
+                      } ${isToday ? 'bg-klusdirect-orange/10 border-klusdirect-orange/30' : ''} ${
+                        !isWorkingDayValue ? 'bg-red-500/5' : ''
+                      }`}
                       onClick={() => setSelectedDate(day)}
                     >
                       <div className={`text-sm font-medium mb-1 ${
