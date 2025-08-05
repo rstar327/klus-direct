@@ -695,14 +695,49 @@ export default function ProfileEditModal({ children }: ProfileEditModalProps) {
                     <Label className="text-premium-200 mb-2 block">Portfolio foto's</Label>
                     <div className="grid grid-cols-3 gap-3 mb-3">
                       {[...Array(6)].map((_, index) => (
-                        <div key={index} className="aspect-square bg-premium-700/30 border border-premium-600/30 rounded-lg flex items-center justify-center hover:bg-premium-600/30 transition-all cursor-pointer">
-                          <div className="text-center">
-                            <Upload className="w-6 h-6 text-premium-400 mx-auto mb-1" />
-                            <span className="text-xs text-premium-400">Upload foto</span>
-                          </div>
+                        <div key={index} className="relative aspect-square bg-premium-700/30 border border-premium-600/30 rounded-lg flex items-center justify-center hover:bg-premium-600/30 transition-all">
+                          {profile.portfolioImages?.[index] ? (
+                            <>
+                              <img
+                                src={profile.portfolioImages[index]}
+                                alt={`Portfolio ${index + 1}`}
+                                className="w-full h-full object-cover rounded-lg"
+                              />
+                              <button
+                                onClick={() => removePortfolioPhoto(index)}
+                                className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors"
+                              >
+                                <X className="w-3 h-3 text-white" />
+                              </button>
+                              <button
+                                onClick={() => document.getElementById(`portfolio-upload-${index}`)?.click()}
+                                className="absolute inset-0 bg-black/0 hover:bg-black/50 rounded-lg flex items-center justify-center opacity-0 hover:opacity-100 transition-all cursor-pointer"
+                              >
+                                <Camera className="w-6 h-6 text-white" />
+                              </button>
+                            </>
+                          ) : (
+                            <button
+                              onClick={() => document.getElementById(`portfolio-upload-${index}`)?.click()}
+                              className="w-full h-full flex flex-col items-center justify-center cursor-pointer"
+                            >
+                              <Upload className="w-6 h-6 text-premium-400 mb-1" />
+                              <span className="text-xs text-premium-400">Upload foto</span>
+                            </button>
+                          )}
+                          <input
+                            type="file"
+                            id={`portfolio-upload-${index}`}
+                            accept="image/*"
+                            onChange={(e) => handlePortfolioUpload(e, index)}
+                            className="hidden"
+                          />
                         </div>
                       ))}
                     </div>
+                    <p className="text-xs text-premium-400">
+                      Upload tot 6 foto's van je beste werk. JPG, PNG max 5MB per foto.
+                    </p>
                   </div>
 
                   {/* Recent Projects */}
