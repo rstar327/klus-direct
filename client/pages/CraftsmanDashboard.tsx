@@ -184,10 +184,12 @@ export default function CraftsmanDashboard() {
                 <Settings className="w-4 h-4 mr-2" />
                 Profiel bewerken
               </Button>
-              <Button className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold">
-                <CalendarCheck className="w-4 h-4 mr-2" />
-                Agenda beheren
-              </Button>
+              <AgendaModal>
+                <Button className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold">
+                  <CalendarCheck className="w-4 h-4 mr-2" />
+                  Agenda beheren
+                </Button>
+              </AgendaModal>
             </div>
           </div>
 
