@@ -331,21 +331,37 @@ export default function ProfileEditModal({ children }: ProfileEditModalProps) {
                   
                   {/* Profile Photo */}
                   <div className="flex items-center space-x-4 mb-6">
-                    <div className="w-20 h-20 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-gold/20 rounded-full flex items-center justify-center border border-klusdirect-orange/30">
+                    <div className="relative w-20 h-20 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-gold/20 rounded-full flex items-center justify-center border border-klusdirect-orange/30">
                       {profile.profilePhoto ? (
-                        <img src={profile.profilePhoto} alt="Profiel" className="w-full h-full rounded-full object-cover" />
+                        <>
+                          <img src={profile.profilePhoto} alt="Profiel" className="w-full h-full rounded-full object-cover" />
+                          <button
+                            onClick={removePhoto}
+                            className="absolute -top-1 -right-1 w-6 h-6 bg-red-500 hover:bg-red-600 rounded-full flex items-center justify-center transition-colors"
+                          >
+                            <X className="w-3 h-3 text-white" />
+                          </button>
+                        </>
                       ) : (
                         <User className="w-8 h-8 text-klusdirect-orange" />
                       )}
                     </div>
                     <div>
+                      <input
+                        type="file"
+                        id="photo-upload"
+                        accept="image/*"
+                        onChange={handlePhotoUpload}
+                        className="hidden"
+                      />
                       <Button
                         variant="outline"
                         size="sm"
+                        onClick={() => document.getElementById('photo-upload')?.click()}
                         className="border-premium-600 text-premium-200 hover:bg-premium-700"
                       >
                         <Camera className="w-4 h-4 mr-2" />
-                        Foto wijzigen
+                        {profile.profilePhoto ? 'Foto wijzigen' : 'Foto toevoegen'}
                       </Button>
                       <p className="text-xs text-premium-400 mt-1">JPG, PNG max 5MB</p>
                     </div>
