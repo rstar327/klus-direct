@@ -241,6 +241,35 @@ export default function ProfileEditModal({ children }: ProfileEditModalProps) {
     }));
   };
 
+  const handlePhotoUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Check file size (5MB limit)
+      if (file.size > 5 * 1024 * 1024) {
+        alert('Bestand is te groot. Maximaal 5MB toegestaan.');
+        return;
+      }
+
+      // Check file type
+      if (!file.type.startsWith('image/')) {
+        alert('Alleen afbeeldingen zijn toegestaan.');
+        return;
+      }
+
+      // Create file reader to convert to base64
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64String = e.target?.result as string;
+        updateProfile('profilePhoto', base64String);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const removePhoto = () => {
+    updateProfile('profilePhoto', '');
+  };
+
   const tabs = [
     { id: 'personal', label: 'Persoonlijk', icon: User },
     { id: 'business', label: 'Bedrijf', icon: Building },
