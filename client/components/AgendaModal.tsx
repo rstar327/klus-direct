@@ -264,6 +264,44 @@ export default function AgendaModal({ children }: AgendaModalProps) {
     });
   };
 
+  const saveAvailabilitySettings = () => {
+    localStorage.setItem('availabilitySettings', JSON.stringify(availabilitySettings));
+    setShowAvailabilityForm(false);
+  };
+
+  const isWorkingDay = (date: Date) => {
+    return availabilitySettings.workingDays.includes(date.getDay());
+  };
+
+  const getAvailableTimeSlots = (date: Date) => {
+    if (!isWorkingDay(date)) return [];
+
+    const dateStr = date.toISOString().split('T')[0];
+    const dayItems = agendaItems.filter(item => item.date === dateStr && item.status !== 'cancelled');
+
+    const slots = [];
+    const startHour = parseInt(availabilitySettings.workingHours.start.split(':')[0]);
+    const endHour = parseInt(availabilitySettings.workingHours.end.split(':')[0]);
+
+    for (let hour = startHour; hour < endHour; hour++) {
+      const timeStr = `${hour.toString().padStart(2, '0')}:00`;
+      const isBooked = dayItems.some(item => {
+        const itemStart = item.startTime;
+        const itemEnd = item.endTime || item.startTime;
+        return timeStr >= itemStart && timeStr < itemEnd;
+      });
+
+      const isBreakTime = timeStr >= availabilitySettings.breakTime.start &&
+                          timeStr < availabilitySettings.breakTime.end;
+
+      if (!isBooked && !isBreakTime) {
+        slots.push(timeStr);
+      }
+    }
+
+    return slots;
+  };
+
   const generateCalendarDays = () => {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
