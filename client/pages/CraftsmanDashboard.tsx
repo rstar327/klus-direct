@@ -669,7 +669,7 @@ export default function CraftsmanDashboard() {
               <Link to="/">
                 <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Terug naar home
+                  Terug naar overzicht
                 </Button>
               </Link>
             </CardContent>
