@@ -21,6 +21,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import EditJobModal from "./EditJobModal";
 import { 
   MapPin,
   Euro,
