@@ -329,16 +329,21 @@ export default function CustomerQuoteDashboard() {
                       <div className="flex flex-col gap-2 mt-4 md:mt-0 md:ml-6">
                         {quote.status === 'pending' && (
                           <>
-                            <Button 
-                              size="sm" 
-                              className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold"
+                            <QuoteAcceptanceModal
+                              quote={quote}
+                              onAccept={handleQuoteAcceptance}
                             >
-                              <CheckCircle className="w-4 h-4 mr-2" />
-                              Accepteren
-                            </Button>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
+                              <Button
+                                size="sm"
+                                className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold"
+                              >
+                                <CheckCircle className="w-4 h-4 mr-2" />
+                                Accepteren
+                              </Button>
+                            </QuoteAcceptanceModal>
+                            <Button
+                              variant="outline"
+                              size="sm"
                               className="border-red-500/30 text-red-400 hover:bg-red-500/10"
                             >
                               Afwijzen
