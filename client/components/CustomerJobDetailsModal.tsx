@@ -115,6 +115,23 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
     });
   };
 
+  const getJobDate = () => {
+    // Try multiple date fields
+    const possibleDates = [job.createdAt, job.postedDate];
+
+    for (const dateField of possibleDates) {
+      if (dateField) {
+        const date = new Date(dateField);
+        if (!isNaN(date.getTime())) {
+          return formatDate(dateField);
+        }
+      }
+    }
+
+    // Fallback to current date if no valid date found
+    return formatDate(new Date().toISOString());
+  };
+
   const getCategoryIcon = (category: string) => {
     switch (category) {
       case 'bathroom': return <Home className="w-5 h-5" />;
