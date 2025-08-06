@@ -143,6 +143,24 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
     existingAgenda.push(agendaItem);
     localStorage.setItem('agendaItems', JSON.stringify(existingAgenda));
 
+    // Send notification to customer (simulate customer notification)
+    const customerNotification = {
+      id: `notif-${Date.now()}`,
+      type: 'quote_received',
+      jobTitle: job.title,
+      craftsmanName: 'Piet Bakker', // Would be from user profile
+      companyName: 'Bakker Timmerwerken B.V.',
+      amount: proposedAmount,
+      message: applicationData.message,
+      timestamp: new Date().toISOString(),
+      read: false,
+      quoteId: applicationWithInvoice.invoiceNumber
+    };
+
+    const existingNotifications = JSON.parse(localStorage.getItem('customerNotifications') || '[]');
+    existingNotifications.push(customerNotification);
+    localStorage.setItem('customerNotifications', JSON.stringify(existingNotifications));
+
     setIsSubmitting(false);
     setIsSubmitted(true);
     
