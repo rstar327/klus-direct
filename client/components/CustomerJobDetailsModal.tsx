@@ -342,12 +342,49 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                   <span className="text-premium-200">Klus is geplaatst en zichtbaar voor vakmensen</span>
                 </div>
                 <div className="flex gap-3">
-                  <Button variant="outline" size="sm" className="border-klusdirect-orange text-klusdirect-orange hover:bg-klusdirect-orange/10">
+                  <Button
+                    onClick={handleEditJob}
+                    variant="outline"
+                    size="sm"
+                    className="border-klusdirect-orange text-klusdirect-orange hover:bg-klusdirect-orange/10"
+                  >
                     Bewerken
                   </Button>
-                  <Button variant="outline" size="sm" className="border-red-500 text-red-400 hover:bg-red-500/10">
-                    Verwijderen
-                  </Button>
+                  <AlertDialog>
+                    <AlertDialogTrigger asChild>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="border-red-500 text-red-400 hover:bg-red-500/10"
+                        disabled={isDeleting}
+                      >
+                        {isDeleting ? 'Verwijderen...' : 'Verwijderen'}
+                      </Button>
+                    </AlertDialogTrigger>
+                    <AlertDialogContent className="glass border border-premium-600/30">
+                      <AlertDialogHeader>
+                        <AlertDialogTitle className="text-premium-50">
+                          Klus verwijderen?
+                        </AlertDialogTitle>
+                        <AlertDialogDescription className="text-premium-300">
+                          Weet je zeker dat je de klus "{job.title}" wilt verwijderen?
+                          Deze actie kan niet ongedaan worden gemaakt. Alle bijbehorende offertes gaan ook verloren.
+                        </AlertDialogDescription>
+                      </AlertDialogHeader>
+                      <AlertDialogFooter>
+                        <AlertDialogCancel className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                          Annuleren
+                        </AlertDialogCancel>
+                        <AlertDialogAction
+                          onClick={handleDeleteJob}
+                          className="bg-red-600 text-white hover:bg-red-700"
+                          disabled={isDeleting}
+                        >
+                          {isDeleting ? 'Verwijderen...' : 'Ja, verwijderen'}
+                        </AlertDialogAction>
+                      </AlertDialogFooter>
+                    </AlertDialogContent>
+                  </AlertDialog>
                 </div>
               </div>
             </CardContent>
