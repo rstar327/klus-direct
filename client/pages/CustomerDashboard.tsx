@@ -131,7 +131,7 @@ export default function CustomerDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Premium klussen</p>
-                    <p className="text-3xl font-bold text-premium-50">2</p>
+                    <p className="text-3xl font-bold text-premium-50">{customerJobs.length}</p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-blue/20 to-klusdirect-blue/10 rounded-xl flex items-center justify-center">
                     <Clock className="w-6 h-6 text-klusdirect-blue" />
