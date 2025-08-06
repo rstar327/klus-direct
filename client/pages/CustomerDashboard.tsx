@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import NewJobModal from "@/components/NewJobModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,26 +19,45 @@ import {
 } from "lucide-react";
 
 export default function CustomerDashboard() {
-  const mockJobs = [
-    {
-      id: 1,
-      title: "Luxe badkamer renovatie",
-      status: "Premium offertes ontvangen",
-      location: "Amsterdam",
-      budget: "€2.500-4.000",
-      date: "15 dec 2024",
-      quotes: 3
-    },
-    {
-      id: 2,
-      title: "Design keuken installatie",
-      status: "Elite vakman toegewezen",
-      location: "Amsterdam",
-      budget: "€5.000-8.000",
-      date: "10 jan 2025",
-      quotes: 5
-    }
-  ];
+  const [customerJobs, setCustomerJobs] = useState([]);
+
+  useEffect(() => {
+    // Load customer jobs from localStorage
+    const loadCustomerJobs = () => {
+      const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+      setCustomerJobs(jobs);
+    };
+
+    loadCustomerJobs();
+
+    // Listen for storage changes (when new job is added)
+    window.addEventListener('storage', loadCustomerJobs);
+
+    // Custom event for when job is added in same tab
+    window.addEventListener('jobAdded', loadCustomerJobs);
+
+    return () => {
+      window.removeEventListener('storage', loadCustomerJobs);
+      window.removeEventListener('jobAdded', loadCustomerJobs);
+    };
+  }, []);
+
+  // Format jobs to match display structure
+  const formatJobForDisplay = (job: any) => {
+    return {
+      id: job.id,
+      title: job.title,
+      status: "Wacht op offertes",
+      location: job.jobLocation || job.location,
+      budget: job.budget,
+      date: new Date(job.createdAt).toLocaleDateString('nl-NL', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }),
+      quotes: 0 // Start with 0 quotes for new jobs
+    };
+  };
 
   return (
     <div className="min-h-screen bg-premium-900 relative overflow-hidden">
