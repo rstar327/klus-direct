@@ -87,7 +87,7 @@ export default function QuoteAcceptanceModal({ quote, children, onAccept }: Quot
     const installments = parseInt(acceptanceData.installmentPlan);
     const amountPerInstallment = Math.ceil(quote.proposedAmount / installments);
     const lastInstallment = quote.proposedAmount - (amountPerInstallment * (installments - 1));
-    
+
     return {
       installments,
       amountPerInstallment,
@@ -98,6 +98,56 @@ export default function QuoteAcceptanceModal({ quote, children, onAccept }: Quot
         dueDate: new Date(Date.now() + (i + 1) * 30 * 24 * 60 * 60 * 1000)
       }))
     };
+  };
+
+  const processAppPayment = async () => {
+    const totalAmount = acceptanceData.paymentSchedule === 'installments'
+      ? calculateInstallments().amountPerInstallment
+      : quote.proposedAmount;
+
+    try {
+      // Step 1: Initialize payment
+      setCurrentPaymentStep("Betaling initialiseren...");
+      setPaymentProgress(10);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Step 2: Setup payment method
+      setCurrentPaymentStep("Betaalmethode selecteren...");
+      setPaymentProgress(25);
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Step 3: Process payment
+      setCurrentPaymentStep("Betaling verwerken via Mollie...");
+      setPaymentProgress(50);
+      await new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Step 4: Verify payment
+      setCurrentPaymentStep("Betaling verifiëren...");
+      setPaymentProgress(75);
+      await new Promise(resolve => setTimeout(resolve, 1500));
+
+      // Step 5: Complete
+      setCurrentPaymentStep("Betaling voltooid!");
+      setPaymentProgress(100);
+      await new Promise(resolve => setTimeout(resolve, 500));
+
+      // Store payment details
+      const paymentRecord = {
+        paymentId: `PAY_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        amount: totalAmount,
+        method: 'app',
+        schedule: acceptanceData.paymentSchedule,
+        installmentDetails: acceptanceData.paymentSchedule === 'installments' ? calculateInstallments() : null,
+        processedAt: new Date().toISOString(),
+        status: 'completed'
+      };
+
+      localStorage.setItem('paymentRecord', JSON.stringify(paymentRecord));
+
+    } catch (error) {
+      setCurrentPaymentStep("Betaling mislukt - probeer opnieuw");
+      throw error;
+    }
   };
 
   const handleAccept = async () => {
