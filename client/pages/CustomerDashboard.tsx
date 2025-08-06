@@ -70,18 +70,35 @@ export default function CustomerDashboard() {
       budgetDisplay = `€${job.budgetMin} - €${job.budgetMax}`;
     }
 
-    // Format date properly
+    // Format date properly - try multiple date fields
     let dateDisplay = 'Onbekende datum';
-    if (job.createdAt) {
-      try {
-        dateDisplay = new Date(job.createdAt).toLocaleDateString('nl-NL', {
-          day: 'numeric',
-          month: 'short',
-          year: 'numeric'
-        });
-      } catch (error) {
-        dateDisplay = 'Onbekende datum';
+    const possibleDates = [job.createdAt, job.postedDate];
+
+    for (const dateField of possibleDates) {
+      if (dateField) {
+        try {
+          const date = new Date(dateField);
+          if (!isNaN(date.getTime())) {
+            dateDisplay = date.toLocaleDateString('nl-NL', {
+              day: 'numeric',
+              month: 'short',
+              year: 'numeric'
+            });
+            break;
+          }
+        } catch (error) {
+          continue;
+        }
       }
+    }
+
+    // If still no valid date, use current date as fallback
+    if (dateDisplay === 'Onbekende datum') {
+      dateDisplay = new Date().toLocaleDateString('nl-NL', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      });
     }
 
     return {
