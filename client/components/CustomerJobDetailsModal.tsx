@@ -187,7 +187,7 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                     </div>
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-1 text-klusdirect-orange" />
-                      {formatDate(job.createdAt)}
+                      {getJobDate()}
                     </div>
                   </div>
                 </div>
