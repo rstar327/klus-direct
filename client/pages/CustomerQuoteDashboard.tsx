@@ -170,10 +170,10 @@ export default function CustomerQuoteDashboard() {
                 Bekijk en beheer offertes van vakmensen
               </p>
             </div>
-            <Link to="/">
+            <Link to="/customer/dashboard">
               <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700 mt-4 md:mt-0">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Terug naar home
+                Terug naar dashboard
               </Button>
             </Link>
           </div>
