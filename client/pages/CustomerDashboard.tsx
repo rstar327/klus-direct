@@ -26,7 +26,25 @@ export default function CustomerDashboard() {
     // Load customer jobs from localStorage
     const loadCustomerJobs = () => {
       const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
-      setCustomerJobs(jobs);
+
+      // Fix jobs that don't have proper dates
+      const fixedJobs = jobs.map((job: any) => {
+        if (!job.createdAt && !job.postedDate) {
+          return {
+            ...job,
+            createdAt: new Date().toISOString(),
+            postedDate: new Date().toISOString()
+          };
+        }
+        return job;
+      });
+
+      // Save back if we fixed any jobs
+      if (JSON.stringify(fixedJobs) !== JSON.stringify(jobs)) {
+        localStorage.setItem('customerJobs', JSON.stringify(fixedJobs));
+      }
+
+      setCustomerJobs(fixedJobs);
     };
 
     loadCustomerJobs();
