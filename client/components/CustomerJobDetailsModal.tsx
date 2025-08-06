@@ -350,14 +350,15 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                   <span className="text-premium-200">Klus is geplaatst en zichtbaar voor vakmensen</span>
                 </div>
                 <div className="flex gap-3">
-                  <Button
-                    onClick={handleEditJob}
-                    variant="outline"
-                    size="sm"
-                    className="border-klusdirect-orange text-klusdirect-orange hover:bg-klusdirect-orange/10"
-                  >
-                    Bewerken
-                  </Button>
+                  <EditJobModal job={job} onJobUpdated={handleJobUpdatedFromEdit}>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="border-klusdirect-orange text-klusdirect-orange hover:bg-klusdirect-orange/10"
+                    >
+                      Bewerken
+                    </Button>
+                  </EditJobModal>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
                       <Button
