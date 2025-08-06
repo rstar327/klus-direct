@@ -431,7 +431,7 @@ export default function CraftsmanDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {mockJobs.map((job) => (
+                {availableJobs.map((job) => (
                   <div key={job.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-orange/30 transition-all duration-300">
                     <div className="flex flex-col md:flex-row md:items-center justify-between">
                       <div className="flex-1">
