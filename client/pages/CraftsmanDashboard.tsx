@@ -54,6 +54,41 @@ export default function CraftsmanDashboard() {
     setAvailableJobs(publicJobs);
   };
 
+  // Format how long ago the job was posted
+  const formatPostedTime = (job: any) => {
+    // Try to get the creation date from different possible fields
+    let createdDate = null;
+
+    if (job.createdAt) {
+      createdDate = new Date(job.createdAt);
+    } else if (job.postedDate) {
+      createdDate = new Date(job.postedDate);
+    } else {
+      return 'Zojuist geplaatst';
+    }
+
+    if (isNaN(createdDate.getTime())) {
+      return 'Zojuist geplaatst';
+    }
+
+    const now = new Date();
+    const diffMs = now.getTime() - createdDate.getTime();
+    const diffMins = Math.floor(diffMs / (1000 * 60));
+    const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+    if (diffMins < 1) return 'Zojuist geplaatst';
+    if (diffMins < 60) return `${diffMins} min geleden`;
+    if (diffHours < 24) return `${diffHours} uur geleden`;
+    if (diffDays === 1) return 'Gisteren';
+    if (diffDays < 7) return `${diffDays} dagen geleden`;
+
+    return createdDate.toLocaleDateString('nl-NL', {
+      day: 'numeric',
+      month: 'short'
+    });
+  };
+
   useEffect(() => {
     // Ensure user plan defaults to 'free' if not set
     const currentPlan = localStorage.getItem('userPlan');
