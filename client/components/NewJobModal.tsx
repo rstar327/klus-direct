@@ -148,6 +148,7 @@ export default function NewJobModal({ children }: NewJobModalProps) {
       id: `job-${Date.now()}`,
       ...jobData,
       postedBy: customerInfo.name,
+      createdAt: new Date().toISOString(),
       postedDate: new Date().toISOString(),
       status: 'active',
       quotesReceived: 0,
