@@ -246,7 +246,11 @@ export default function CustomerDashboard() {
                         </div>
 
                         <div className="flex gap-3 mt-4 md:mt-0">
-                          <CustomerJobDetailsModal job={job}>
+                          <CustomerJobDetailsModal
+                            job={job}
+                            onJobUpdated={handleJobUpdated}
+                            onJobDeleted={handleJobDeleted}
+                          >
                             <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
                               Details
                             </Button>
