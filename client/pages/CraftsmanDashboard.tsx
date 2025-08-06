@@ -509,7 +509,7 @@ export default function CraftsmanDashboard() {
                           </div>
                           <div className="flex items-center">
                             <Clock className="w-4 h-4 mr-1 text-klusdirect-blue" />
-                            {job.posted}
+                            {formatPostedTime(job)}
                           </div>
                         </div>
                       </div>
