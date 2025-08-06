@@ -76,6 +76,7 @@ export default function JobApplicationModal({ job, onApplicationSubmit }: JobApp
     switch (plan) {
       case 'professional': return 7.5;
       case 'elite': return 5;
+      case 'free':
       default: return 15;
     }
   };
