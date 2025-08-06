@@ -214,8 +214,10 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
               </CardHeader>
               <CardContent>
                 <div className="text-premium-200">
-                  <p className="text-2xl font-bold text-green-400">{job.budget}</p>
-                  <p className="text-sm text-premium-400 mt-1">Inclusief BTW</p>
+                  <p className="text-2xl font-bold text-green-400">{job.budget || 'Nog niet ingesteld'}</p>
+                  <p className="text-sm text-premium-400 mt-1">
+                    {job.budget ? 'Inclusief BTW' : 'Budget kan later worden aangepast'}
+                  </p>
                 </div>
               </CardContent>
             </Card>
