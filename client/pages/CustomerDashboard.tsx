@@ -231,9 +231,11 @@ export default function CustomerDashboard() {
                         </div>
 
                         <div className="flex gap-3 mt-4 md:mt-0">
-                          <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
-                            Details
-                          </Button>
+                          <CustomerJobDetailsModal job={job}>
+                            <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                              Details
+                            </Button>
+                          </CustomerJobDetailsModal>
                           {displayJob.quotes > 0 && (
                             <Button size="sm" className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform">
                               Bekijk Premium Offertes
