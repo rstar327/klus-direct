@@ -87,10 +87,18 @@ export default function CustomerDashboard() {
                 Beheer jouw exclusive klussen en bekijk elite offertes
               </p>
             </div>
-            <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white mt-4 md:mt-0 font-semibold">
-              <Plus className="w-4 h-4 mr-2" />
-              Nieuwe Premium Klus
-            </Button>
+            <div className="flex gap-3 mt-4 md:mt-0">
+              <Link to="/customer/quotes">
+                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Mijn Offertes
+                </Button>
+              </Link>
+              <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white font-semibold">
+                <Plus className="w-4 h-4 mr-2" />
+                Nieuwe Premium Klus
+              </Button>
+            </div>
           </div>
 
           {/* Stats Cards */}
