@@ -55,24 +55,68 @@ export default function CraftsmanDashboard() {
     {
       id: 1,
       title: "Luxe badkamer renovatie",
-      client: "Jan de Vries",
+      client: {
+        name: "Jan de Vries"
+      },
       location: "Amsterdam Noord",
-      budget: "€2.500-4.000",
+      budget: {
+        min: 2500,
+        max: 4000,
+        currency: "EUR"
+      },
       distance: "2.1 km",
       posted: "15 min geleden",
       urgency: "Premium",
-      customerDetails: "Volledige contactgegevens beschikbaar"
+      customerDetails: "Volledige contactgegevens beschikbaar",
+      timing: {
+        startDate: "2024-02-15",
+        duration: "2-3 weken"
+      },
+      category: "Badkamer renovatie"
     },
     {
       id: 2,
-      title: "Design keuken installatie", 
-      client: "Marie Jansen",
+      title: "Design keuken installatie",
+      client: {
+        name: "Marie Jansen"
+      },
       location: "Amsterdam Centrum",
-      budget: "€5.000-8.000",
+      budget: {
+        min: 5000,
+        max: 8000,
+        currency: "EUR"
+      },
       distance: "5.3 km",
       posted: "1 uur geleden",
       urgency: "Exclusief",
-      customerDetails: "Premium klant - directe toegang"
+      customerDetails: "Premium klant - directe toegang",
+      timing: {
+        startDate: "2024-02-20",
+        duration: "3-4 weken"
+      },
+      category: "Keuken installatie"
+    },
+    {
+      id: 3,
+      title: "Dak isolatie project",
+      client: {
+        name: "Peter Bakker"
+      },
+      location: "Amsterdam West",
+      budget: {
+        min: 3000,
+        max: 5000,
+        currency: "EUR"
+      },
+      distance: "3.8 km",
+      posted: "2 uur geleden",
+      urgency: "Premium",
+      customerDetails: "Volledige contactgegevens beschikbaar",
+      timing: {
+        startDate: "2024-02-10",
+        duration: "1 week"
+      },
+      category: "Isolatie werk"
     }
   ];
 
