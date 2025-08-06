@@ -505,7 +505,7 @@ export default function CraftsmanDashboard() {
                           </div>
                           <div className="flex items-center">
                             <Euro className="w-4 h-4 mr-1 text-green-400" />
-                            €{job.budget.min.toLocaleString()}-{job.budget.max.toLocaleString()}
+                            ���{job.budget.min.toLocaleString()}-{job.budget.max.toLocaleString()}
                           </div>
                           <div className="flex items-center">
                             <Clock className="w-4 h-4 mr-1 text-klusdirect-blue" />
@@ -534,18 +534,34 @@ export default function CraftsmanDashboard() {
                     </div>
                   </div>
                 ))}
-                
-                <div className="text-center py-4">
-                  <p className="text-premium-300 mb-4">
-                    Upgrade naar Professional voor meer klantdetails of Elite voor push notificaties
-                  </p>
-                  <div className="flex justify-center gap-3">
-                    <Button variant="outline" className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10">
-                      <Smartphone className="w-4 h-4 mr-2" />
-                      Elite upgrade (€100/maand)
-                    </Button>
+
+                {availableJobs.length === 0 && (
+                  <div className="text-center py-12">
+                    <div className="w-20 h-20 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-gold/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-klusdirect-orange/30">
+                      <Zap className="w-10 h-10 text-klusdirect-orange" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-premium-50 mb-3">
+                      Geen klussen beschikbaar
+                    </h3>
+                    <p className="text-premium-300 mb-6">
+                      Er zijn momenteel geen nieuwe klussen in jouw gebied. Kom later terug of vergroot je zoekgebied.
+                    </p>
                   </div>
-                </div>
+                )}
+
+                {availableJobs.length > 0 && (
+                  <div className="text-center py-4">
+                    <p className="text-premium-300 mb-4">
+                      Upgrade naar Professional voor meer klantdetails of Elite voor push notificaties
+                    </p>
+                    <div className="flex justify-center gap-3">
+                      <Button variant="outline" className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10">
+                        <Smartphone className="w-4 h-4 mr-2" />
+                        Elite upgrade (€100/maand)
+                      </Button>
+                    </div>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
