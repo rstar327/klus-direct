@@ -61,6 +61,9 @@ export default function QuoteAcceptanceModal({ quote, children, onAccept }: Quot
   const [step, setStep] = useState(1);
   const [isProcessing, setIsProcessing] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
+  const [paymentProgress, setPaymentProgress] = useState(0);
+  const [currentPaymentStep, setCurrentPaymentStep] = useState('');
 
   const [acceptanceData, setAcceptanceData] = useState({
     paymentMethod: 'app', // 'app' or 'cash'
