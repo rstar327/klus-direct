@@ -95,10 +95,12 @@ export default function CustomerDashboard() {
                   Mijn Offertes
                 </Button>
               </Link>
-              <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white font-semibold">
-                <Plus className="w-4 h-4 mr-2" />
-                Nieuwe Premium Klus
-              </Button>
+              <NewJobModal>
+                <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white font-semibold">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nieuwe Premium Klus
+                </Button>
+              </NewJobModal>
             </div>
           </div>
 
