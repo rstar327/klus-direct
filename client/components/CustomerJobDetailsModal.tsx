@@ -46,10 +46,57 @@ import {
 interface CustomerJobDetailsModalProps {
   children: React.ReactNode;
   job: any;
+  onJobUpdated?: () => void;
+  onJobDeleted?: () => void;
 }
 
-export default function CustomerJobDetailsModal({ children, job }: CustomerJobDetailsModalProps) {
+export default function CustomerJobDetailsModal({ children, job, onJobUpdated, onJobDeleted }: CustomerJobDetailsModalProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const handleEditJob = () => {
+    // For now, just close this modal and trigger refresh
+    // In a real app, this would open an edit form
+    setIsOpen(false);
+    if (onJobUpdated) {
+      onJobUpdated();
+    }
+  };
+
+  const handleDeleteJob = () => {
+    setIsDeleting(true);
+
+    try {
+      // Get existing jobs
+      const existingJobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+
+      // Filter out the job to delete
+      const updatedJobs = existingJobs.filter((j: any) => j.id !== job.id);
+
+      // Update localStorage
+      localStorage.setItem('customerJobs', JSON.stringify(updatedJobs));
+
+      // Also remove from public jobs
+      const publicJobs = JSON.parse(localStorage.getItem('publicJobs') || '[]');
+      const updatedPublicJobs = publicJobs.filter((j: any) => j.id !== job.id);
+      localStorage.setItem('publicJobs', JSON.stringify(updatedPublicJobs));
+
+      setIsOpen(false);
+      setIsDeleting(false);
+
+      // Trigger refresh
+      if (onJobDeleted) {
+        onJobDeleted();
+      }
+
+      // Trigger custom event for dashboard refresh
+      window.dispatchEvent(new CustomEvent('jobDeleted'));
+
+    } catch (error) {
+      console.error('Error deleting job:', error);
+      setIsDeleting(false);
+    }
+  };
 
   if (!job) return null;
 
