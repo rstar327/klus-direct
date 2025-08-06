@@ -7,12 +7,12 @@ import JobApplicationModal from "@/components/JobApplicationModal";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
-  ArrowLeft, 
-  Hammer, 
-  Calendar, 
-  MapPin, 
-  Euro, 
+import {
+  ArrowLeft,
+  Hammer,
+  Calendar,
+  MapPin,
+  Euro,
   MessageCircle,
   Bell,
   TrendingUp,
@@ -30,7 +30,7 @@ import {
   CalendarCheck,
   FileText,
   AlertCircle,
-  ClockIcon
+  ClockIcon,
 } from "lucide-react";
 
 export default function CraftsmanDashboard() {
@@ -42,15 +42,15 @@ export default function CraftsmanDashboard() {
     // Update active offers count
     const newCount = activeOffers + 1;
     setActiveOffers(newCount);
-    localStorage.setItem('activeOffers', newCount.toString());
+    localStorage.setItem("activeOffers", newCount.toString());
 
     // Show success message or handle further logic
-    console.log('Job application submitted:', applicationData);
+    console.log("Job application submitted:", applicationData);
   };
 
   // Load jobs from localStorage
   const loadAvailableJobs = () => {
-    const publicJobs = JSON.parse(localStorage.getItem('publicJobs') || '[]');
+    const publicJobs = JSON.parse(localStorage.getItem("publicJobs") || "[]");
     setAvailableJobs(publicJobs);
   };
 
@@ -64,11 +64,11 @@ export default function CraftsmanDashboard() {
     } else if (job.postedDate) {
       createdDate = new Date(job.postedDate);
     } else {
-      return 'Zojuist geplaatst';
+      return "Zojuist geplaatst";
     }
 
     if (isNaN(createdDate.getTime())) {
-      return 'Zojuist geplaatst';
+      return "Zojuist geplaatst";
     }
 
     const now = new Date();
@@ -77,33 +77,33 @@ export default function CraftsmanDashboard() {
     const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-    if (diffMins < 1) return 'Zojuist geplaatst';
+    if (diffMins < 1) return "Zojuist geplaatst";
     if (diffMins < 60) return `${diffMins} min geleden`;
     if (diffHours < 24) return `${diffHours} uur geleden`;
-    if (diffDays === 1) return 'Gisteren';
+    if (diffDays === 1) return "Gisteren";
     if (diffDays < 7) return `${diffDays} dagen geleden`;
 
-    return createdDate.toLocaleDateString('nl-NL', {
-      day: 'numeric',
-      month: 'short'
+    return createdDate.toLocaleDateString("nl-NL", {
+      day: "numeric",
+      month: "short",
     });
   };
 
   useEffect(() => {
     // Ensure user plan defaults to 'free' if not set
-    const currentPlan = localStorage.getItem('userPlan');
+    const currentPlan = localStorage.getItem("userPlan");
     if (!currentPlan) {
-      localStorage.setItem('userPlan', 'free');
+      localStorage.setItem("userPlan", "free");
     }
 
     // Load active offers from localStorage
-    const storedOffers = localStorage.getItem('activeOffers');
+    const storedOffers = localStorage.getItem("activeOffers");
     if (storedOffers) {
       setActiveOffers(parseInt(storedOffers));
     }
 
     // Load pending invoices from localStorage
-    const storedInvoices = localStorage.getItem('pendingInvoices');
+    const storedInvoices = localStorage.getItem("pendingInvoices");
     if (storedInvoices) {
       setPendingInvoices(JSON.parse(storedInvoices));
     }
@@ -112,16 +112,16 @@ export default function CraftsmanDashboard() {
     loadAvailableJobs();
 
     // Listen for job updates
-    window.addEventListener('storage', loadAvailableJobs);
-    window.addEventListener('jobAdded', loadAvailableJobs);
-    window.addEventListener('jobUpdated', loadAvailableJobs);
-    window.addEventListener('jobDeleted', loadAvailableJobs);
+    window.addEventListener("storage", loadAvailableJobs);
+    window.addEventListener("jobAdded", loadAvailableJobs);
+    window.addEventListener("jobUpdated", loadAvailableJobs);
+    window.addEventListener("jobDeleted", loadAvailableJobs);
 
     return () => {
-      window.removeEventListener('storage', loadAvailableJobs);
-      window.removeEventListener('jobAdded', loadAvailableJobs);
-      window.removeEventListener('jobUpdated', loadAvailableJobs);
-      window.removeEventListener('jobDeleted', loadAvailableJobs);
+      window.removeEventListener("storage", loadAvailableJobs);
+      window.removeEventListener("jobAdded", loadAvailableJobs);
+      window.removeEventListener("jobUpdated", loadAvailableJobs);
+      window.removeEventListener("jobDeleted", loadAvailableJobs);
     };
   }, []);
 
@@ -130,13 +130,13 @@ export default function CraftsmanDashboard() {
       id: 1,
       title: "Luxe badkamer renovatie",
       client: {
-        name: "Jan de Vries"
+        name: "Jan de Vries",
       },
       location: "Amsterdam Noord",
       budget: {
         min: 2500,
         max: 4000,
-        currency: "EUR"
+        currency: "EUR",
       },
       distance: "2.1 km",
       posted: "15 min geleden",
@@ -144,21 +144,21 @@ export default function CraftsmanDashboard() {
       customerDetails: "Volledige contactgegevens beschikbaar",
       timing: {
         startDate: "2024-02-15",
-        duration: "2-3 weken"
+        duration: "2-3 weken",
       },
-      category: "Badkamer renovatie"
+      category: "Badkamer renovatie",
     },
     {
       id: 2,
       title: "Design keuken installatie",
       client: {
-        name: "Marie Jansen"
+        name: "Marie Jansen",
       },
       location: "Amsterdam Centrum",
       budget: {
         min: 5000,
         max: 8000,
-        currency: "EUR"
+        currency: "EUR",
       },
       distance: "5.3 km",
       posted: "1 uur geleden",
@@ -166,21 +166,21 @@ export default function CraftsmanDashboard() {
       customerDetails: "Premium klant - directe toegang",
       timing: {
         startDate: "2024-02-20",
-        duration: "3-4 weken"
+        duration: "3-4 weken",
       },
-      category: "Keuken installatie"
+      category: "Keuken installatie",
     },
     {
       id: 3,
       title: "Dak isolatie project",
       client: {
-        name: "Peter Bakker"
+        name: "Peter Bakker",
       },
       location: "Amsterdam West",
       budget: {
         min: 3000,
         max: 5000,
-        currency: "EUR"
+        currency: "EUR",
       },
       distance: "3.8 km",
       posted: "2 uur geleden",
@@ -188,10 +188,10 @@ export default function CraftsmanDashboard() {
       customerDetails: "Volledige contactgegevens beschikbaar",
       timing: {
         startDate: "2024-02-10",
-        duration: "1 week"
+        duration: "1 week",
       },
-      category: "Isolatie werk"
-    }
+      category: "Isolatie werk",
+    },
   ];
 
   const pricingTiers = [
@@ -204,28 +204,28 @@ export default function CraftsmanDashboard() {
         "Basis toegang tot klussen",
         "Beperkte klantdetails",
         "Standaard ondersteuning",
-        "15% commissie per klus"
+        "15% commissie per klus",
       ],
       current: true,
       buttonText: "Huidige plan",
-      color: "from-premium-600 to-premium-700"
+      color: "from-premium-600 to-premium-700",
     },
     {
       name: "Professional",
       price: "€50",
-      period: "/maand", 
+      period: "/maand",
       commission: "7,5%",
       features: [
         "Volledige klantdetails",
         "Directe contactgegevens",
         "Premium ondersteuning",
         "Slechts 7,5% commissie",
-        "Geavanceerde tools"
+        "Geavanceerde tools",
       ],
       current: false,
       buttonText: "Upgrade nu",
       color: "from-klusdirect-blue to-klusdirect-blue-dark",
-      popular: true
+      popular: true,
     },
     {
       name: "Elite",
@@ -238,12 +238,12 @@ export default function CraftsmanDashboard() {
         "Agenda integratie",
         "Premium marketing boost",
         "Voorrang in zoekresultaten",
-        "Exclusieve projecten"
+        "Exclusieve projecten",
       ],
       current: false,
       buttonText: "Word Elite",
-      color: "from-klusdirect-orange to-klusdirect-gold"
-    }
+      color: "from-klusdirect-orange to-klusdirect-gold",
+    },
   ];
 
   return (
@@ -269,17 +269,32 @@ export default function CraftsmanDashboard() {
                 </h1>
                 <div className="flex items-center space-x-1">
                   <Crown className="w-3 h-3 text-klusdirect-gold" />
-                  <span className="text-xs text-klusdirect-gold font-medium">ELITE</span>
+                  <span className="text-xs text-klusdirect-gold font-medium">
+                    ELITE
+                  </span>
                 </div>
               </div>
             </Link>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="relative text-premium-300 hover:text-klusdirect-gold">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="relative text-premium-300 hover:text-klusdirect-gold"
+              >
                 <Bell className="w-5 h-5" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-klusdirect-orange rounded-full animate-pulse"></div>
               </Button>
-              <span className="text-premium-200">Welkom, <span className="text-klusdirect-gold font-medium">Piet Bakker</span></span>
-              <Button variant="outline" size="sm" className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10">
+              <span className="text-premium-200">
+                Welkom,{" "}
+                <span className="text-klusdirect-gold font-medium">
+                  Piet Bakker
+                </span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10"
+              >
                 Uitloggen
               </Button>
             </div>
@@ -301,7 +316,10 @@ export default function CraftsmanDashboard() {
             </div>
             <div className="flex gap-3 mt-4 md:mt-0">
               <ProfileEditModal>
-                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                <Button
+                  variant="outline"
+                  className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                >
                   <Settings className="w-4 h-4 mr-2" />
                   Profiel bewerken
                 </Button>
@@ -322,7 +340,9 @@ export default function CraftsmanDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Nieuwe klussen</p>
-                    <p className="text-3xl font-bold text-premium-50">{availableJobs.length}</p>
+                    <p className="text-3xl font-bold text-premium-50">
+                      {availableJobs.length}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-orange/10 rounded-xl flex items-center justify-center">
                     <Bell className="w-6 h-6 text-klusdirect-orange" />
@@ -330,13 +350,15 @@ export default function CraftsmanDashboard() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Actieve offertes</p>
-                    <p className="text-3xl font-bold text-premium-50">{activeOffers}</p>
+                    <p className="text-3xl font-bold text-premium-50">
+                      {activeOffers}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-blue/20 to-klusdirect-blue/10 rounded-xl flex items-center justify-center">
                     <MessageCircle className="w-6 h-6 text-klusdirect-blue" />
@@ -344,7 +366,7 @@ export default function CraftsmanDashboard() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -358,7 +380,7 @@ export default function CraftsmanDashboard() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
@@ -385,13 +407,16 @@ export default function CraftsmanDashboard() {
             <CardContent>
               <div className="grid md:grid-cols-3 gap-6">
                 {pricingTiers.map((tier, index) => (
-                  <Card key={index} className={`glass border transition-all duration-300 hover:scale-105 ${
-                    tier.current 
-                      ? 'border-premium-500/50' 
-                      : tier.popular 
-                        ? 'border-klusdirect-blue/50 glow-orange' 
-                        : 'border-premium-600/30 hover:border-klusdirect-gold/30'
-                  } ${tier.popular ? 'relative' : ''}`}>
+                  <Card
+                    key={index}
+                    className={`glass border transition-all duration-300 hover:scale-105 ${
+                      tier.current
+                        ? "border-premium-500/50"
+                        : tier.popular
+                          ? "border-klusdirect-blue/50 glow-orange"
+                          : "border-premium-600/30 hover:border-klusdirect-gold/30"
+                    } ${tier.popular ? "relative" : ""}`}
+                  >
                     {tier.popular && (
                       <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
                         <Badge className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white px-4 py-1">
@@ -402,25 +427,36 @@ export default function CraftsmanDashboard() {
                     )}
                     <CardContent className="p-6">
                       <div className="text-center mb-6">
-                        <h3 className="text-xl font-bold text-premium-50 mb-2">{tier.name}</h3>
+                        <h3 className="text-xl font-bold text-premium-50 mb-2">
+                          {tier.name}
+                        </h3>
                         <div className="flex items-center justify-center mb-2">
-                          <span className="text-3xl font-bold text-premium-gradient">{tier.price}</span>
-                          <span className="text-premium-300">{tier.period}</span>
+                          <span className="text-3xl font-bold text-premium-gradient">
+                            {tier.price}
+                          </span>
+                          <span className="text-premium-300">
+                            {tier.period}
+                          </span>
                         </div>
                         <div className="bg-gradient-to-r from-red-500/20 to-red-400/20 px-3 py-1 rounded-full border border-red-500/30">
-                          <span className="text-red-400 text-sm font-medium">{tier.commission} commissie</span>
+                          <span className="text-red-400 text-sm font-medium">
+                            {tier.commission} commissie
+                          </span>
                         </div>
                       </div>
-                      
+
                       <ul className="space-y-3 mb-6">
                         {tier.features.map((feature, i) => (
-                          <li key={i} className="flex items-center text-premium-200">
+                          <li
+                            key={i}
+                            className="flex items-center text-premium-200"
+                          >
                             <CheckCircle className="w-4 h-4 text-klusdirect-gold mr-3 flex-shrink-0" />
                             <span className="text-sm">{feature}</span>
                           </li>
                         ))}
                       </ul>
-                      
+
                       {tier.current ? (
                         <Button
                           className="w-full bg-premium-600 hover:bg-premium-500 text-premium-200"
@@ -430,15 +466,17 @@ export default function CraftsmanDashboard() {
                           {tier.buttonText}
                         </Button>
                       ) : (
-                        <SubscriptionUpgradeModal plan={{
-                          name: tier.name,
-                          price: parseInt(tier.price.replace('€', '')),
-                          period: tier.period,
-                          commission: tier.commission,
-                          features: tier.features,
-                          buttonText: tier.buttonText,
-                          color: tier.color
-                        }}>
+                        <SubscriptionUpgradeModal
+                          plan={{
+                            name: tier.name,
+                            price: parseInt(tier.price.replace("€", "")),
+                            period: tier.period,
+                            commission: tier.commission,
+                            features: tier.features,
+                            buttonText: tier.buttonText,
+                            color: tier.color,
+                          }}
+                        >
                           <Button
                             className={`w-full bg-gradient-to-r ${tier.color} text-white hover:scale-105 transition-transform`}
                           >
@@ -467,7 +505,10 @@ export default function CraftsmanDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {availableJobs.map((job) => (
-                  <div key={job.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-orange/30 transition-all duration-300">
+                  <div
+                    key={job.id}
+                    className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-orange/30 transition-all duration-300"
+                  >
                     <div className="flex flex-col md:flex-row md:items-center justify-between">
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-3">
@@ -475,11 +516,16 @@ export default function CraftsmanDashboard() {
                             {job.title}
                           </h3>
                           <div className="flex gap-2">
-                            <Badge 
-                              variant={job.urgency === "Premium" ? "default" : "secondary"}
-                              className={job.urgency === "Premium" 
-                                ? "bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black" 
-                                : "bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white"
+                            <Badge
+                              variant={
+                                job.urgency === "Premium"
+                                  ? "default"
+                                  : "secondary"
+                              }
+                              className={
+                                job.urgency === "Premium"
+                                  ? "bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black"
+                                  : "bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white"
                               }
                             >
                               <Crown className="w-3 h-3 mr-1" />
@@ -487,14 +533,19 @@ export default function CraftsmanDashboard() {
                             </Badge>
                           </div>
                         </div>
-                        
+
                         <div className="flex items-center mb-3">
                           <p className="text-premium-200 mr-4">
-                            Klant: <span className="text-klusdirect-gold font-medium">{job.client.name}</span>
+                            Klant:{" "}
+                            <span className="text-klusdirect-gold font-medium">
+                              {job.client.name}
+                            </span>
                           </p>
                           <div className="flex items-center text-klusdirect-blue">
                             <Eye className="w-4 h-4 mr-1" />
-                            <span className="text-sm">{job.customerDetails}</span>
+                            <span className="text-sm">
+                              {job.customerDetails}
+                            </span>
                           </div>
                         </div>
 
@@ -505,7 +556,8 @@ export default function CraftsmanDashboard() {
                           </div>
                           <div className="flex items-center">
                             <Euro className="w-4 h-4 mr-1 text-green-400" />
-                            ���{job.budget.min.toLocaleString()}-{job.budget.max.toLocaleString()}
+                            ���{job.budget.min.toLocaleString()}-
+                            {job.budget.max.toLocaleString()}
                           </div>
                           <div className="flex items-center">
                             <Clock className="w-4 h-4 mr-1 text-klusdirect-blue" />
@@ -513,10 +565,14 @@ export default function CraftsmanDashboard() {
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="flex gap-3 mt-4 md:mt-0">
                         <Link to={`/job/${job.id}`}>
-                          <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                          >
                             <Eye className="w-4 h-4 mr-2" />
                             Details
                           </Button>
@@ -525,7 +581,10 @@ export default function CraftsmanDashboard() {
                           job={job}
                           onApplicationSubmit={handleJobApplication}
                         >
-                          <Button size="sm" className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform">
+                          <Button
+                            size="sm"
+                            className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform"
+                          >
                             <Target className="w-4 h-4 mr-2" />
                             Aanmelden
                           </Button>
@@ -544,7 +603,8 @@ export default function CraftsmanDashboard() {
                       Geen klussen beschikbaar
                     </h3>
                     <p className="text-premium-300 mb-6">
-                      Er zijn momenteel geen nieuwe klussen in jouw gebied. Kom later terug of vergroot je zoekgebied.
+                      Er zijn momenteel geen nieuwe klussen in jouw gebied. Kom
+                      later terug of vergroot je zoekgebied.
                     </p>
                   </div>
                 )}
@@ -552,10 +612,14 @@ export default function CraftsmanDashboard() {
                 {availableJobs.length > 0 && (
                   <div className="text-center py-4">
                     <p className="text-premium-300 mb-4">
-                      Upgrade naar Professional voor meer klantdetails of Elite voor push notificaties
+                      Upgrade naar Professional voor meer klantdetails of Elite
+                      voor push notificaties
                     </p>
                     <div className="flex justify-center gap-3">
-                      <Button variant="outline" className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10">
+                      <Button
+                        variant="outline"
+                        className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10"
+                      >
                         <Smartphone className="w-4 h-4 mr-2" />
                         Elite upgrade (€100/maand)
                       </Button>
@@ -578,7 +642,10 @@ export default function CraftsmanDashboard() {
               <CardContent>
                 <div className="space-y-4">
                   {pendingInvoices.map((invoice: any, index: number) => (
-                    <div key={index} className="glass border border-premium-600/30 rounded-lg p-4 hover:border-klusdirect-gold/30 transition-all duration-300">
+                    <div
+                      key={index}
+                      className="glass border border-premium-600/30 rounded-lg p-4 hover:border-klusdirect-gold/30 transition-all duration-300"
+                    >
                       <div className="flex flex-col md:flex-row md:items-center justify-between">
                         <div className="flex-1">
                           <div className="flex items-start justify-between mb-3">
@@ -587,28 +654,41 @@ export default function CraftsmanDashboard() {
                             </h3>
                             <div className="flex items-center space-x-2">
                               <div className="w-2 h-2 bg-yellow-400 rounded-full animate-pulse"></div>
-                              <span className="text-yellow-400 text-sm font-medium">In behandeling</span>
+                              <span className="text-yellow-400 text-sm font-medium">
+                                In behandeling
+                              </span>
                             </div>
                           </div>
 
                           <div className="flex items-center mb-3">
                             <p className="text-premium-200 mr-4">
-                              Klant: <span className="text-klusdirect-gold font-medium">{invoice.clientName}</span>
+                              Klant:{" "}
+                              <span className="text-klusdirect-gold font-medium">
+                                {invoice.clientName}
+                              </span>
                             </p>
                             <div className="flex items-center text-premium-400">
                               <Calendar className="w-4 h-4 mr-1" />
-                              <span className="text-sm">Ingediend: {new Date(invoice.applicationDate).toLocaleDateString('nl-NL')}</span>
+                              <span className="text-sm">
+                                Ingediend:{" "}
+                                {new Date(
+                                  invoice.applicationDate,
+                                ).toLocaleDateString("nl-NL")}
+                              </span>
                             </div>
                           </div>
 
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-premium-300">
                             <div className="flex items-center">
                               <Euro className="w-4 h-4 mr-1 text-green-400" />
-                              Offerte: €{invoice.proposedAmount?.toLocaleString()}
+                              Offerte: €
+                              {invoice.proposedAmount?.toLocaleString()}
                             </div>
                             <div className="flex items-center">
                               <FileText className="w-4 h-4 mr-1 text-klusdirect-orange" />
-                              Commissie: €{invoice.commissionAmount?.toLocaleString()} ({invoice.commissionRate}%)
+                              Commissie: €
+                              {invoice.commissionAmount?.toLocaleString()} (
+                              {invoice.commissionRate}%)
                             </div>
                             <div className="flex items-center">
                               <Euro className="w-4 h-4 mr-1 text-green-400" />
@@ -622,7 +702,11 @@ export default function CraftsmanDashboard() {
                         </div>
 
                         <div className="flex gap-3 mt-4 md:mt-0">
-                          <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                          >
                             <Eye className="w-4 h-4 mr-2" />
                             Bekijk offerte
                           </Button>
@@ -639,8 +723,9 @@ export default function CraftsmanDashboard() {
                           Factuur status
                         </h4>
                         <p className="text-premium-300 text-sm">
-                          Facturen worden automatisch gegenereerd zodra de klant je offerte accepteert.
-                          De commissie wordt automatisch ingehouden bij betaling.
+                          Facturen worden automatisch gegenereerd zodra de klant
+                          je offerte accepteert. De commissie wordt automatisch
+                          ingehouden bij betaling.
                         </p>
                       </div>
                     </div>
@@ -663,15 +748,21 @@ export default function CraftsmanDashboard() {
                 <div className="space-y-4">
                   <div className="flex justify-between">
                     <span className="text-premium-300">Deze week</span>
-                    <span className="font-semibold text-premium-50">€2.150</span>
+                    <span className="font-semibold text-premium-50">
+                      €2.150
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-premium-300">Deze maand</span>
-                    <span className="font-semibold text-premium-50">€8.750</span>
+                    <span className="font-semibold text-premium-50">
+                      €8.750
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-premium-300">Commissie (15%)</span>
-                    <span className="font-semibold text-red-400">-€1.312.50</span>
+                    <span className="font-semibold text-red-400">
+                      -€1.312.50
+                    </span>
                   </div>
                   <div className="p-3 bg-klusdirect-blue/10 rounded-lg border border-klusdirect-blue/20">
                     <p className="text-klusdirect-blue text-sm">
@@ -703,10 +794,13 @@ export default function CraftsmanDashboard() {
                           <Star key={i} className="w-4 h-4 fill-current" />
                         ))}
                       </div>
-                      <span className="ml-2 text-sm text-premium-300">Marie J.</span>
+                      <span className="ml-2 text-sm text-premium-300">
+                        Marie J.
+                      </span>
                     </div>
                     <p className="text-sm text-premium-200">
-                      "Perfecte uitvoering van onze luxe badkamer. Absolute top kwaliteit!"
+                      "Perfecte uitvoering van onze luxe badkamer. Absolute top
+                      kwaliteit!"
                     </p>
                   </div>
                   <div className="border-l-4 border-klusdirect-blue pl-4 glass rounded-r-lg p-3">
@@ -716,10 +810,13 @@ export default function CraftsmanDashboard() {
                           <Star key={i} className="w-4 h-4 fill-current" />
                         ))}
                       </div>
-                      <span className="ml-2 text-sm text-premium-300">Jan D.</span>
+                      <span className="ml-2 text-sm text-premium-300">
+                        Jan D.
+                      </span>
                     </div>
                     <p className="text-sm text-premium-200">
-                      "Uitmuntend vakmanschap, zeer professioneel en betrouwbaar!"
+                      "Uitmuntend vakmanschap, zeer professioneel en
+                      betrouwbaar!"
                     </p>
                   </div>
                 </div>
@@ -737,11 +834,16 @@ export default function CraftsmanDashboard() {
                 Elite Dashboard in ontwikkeling
               </h3>
               <p className="text-premium-300 mb-6 max-w-2xl mx-auto">
-                Dit is een preview van het elite vakman dashboard. Alle premium functionaliteiten worden momenteel ontwikkeld, 
-                inclusief push notificaties, agenda integratie, geavanceerde offerte tools en exclusieve klant toegang.
+                Dit is een preview van het elite vakman dashboard. Alle premium
+                functionaliteiten worden momenteel ontwikkeld, inclusief push
+                notificaties, agenda integratie, geavanceerde offerte tools en
+                exclusieve klant toegang.
               </p>
               <Link to="/">
-                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                <Button
+                  variant="outline"
+                  className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Terug naar overzicht
                 </Button>

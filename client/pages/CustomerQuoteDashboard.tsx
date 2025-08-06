@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
+import {
   Bell,
   Euro,
   Calendar,
@@ -21,7 +21,7 @@ import {
   ArrowLeft,
   Eye,
   Download,
-  Hammer
+  Hammer,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import QuoteAcceptanceModal from "@/components/QuoteAcceptanceModal";
@@ -39,7 +39,7 @@ interface Quote {
   warranty: string;
   includesMaterials: boolean;
   submittedDate: string;
-  status: 'pending' | 'accepted' | 'rejected';
+  status: "pending" | "accepted" | "rejected";
   craftsmanContact: {
     phone: string;
     email: string;
@@ -55,38 +55,39 @@ export default function CustomerQuoteDashboard() {
   const [customerName] = useState("Marie Jansen"); // Would come from authentication
 
   const handleQuoteAcceptance = (acceptanceData: any) => {
-    console.log('Quote accepted:', acceptanceData);
+    console.log("Quote accepted:", acceptanceData);
     // This would trigger notifications to the craftsman
   };
 
   useEffect(() => {
     // Load quotes from localStorage (would normally come from API)
-    const storedInvoices = localStorage.getItem('pendingInvoices');
+    const storedInvoices = localStorage.getItem("pendingInvoices");
     if (storedInvoices) {
       const invoices = JSON.parse(storedInvoices);
       // Convert craftsman invoices to customer quotes
       const customerQuotes = invoices.map((invoice: any) => ({
         id: invoice.invoiceNumber,
         jobTitle: invoice.jobTitle,
-        craftsmanName: invoice.clientName || 'Piet Bakker', // This would be the craftsman name
-        companyName: 'Bakker Timmerwerken B.V.',
+        craftsmanName: invoice.clientName || "Piet Bakker", // This would be the craftsman name
+        companyName: "Bakker Timmerwerken B.V.",
         proposedAmount: invoice.proposedAmount,
-        estimatedHours: invoice.estimatedHours || '8',
+        estimatedHours: invoice.estimatedHours || "8",
         startDate: invoice.estimatedStartDate || invoice.applicationDate,
-        message: invoice.message || 'Graag zou ik deze klus voor u uitvoeren.',
-        materials: invoice.materials || 'Materialen zijn inbegrepen in de prijs',
-        warranty: invoice.warranty || '12',
+        message: invoice.message || "Graag zou ik deze klus voor u uitvoeren.",
+        materials:
+          invoice.materials || "Materialen zijn inbegrepen in de prijs",
+        warranty: invoice.warranty || "12",
         includesMaterials: invoice.includesMaterials || true,
         submittedDate: invoice.applicationDate,
-        status: invoice.status === 'pending' ? 'pending' : 'accepted',
+        status: invoice.status === "pending" ? "pending" : "accepted",
         craftsmanContact: {
-          phone: '06 12345678',
-          email: 'piet@bakker-timmer.nl'
+          phone: "06 12345678",
+          email: "piet@bakker-timmer.nl",
         },
         commissionAmount: invoice.commissionAmount,
         netAmount: invoice.netAmount,
         commissionRate: invoice.commissionRate,
-        invoiceNumber: invoice.invoiceNumber
+        invoiceNumber: invoice.invoiceNumber,
       }));
       setQuotes(customerQuotes);
     }
@@ -94,27 +95,35 @@ export default function CustomerQuoteDashboard() {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
-      case 'accepted': return 'bg-green-500/20 text-green-400 border-green-500/30';
-      case 'rejected': return 'bg-red-500/20 text-red-400 border-red-500/30';
-      default: return 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+      case "pending":
+        return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
+      case "accepted":
+        return "bg-green-500/20 text-green-400 border-green-500/30";
+      case "rejected":
+        return "bg-red-500/20 text-red-400 border-red-500/30";
+      default:
+        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     }
   };
 
   const getStatusText = (status: string) => {
     switch (status) {
-      case 'pending': return 'Wacht op uw beslissing';
-      case 'accepted': return 'Geaccepteerd';
-      case 'rejected': return 'Afgewezen';
-      default: return status;
+      case "pending":
+        return "Wacht op uw beslissing";
+      case "accepted":
+        return "Geaccepteerd";
+      case "rejected":
+        return "Afgewezen";
+      default:
+        return status;
     }
   };
 
   const formatDate = (dateStr: string) => {
-    return new Date(dateStr).toLocaleDateString('nl-NL', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
+    return new Date(dateStr).toLocaleDateString("nl-NL", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
     });
   };
 
@@ -139,18 +148,33 @@ export default function CustomerQuoteDashboard() {
                 <h1 className="text-2xl font-bold text-premium-gradient">
                   KlusDirect
                 </h1>
-                <span className="text-xs text-premium-400">Klant Dashboard</span>
+                <span className="text-xs text-premium-400">
+                  Klant Dashboard
+                </span>
               </div>
             </Link>
             <div className="flex items-center space-x-4">
-              <Button variant="ghost" size="sm" className="relative text-premium-300 hover:text-klusdirect-gold">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="relative text-premium-300 hover:text-klusdirect-gold"
+              >
                 <Bell className="w-5 h-5" />
-                {quotes.filter(q => q.status === 'pending').length > 0 && (
+                {quotes.filter((q) => q.status === "pending").length > 0 && (
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-klusdirect-orange rounded-full animate-pulse"></div>
                 )}
               </Button>
-              <span className="text-premium-200">Welkom, <span className="text-klusdirect-gold font-medium">{customerName}</span></span>
-              <Button variant="outline" size="sm" className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10">
+              <span className="text-premium-200">
+                Welkom,{" "}
+                <span className="text-klusdirect-gold font-medium">
+                  {customerName}
+                </span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10"
+              >
                 Uitloggen
               </Button>
             </div>
@@ -171,7 +195,10 @@ export default function CustomerQuoteDashboard() {
               </p>
             </div>
             <Link to="/customer/dashboard">
-              <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700 mt-4 md:mt-0">
+              <Button
+                variant="outline"
+                className="border-premium-600 text-premium-200 hover:bg-premium-700 mt-4 md:mt-0"
+              >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Terug naar dashboard
               </Button>
@@ -186,7 +213,7 @@ export default function CustomerQuoteDashboard() {
                   <div>
                     <p className="text-premium-300 text-sm">Nieuwe offertes</p>
                     <p className="text-3xl font-bold text-premium-50">
-                      {quotes.filter(q => q.status === 'pending').length}
+                      {quotes.filter((q) => q.status === "pending").length}
                     </p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-yellow-500/20 to-yellow-500/10 rounded-xl flex items-center justify-center">
@@ -195,14 +222,14 @@ export default function CustomerQuoteDashboard() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Geaccepteerd</p>
                     <p className="text-3xl font-bold text-premium-50">
-                      {quotes.filter(q => q.status === 'accepted').length}
+                      {quotes.filter((q) => q.status === "accepted").length}
                     </p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-xl flex items-center justify-center">
@@ -211,14 +238,18 @@ export default function CustomerQuoteDashboard() {
                 </div>
               </CardContent>
             </Card>
-            
+
             <Card className="glass border border-premium-600/30">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Totaal waarde</p>
                     <p className="text-3xl font-bold text-premium-50">
-                      €{quotes.filter(q => q.status === 'accepted').reduce((sum, q) => sum + q.proposedAmount, 0).toLocaleString()}
+                      €
+                      {quotes
+                        .filter((q) => q.status === "accepted")
+                        .reduce((sum, q) => sum + q.proposedAmount, 0)
+                        .toLocaleString()}
                     </p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-gold/20 to-klusdirect-gold/10 rounded-xl flex items-center justify-center">
@@ -243,7 +274,10 @@ export default function CustomerQuoteDashboard() {
             <CardContent>
               <div className="space-y-4">
                 {quotes.map((quote) => (
-                  <div key={quote.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-orange/30 transition-all duration-300">
+                  <div
+                    key={quote.id}
+                    className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-orange/30 transition-all duration-300"
+                  >
                     <div className="flex flex-col md:flex-row md:items-start justify-between">
                       <div className="flex-1">
                         <div className="flex items-start justify-between mb-4">
@@ -262,46 +296,74 @@ export default function CustomerQuoteDashboard() {
                               </div>
                             </div>
                           </div>
-                          <Badge className={`${getStatusColor(quote.status)} border`}>
-                            {quote.status === 'pending' && <Clock className="w-3 h-3 mr-1" />}
-                            {quote.status === 'accepted' && <CheckCircle className="w-3 h-3 mr-1" />}
-                            {quote.status === 'rejected' && <AlertCircle className="w-3 h-3 mr-1" />}
+                          <Badge
+                            className={`${getStatusColor(quote.status)} border`}
+                          >
+                            {quote.status === "pending" && (
+                              <Clock className="w-3 h-3 mr-1" />
+                            )}
+                            {quote.status === "accepted" && (
+                              <CheckCircle className="w-3 h-3 mr-1" />
+                            )}
+                            {quote.status === "rejected" && (
+                              <AlertCircle className="w-3 h-3 mr-1" />
+                            )}
                             {getStatusText(quote.status)}
                           </Badge>
                         </div>
 
                         <div className="bg-premium-700/30 rounded-lg p-4 mb-4">
-                          <h4 className="text-premium-200 font-medium mb-2">Bericht van de vakman:</h4>
-                          <p className="text-premium-300 text-sm italic">"{quote.message}"</p>
+                          <h4 className="text-premium-200 font-medium mb-2">
+                            Bericht van de vakman:
+                          </h4>
+                          <p className="text-premium-300 text-sm italic">
+                            "{quote.message}"
+                          </p>
                         </div>
 
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                           <div className="flex items-center">
                             <Euro className="w-4 h-4 mr-2 text-green-400" />
                             <div>
-                              <p className="text-xs text-premium-400">Offerte bedrag</p>
-                              <p className="font-semibold text-premium-50">€{quote.proposedAmount.toLocaleString()}</p>
+                              <p className="text-xs text-premium-400">
+                                Offerte bedrag
+                              </p>
+                              <p className="font-semibold text-premium-50">
+                                €{quote.proposedAmount.toLocaleString()}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center">
                             <Clock className="w-4 h-4 mr-2 text-klusdirect-orange" />
                             <div>
-                              <p className="text-xs text-premium-400">Geschatte uren</p>
-                              <p className="font-semibold text-premium-50">{quote.estimatedHours}u</p>
+                              <p className="text-xs text-premium-400">
+                                Geschatte uren
+                              </p>
+                              <p className="font-semibold text-premium-50">
+                                {quote.estimatedHours}u
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center">
                             <Calendar className="w-4 h-4 mr-2 text-klusdirect-blue" />
                             <div>
-                              <p className="text-xs text-premium-400">Start datum</p>
-                              <p className="font-semibold text-premium-50">{formatDate(quote.startDate)}</p>
+                              <p className="text-xs text-premium-400">
+                                Start datum
+                              </p>
+                              <p className="font-semibold text-premium-50">
+                                {formatDate(quote.startDate)}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center">
                             <Star className="w-4 h-4 mr-2 text-yellow-400" />
                             <div>
-                              <p className="text-xs text-premium-400">Garantie</p>
-                              <p className="font-semibold text-premium-50">{quote.warranty} maanden</p>
+                              <p className="text-xs text-premium-400">
+                                Garantie
+                              </p>
+                              <p className="font-semibold text-premium-50">
+                                {quote.warranty} maanden
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -317,17 +379,20 @@ export default function CustomerQuoteDashboard() {
                           </div>
                           <div className="flex items-center">
                             <CheckCircle className="w-4 h-4 mr-1 text-green-400" />
-                            {quote.includesMaterials ? 'Materialen inbegrepen' : 'Materialen apart'}
+                            {quote.includesMaterials
+                              ? "Materialen inbegrepen"
+                              : "Materialen apart"}
                           </div>
                         </div>
 
                         <div className="text-xs text-premium-500">
-                          Offerte ontvangen op {formatDate(quote.submittedDate)} • Offerte nr. {quote.invoiceNumber}
+                          Offerte ontvangen op {formatDate(quote.submittedDate)}{" "}
+                          • Offerte nr. {quote.invoiceNumber}
                         </div>
                       </div>
-                      
+
                       <div className="flex flex-col gap-2 mt-4 md:mt-0 md:ml-6">
-                        {quote.status === 'pending' && (
+                        {quote.status === "pending" && (
                           <>
                             <QuoteAcceptanceModal
                               quote={quote}
@@ -350,19 +415,19 @@ export default function CustomerQuoteDashboard() {
                             </Button>
                           </>
                         )}
-                        {quote.status === 'accepted' && (
-                          <Button 
-                            variant="outline" 
-                            size="sm" 
+                        {quote.status === "accepted" && (
+                          <Button
+                            variant="outline"
+                            size="sm"
                             className="border-premium-600 text-premium-200 hover:bg-premium-700"
                           >
                             <Download className="w-4 h-4 mr-2" />
                             Download contract
                           </Button>
                         )}
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
+                        <Button
+                          variant="outline"
+                          size="sm"
                           className="border-premium-600 text-premium-200 hover:bg-premium-700"
                         >
                           <Eye className="w-4 h-4 mr-2" />

@@ -22,7 +22,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import EditJobModal from "./EditJobModal";
-import { 
+import {
   MapPin,
   Euro,
   Clock,
@@ -41,7 +41,7 @@ import {
   CheckCircle,
   AlertCircle,
   MessageCircle,
-  Star
+  Star,
 } from "lucide-react";
 
 interface CustomerJobDetailsModalProps {
@@ -51,7 +51,12 @@ interface CustomerJobDetailsModalProps {
   onJobDeleted?: () => void;
 }
 
-export default function CustomerJobDetailsModal({ children, job, onJobUpdated, onJobDeleted }: CustomerJobDetailsModalProps) {
+export default function CustomerJobDetailsModal({
+  children,
+  job,
+  onJobUpdated,
+  onJobDeleted,
+}: CustomerJobDetailsModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -67,18 +72,20 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
 
     try {
       // Get existing jobs
-      const existingJobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+      const existingJobs = JSON.parse(
+        localStorage.getItem("customerJobs") || "[]",
+      );
 
       // Filter out the job to delete
       const updatedJobs = existingJobs.filter((j: any) => j.id !== job.id);
 
       // Update localStorage
-      localStorage.setItem('customerJobs', JSON.stringify(updatedJobs));
+      localStorage.setItem("customerJobs", JSON.stringify(updatedJobs));
 
       // Also remove from public jobs
-      const publicJobs = JSON.parse(localStorage.getItem('publicJobs') || '[]');
+      const publicJobs = JSON.parse(localStorage.getItem("publicJobs") || "[]");
       const updatedPublicJobs = publicJobs.filter((j: any) => j.id !== job.id);
-      localStorage.setItem('publicJobs', JSON.stringify(updatedPublicJobs));
+      localStorage.setItem("publicJobs", JSON.stringify(updatedPublicJobs));
 
       setIsOpen(false);
       setIsDeleting(false);
@@ -89,10 +96,9 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
       }
 
       // Trigger custom event for dashboard refresh
-      window.dispatchEvent(new CustomEvent('jobDeleted'));
-
+      window.dispatchEvent(new CustomEvent("jobDeleted"));
     } catch (error) {
-      console.error('Error deleting job:', error);
+      console.error("Error deleting job:", error);
       setIsDeleting(false);
     }
   };
@@ -100,18 +106,18 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
   if (!job) return null;
 
   const formatDate = (dateString: string) => {
-    if (!dateString) return 'Datum niet ingesteld';
+    if (!dateString) return "Datum niet ingesteld";
 
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
-      return 'Ongeldige datum';
+      return "Ongeldige datum";
     }
 
-    return date.toLocaleDateString('nl-NL', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("nl-NL", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -134,35 +140,41 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'bathroom': return <Home className="w-5 h-5" />;
-      case 'kitchen': return <Wrench className="w-5 h-5" />;
-      case 'electrical': return <Zap className="w-5 h-5" />;
-      case 'plumbing': return <Wrench className="w-5 h-5" />;
-      case 'garden': return <Home className="w-5 h-5" />;
-      case 'painting': return <Home className="w-5 h-5" />;
-      case 'renovation': return <Building className="w-5 h-5" />;
-      default: return <Wrench className="w-5 h-5" />;
+      case "bathroom":
+        return <Home className="w-5 h-5" />;
+      case "kitchen":
+        return <Wrench className="w-5 h-5" />;
+      case "electrical":
+        return <Zap className="w-5 h-5" />;
+      case "plumbing":
+        return <Wrench className="w-5 h-5" />;
+      case "garden":
+        return <Home className="w-5 h-5" />;
+      case "painting":
+        return <Home className="w-5 h-5" />;
+      case "renovation":
+        return <Building className="w-5 h-5" />;
+      default:
+        return <Wrench className="w-5 h-5" />;
     }
   };
 
   const getCategoryName = (category: string) => {
     const categories = {
-      bathroom: 'Badkamer',
-      kitchen: 'Keuken', 
-      electrical: 'Elektra',
-      plumbing: 'Loodgieter',
-      garden: 'Tuin',
-      painting: 'Schilderwerk',
-      renovation: 'Renovatie'
+      bathroom: "Badkamer",
+      kitchen: "Keuken",
+      electrical: "Elektra",
+      plumbing: "Loodgieter",
+      garden: "Tuin",
+      painting: "Schilderwerk",
+      renovation: "Renovatie",
     };
     return categories[category] || category;
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto glass border border-premium-600/30">
         <DialogHeader>
           <DialogTitle className="text-2xl text-premium-50 flex items-center">
@@ -183,7 +195,9 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                   <div className="flex items-center space-x-4 text-sm text-premium-300">
                     <div className="flex items-center">
                       {getCategoryIcon(job.category)}
-                      <span className="ml-1">{getCategoryName(job.category)}</span>
+                      <span className="ml-1">
+                        {getCategoryName(job.category)}
+                      </span>
                     </div>
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-1 text-klusdirect-orange" />
@@ -218,9 +232,13 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                   <div className="flex items-start">
                     <Building className="w-4 h-4 mr-2 text-premium-400 mt-1" />
                     <div>
-                      <p className="text-premium-200">{job.jobLocation || job.location}</p>
+                      <p className="text-premium-200">
+                        {job.jobLocation || job.location}
+                      </p>
                       {job.isBusinessAccount && job.businessLocation && (
-                        <p className="text-premium-400 text-sm">Bedrijfslocatie: {job.businessLocation}</p>
+                        <p className="text-premium-400 text-sm">
+                          Bedrijfslocatie: {job.businessLocation}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -239,15 +257,24 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                 <div className="text-premium-200">
                   {job.budgetMin && job.budgetMax ? (
                     <>
-                      <p className="text-2xl font-bold text-green-400">€{job.budgetMin} - €{job.budgetMax}</p>
+                      <p className="text-2xl font-bold text-green-400">
+                        €{job.budgetMin} - €{job.budgetMax}
+                      </p>
                       <p className="text-sm text-premium-400 mt-1">
-                        {job.budgetType === 'hourly' ? 'Per uur' : 'Totaal project'} - Inclusief BTW
+                        {job.budgetType === "hourly"
+                          ? "Per uur"
+                          : "Totaal project"}{" "}
+                        - Inclusief BTW
                       </p>
                     </>
                   ) : (
                     <>
-                      <p className="text-2xl font-bold text-premium-400">Nog niet ingesteld</p>
-                      <p className="text-sm text-premium-400 mt-1">Budget kan later worden aangepast</p>
+                      <p className="text-2xl font-bold text-premium-400">
+                        Nog niet ingesteld
+                      </p>
+                      <p className="text-sm text-premium-400 mt-1">
+                        Budget kan later worden aangepast
+                      </p>
                     </>
                   )}
                 </div>
@@ -266,14 +293,22 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <p className="text-premium-400 text-sm mb-1">Gewenste startdatum</p>
+                  <p className="text-premium-400 text-sm mb-1">
+                    Gewenste startdatum
+                  </p>
                   <p className="text-premium-200">
-                    {job.startDate ? formatDate(job.startDate) : 'Zo snel mogelijk'}
+                    {job.startDate
+                      ? formatDate(job.startDate)
+                      : "Zo snel mogelijk"}
                   </p>
                 </div>
                 <div>
-                  <p className="text-premium-400 text-sm mb-1">Geschatte duur</p>
-                  <p className="text-premium-200">{job.estimatedDuration || 'Te bepalen'}</p>
+                  <p className="text-premium-400 text-sm mb-1">
+                    Geschatte duur
+                  </p>
+                  <p className="text-premium-200">
+                    {job.estimatedDuration || "Te bepalen"}
+                  </p>
                 </div>
               </div>
             </CardContent>
@@ -315,7 +350,11 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                         className="w-full h-32 object-cover rounded-lg border border-premium-600/30"
                       />
                       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
-                        <Button size="sm" variant="ghost" className="text-white">
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          className="text-white"
+                        >
                           <Camera className="w-4 h-4 mr-1" />
                           Bekijk
                         </Button>
@@ -337,22 +376,28 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
             </CardHeader>
             <CardContent>
               <div className="flex items-center space-x-4">
-                {job.preferredContact === 'phone' && (
+                {job.preferredContact === "phone" && (
                   <div className="flex items-center">
                     <Phone className="w-4 h-4 mr-2 text-klusdirect-blue" />
-                    <span className="text-premium-200">Voorkeur voor telefonisch contact</span>
+                    <span className="text-premium-200">
+                      Voorkeur voor telefonisch contact
+                    </span>
                   </div>
                 )}
-                {job.preferredContact === 'email' && (
+                {job.preferredContact === "email" && (
                   <div className="flex items-center">
                     <Mail className="w-4 h-4 mr-2 text-klusdirect-blue" />
-                    <span className="text-premium-200">Voorkeur voor email contact</span>
+                    <span className="text-premium-200">
+                      Voorkeur voor email contact
+                    </span>
                   </div>
                 )}
-                {job.preferredContact === 'app' && (
+                {job.preferredContact === "app" && (
                   <div className="flex items-center">
                     <MessageCircle className="w-4 h-4 mr-2 text-klusdirect-blue" />
-                    <span className="text-premium-200">Voorkeur voor app berichten</span>
+                    <span className="text-premium-200">
+                      Voorkeur voor app berichten
+                    </span>
                   </div>
                 )}
               </div>
@@ -371,10 +416,15 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-5 h-5 text-green-400" />
-                  <span className="text-premium-200">Klus is geplaatst en zichtbaar voor vakmensen</span>
+                  <span className="text-premium-200">
+                    Klus is geplaatst en zichtbaar voor vakmensen
+                  </span>
                 </div>
                 <div className="flex gap-3">
-                  <EditJobModal job={job} onJobUpdated={handleJobUpdatedFromEdit}>
+                  <EditJobModal
+                    job={job}
+                    onJobUpdated={handleJobUpdatedFromEdit}
+                  >
                     <Button
                       variant="outline"
                       size="sm"
@@ -391,7 +441,7 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                         className="border-red-500 text-red-400 hover:bg-red-500/10"
                         disabled={isDeleting}
                       >
-                        {isDeleting ? 'Verwijderen...' : 'Verwijderen'}
+                        {isDeleting ? "Verwijderen..." : "Verwijderen"}
                       </Button>
                     </AlertDialogTrigger>
                     <AlertDialogContent className="glass border border-premium-600/30">
@@ -400,8 +450,9 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                           Klus verwijderen?
                         </AlertDialogTitle>
                         <AlertDialogDescription className="text-premium-300">
-                          Weet je zeker dat je de klus "{job.title}" wilt verwijderen?
-                          Deze actie kan niet ongedaan worden gemaakt. Alle bijbehorende offertes gaan ook verloren.
+                          Weet je zeker dat je de klus "{job.title}" wilt
+                          verwijderen? Deze actie kan niet ongedaan worden
+                          gemaakt. Alle bijbehorende offertes gaan ook verloren.
                         </AlertDialogDescription>
                       </AlertDialogHeader>
                       <AlertDialogFooter>
@@ -413,7 +464,7 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
                           className="bg-red-600 text-white hover:bg-red-700"
                           disabled={isDeleting}
                         >
-                          {isDeleting ? 'Verwijderen...' : 'Ja, verwijderen'}
+                          {isDeleting ? "Verwijderen..." : "Ja, verwijderen"}
                         </AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
@@ -425,7 +476,7 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
         </div>
 
         <div className="flex justify-end pt-4">
-          <Button 
+          <Button
             onClick={() => setIsOpen(false)}
             className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white"
           >

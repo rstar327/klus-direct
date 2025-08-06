@@ -16,7 +16,7 @@ import {
   CheckCircle,
   Star,
   Home,
-  Crown
+  Crown,
 } from "lucide-react";
 
 export default function CustomerDashboard() {
@@ -25,7 +25,7 @@ export default function CustomerDashboard() {
   useEffect(() => {
     // Load customer jobs from localStorage
     const loadCustomerJobs = () => {
-      const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+      const jobs = JSON.parse(localStorage.getItem("customerJobs") || "[]");
 
       // Fix jobs that don't have proper dates
       const fixedJobs = jobs.map((job: any) => {
@@ -33,7 +33,7 @@ export default function CustomerDashboard() {
           return {
             ...job,
             createdAt: new Date().toISOString(),
-            postedDate: new Date().toISOString()
+            postedDate: new Date().toISOString(),
           };
         }
         return job;
@@ -41,7 +41,7 @@ export default function CustomerDashboard() {
 
       // Save back if we fixed any jobs
       if (JSON.stringify(fixedJobs) !== JSON.stringify(jobs)) {
-        localStorage.setItem('customerJobs', JSON.stringify(fixedJobs));
+        localStorage.setItem("customerJobs", JSON.stringify(fixedJobs));
       }
 
       setCustomerJobs(fixedJobs);
@@ -50,46 +50,46 @@ export default function CustomerDashboard() {
     loadCustomerJobs();
 
     // Listen for storage changes (when new job is added)
-    window.addEventListener('storage', loadCustomerJobs);
+    window.addEventListener("storage", loadCustomerJobs);
 
     // Custom event for when job is added in same tab
-    window.addEventListener('jobAdded', loadCustomerJobs);
+    window.addEventListener("jobAdded", loadCustomerJobs);
 
     // Custom event for when job is deleted
-    window.addEventListener('jobDeleted', loadCustomerJobs);
+    window.addEventListener("jobDeleted", loadCustomerJobs);
 
     // Custom event for when job is updated
-    window.addEventListener('jobUpdated', loadCustomerJobs);
+    window.addEventListener("jobUpdated", loadCustomerJobs);
 
     return () => {
-      window.removeEventListener('storage', loadCustomerJobs);
-      window.removeEventListener('jobAdded', loadCustomerJobs);
-      window.removeEventListener('jobDeleted', loadCustomerJobs);
-      window.removeEventListener('jobUpdated', loadCustomerJobs);
+      window.removeEventListener("storage", loadCustomerJobs);
+      window.removeEventListener("jobAdded", loadCustomerJobs);
+      window.removeEventListener("jobDeleted", loadCustomerJobs);
+      window.removeEventListener("jobUpdated", loadCustomerJobs);
     };
   }, []);
 
   // Refresh handlers
   const handleJobUpdated = () => {
-    const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+    const jobs = JSON.parse(localStorage.getItem("customerJobs") || "[]");
     setCustomerJobs(jobs);
   };
 
   const handleJobDeleted = () => {
-    const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+    const jobs = JSON.parse(localStorage.getItem("customerJobs") || "[]");
     setCustomerJobs(jobs);
   };
 
   // Format jobs to match display structure
   const formatJobForDisplay = (job: any) => {
     // Format budget properly
-    let budgetDisplay = 'Budget niet ingesteld';
+    let budgetDisplay = "Budget niet ingesteld";
     if (job.budgetMin && job.budgetMax) {
       budgetDisplay = `€${job.budgetMin} - €${job.budgetMax}`;
     }
 
     // Format date properly - try multiple date fields
-    let dateDisplay = 'Onbekende datum';
+    let dateDisplay = "Onbekende datum";
     const possibleDates = [job.createdAt, job.postedDate];
 
     for (const dateField of possibleDates) {
@@ -97,10 +97,10 @@ export default function CustomerDashboard() {
         try {
           const date = new Date(dateField);
           if (!isNaN(date.getTime())) {
-            dateDisplay = date.toLocaleDateString('nl-NL', {
-              day: 'numeric',
-              month: 'short',
-              year: 'numeric'
+            dateDisplay = date.toLocaleDateString("nl-NL", {
+              day: "numeric",
+              month: "short",
+              year: "numeric",
             });
             break;
           }
@@ -111,11 +111,11 @@ export default function CustomerDashboard() {
     }
 
     // If still no valid date, use current date as fallback
-    if (dateDisplay === 'Onbekende datum') {
-      dateDisplay = new Date().toLocaleDateString('nl-NL', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
+    if (dateDisplay === "Onbekende datum") {
+      dateDisplay = new Date().toLocaleDateString("nl-NL", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
       });
     }
 
@@ -123,10 +123,10 @@ export default function CustomerDashboard() {
       id: job.id,
       title: job.title,
       status: "Wacht op offertes",
-      location: job.location || job.jobLocation || 'Locatie niet opgegeven',
+      location: job.location || job.jobLocation || "Locatie niet opgegeven",
       budget: budgetDisplay,
       date: dateDisplay,
-      quotes: 0 // Start with 0 quotes for new jobs
+      quotes: 0, // Start with 0 quotes for new jobs
     };
   };
 
@@ -153,13 +153,22 @@ export default function CustomerDashboard() {
                 </h1>
                 <div className="flex items-center space-x-1">
                   <Crown className="w-3 h-3 text-klusdirect-gold" />
-                  <span className="text-xs text-klusdirect-gold font-medium">PREMIUM</span>
+                  <span className="text-xs text-klusdirect-gold font-medium">
+                    PREMIUM
+                  </span>
                 </div>
               </div>
             </Link>
             <div className="flex items-center space-x-4">
-              <span className="text-premium-200">Welkom, <span className="text-klusdirect-blue font-medium">Jan</span></span>
-              <Button variant="outline" size="sm" className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10">
+              <span className="text-premium-200">
+                Welkom,{" "}
+                <span className="text-klusdirect-blue font-medium">Jan</span>
+              </span>
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10"
+              >
                 Uitloggen
               </Button>
             </div>
@@ -181,7 +190,10 @@ export default function CustomerDashboard() {
             </div>
             <div className="flex gap-3 mt-4 md:mt-0">
               <Link to="/customer/quotes">
-                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                <Button
+                  variant="outline"
+                  className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                >
                   <MessageCircle className="w-4 h-4 mr-2" />
                   Mijn Offertes
                 </Button>
@@ -202,7 +214,9 @@ export default function CustomerDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Premium klussen</p>
-                    <p className="text-3xl font-bold text-premium-50">{customerJobs.length}</p>
+                    <p className="text-3xl font-bold text-premium-50">
+                      {customerJobs.length}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-blue/20 to-klusdirect-blue/10 rounded-xl flex items-center justify-center">
                     <Clock className="w-6 h-6 text-klusdirect-blue" />
@@ -229,7 +243,9 @@ export default function CustomerDashboard() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-premium-300 text-sm">Voltooide projecten</p>
+                    <p className="text-premium-300 text-sm">
+                      Voltooide projecten
+                    </p>
                     <p className="text-3xl font-bold text-premium-50">15</p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-green-500/20 to-green-500/10 rounded-xl flex items-center justify-center">
@@ -267,7 +283,10 @@ export default function CustomerDashboard() {
                 {customerJobs.map((job) => {
                   const displayJob = formatJobForDisplay(job);
                   return (
-                    <div key={displayJob.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-gold/30 transition-all duration-300">
+                    <div
+                      key={displayJob.id}
+                      className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-gold/30 transition-all duration-300"
+                    >
                       <div className="flex flex-col md:flex-row md:items-center justify-between">
                         <div className="flex-1">
                           <div className="flex items-start justify-between mb-3">
@@ -306,12 +325,19 @@ export default function CustomerDashboard() {
                             onJobUpdated={handleJobUpdated}
                             onJobDeleted={handleJobDeleted}
                           >
-                            <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                            >
                               Details
                             </Button>
                           </CustomerJobDetailsModal>
                           {displayJob.quotes > 0 && (
-                            <Button size="sm" className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform">
+                            <Button
+                              size="sm"
+                              className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform"
+                            >
                               Bekijk Premium Offertes
                             </Button>
                           )}
@@ -331,7 +357,8 @@ export default function CustomerDashboard() {
                     Nog geen premium klussen geplaatst
                   </h3>
                   <p className="text-premium-200 mb-8">
-                    Plaats jouw eerste premium klus en ontvang elite offertes van de beste vakmensen
+                    Plaats jouw eerste premium klus en ontvang elite offertes
+                    van de beste vakmensen
                   </p>
                   <Button className="bg-gradient-to-r from-klusdirect-blue to-klusdirect-blue-dark text-white font-semibold">
                     <Plus className="w-4 h-4 mr-2" />
@@ -352,11 +379,16 @@ export default function CustomerDashboard() {
                 Premium Dashboard in ontwikkeling
               </h3>
               <p className="text-premium-200 mb-6 max-w-2xl mx-auto">
-                Dit is een preview van het premium klant dashboard. Alle luxury functionaliteiten worden momenteel ontwikkeld,
-                inclusief exclusive klus plaatsen, elite offertes beheren, premium betalingen en directe communicatie met top vakmensen.
+                Dit is een preview van het premium klant dashboard. Alle luxury
+                functionaliteiten worden momenteel ontwikkeld, inclusief
+                exclusive klus plaatsen, elite offertes beheren, premium
+                betalingen en directe communicatie met top vakmensen.
               </p>
               <Link to="/">
-                <Button variant="outline" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                <Button
+                  variant="outline"
+                  className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                >
                   <ArrowLeft className="w-4 h-4 mr-2" />
                   Terug naar home
                 </Button>
