@@ -193,61 +193,59 @@ export default function CustomerDashboard() {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                {mockJobs.map((job) => (
-                  <div key={job.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-gold/30 transition-all duration-300">
-                    <div className="flex flex-col md:flex-row md:items-center justify-between">
-                      <div className="flex-1">
-                        <div className="flex items-start justify-between mb-3">
-                          <h3 className="text-lg font-semibold text-premium-50">
-                            {job.title}
-                          </h3>
-                          <Badge
-                            className={job.status.includes("Premium") || job.status.includes("Elite")
-                              ? "bg-gradient-to-r from-klusdirect-gold/20 to-klusdirect-orange/20 text-klusdirect-gold border border-klusdirect-gold/30"
-                              : "bg-gradient-to-r from-klusdirect-blue/20 to-klusdirect-blue/10 text-klusdirect-blue border border-klusdirect-blue/30"
-                            }
-                          >
-                            <Crown className="w-3 h-3 mr-1" />
-                            {job.status}
-                          </Badge>
+                {customerJobs.map((job) => {
+                  const displayJob = formatJobForDisplay(job);
+                  return (
+                    <div key={displayJob.id} className="glass border border-premium-600/30 rounded-lg p-6 hover:border-klusdirect-gold/30 transition-all duration-300">
+                      <div className="flex flex-col md:flex-row md:items-center justify-between">
+                        <div className="flex-1">
+                          <div className="flex items-start justify-between mb-3">
+                            <h3 className="text-lg font-semibold text-premium-50">
+                              {displayJob.title}
+                            </h3>
+                            <Badge className="bg-gradient-to-r from-klusdirect-blue/20 to-klusdirect-blue/10 text-klusdirect-blue border border-klusdirect-blue/30">
+                              <Clock className="w-3 h-3 mr-1" />
+                              {displayJob.status}
+                            </Badge>
+                          </div>
+
+                          <div className="flex flex-wrap items-center gap-4 text-sm text-premium-300 mb-4">
+                            <div className="flex items-center">
+                              <MapPin className="w-4 h-4 mr-1 text-klusdirect-blue" />
+                              {displayJob.location}
+                            </div>
+                            <div className="flex items-center">
+                              <Euro className="w-4 h-4 mr-1 text-green-400" />
+                              {displayJob.budget}
+                            </div>
+                            <div className="flex items-center">
+                              <Calendar className="w-4 h-4 mr-1 text-klusdirect-orange" />
+                              {displayJob.date}
+                            </div>
+                            <div className="flex items-center">
+                              <MessageCircle className="w-4 h-4 mr-1 text-yellow-400" />
+                              {displayJob.quotes} offertes
+                            </div>
+                          </div>
                         </div>
 
-                        <div className="flex flex-wrap items-center gap-4 text-sm text-premium-300 mb-4">
-                          <div className="flex items-center">
-                            <MapPin className="w-4 h-4 mr-1 text-klusdirect-blue" />
-                            {job.location}
-                          </div>
-                          <div className="flex items-center">
-                            <Euro className="w-4 h-4 mr-1 text-green-400" />
-                            {job.budget}
-                          </div>
-                          <div className="flex items-center">
-                            <Calendar className="w-4 h-4 mr-1 text-klusdirect-orange" />
-                            {job.date}
-                          </div>
-                          <div className="flex items-center">
-                            <MessageCircle className="w-4 h-4 mr-1 text-yellow-400" />
-                            {job.quotes} elite offertes
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-3 mt-4 md:mt-0">
-                        <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
-                          Details
-                        </Button>
-                        {job.quotes > 0 && (
-                          <Button size="sm" className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform">
-                            Bekijk Premium Offertes
+                        <div className="flex gap-3 mt-4 md:mt-0">
+                          <Button variant="outline" size="sm" className="border-premium-600 text-premium-200 hover:bg-premium-700">
+                            Details
                           </Button>
-                        )}
+                          {displayJob.quotes > 0 && (
+                            <Button size="sm" className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform">
+                              Bekijk Premium Offertes
+                            </Button>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
-              
-              {mockJobs.length === 0 && (
+
+              {customerJobs.length === 0 && (
                 <div className="text-center py-12">
                   <div className="w-20 h-20 bg-gradient-to-br from-klusdirect-gold/20 to-klusdirect-orange/20 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-klusdirect-gold/30">
                     <Plus className="w-10 h-10 text-klusdirect-gold" />
