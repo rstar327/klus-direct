@@ -40,10 +40,14 @@ export default function CustomerDashboard() {
     // Custom event for when job is deleted
     window.addEventListener('jobDeleted', loadCustomerJobs);
 
+    // Custom event for when job is updated
+    window.addEventListener('jobUpdated', loadCustomerJobs);
+
     return () => {
       window.removeEventListener('storage', loadCustomerJobs);
       window.removeEventListener('jobAdded', loadCustomerJobs);
       window.removeEventListener('jobDeleted', loadCustomerJobs);
+      window.removeEventListener('jobUpdated', loadCustomerJobs);
     };
   }, []);
 
