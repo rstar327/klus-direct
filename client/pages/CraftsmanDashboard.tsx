@@ -72,6 +72,22 @@ export default function CraftsmanDashboard() {
     if (storedInvoices) {
       setPendingInvoices(JSON.parse(storedInvoices));
     }
+
+    // Load available jobs
+    loadAvailableJobs();
+
+    // Listen for job updates
+    window.addEventListener('storage', loadAvailableJobs);
+    window.addEventListener('jobAdded', loadAvailableJobs);
+    window.addEventListener('jobUpdated', loadAvailableJobs);
+    window.addEventListener('jobDeleted', loadAvailableJobs);
+
+    return () => {
+      window.removeEventListener('storage', loadAvailableJobs);
+      window.removeEventListener('jobAdded', loadAvailableJobs);
+      window.removeEventListener('jobUpdated', loadAvailableJobs);
+      window.removeEventListener('jobDeleted', loadAvailableJobs);
+    };
   }, []);
 
   const mockJobs = [
