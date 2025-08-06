@@ -382,9 +382,9 @@ export default function CustomerQuoteDashboard() {
                     <p className="text-premium-500 mb-4">
                       Plaats een klus om offertes van vakmensen te ontvangen
                     </p>
-                    <Link to="/">
+                    <Link to="/customer/dashboard">
                       <Button className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold">
-                        Nieuwe klus plaatsen
+                        Terug naar dashboard
                       </Button>
                     </Link>
                   </div>
