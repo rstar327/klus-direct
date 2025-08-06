@@ -47,6 +47,17 @@ export default function CustomerDashboard() {
     };
   }, []);
 
+  // Refresh handlers
+  const handleJobUpdated = () => {
+    const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+    setCustomerJobs(jobs);
+  };
+
+  const handleJobDeleted = () => {
+    const jobs = JSON.parse(localStorage.getItem('customerJobs') || '[]');
+    setCustomerJobs(jobs);
+  };
+
   // Format jobs to match display structure
   const formatJobForDisplay = (job: any) => {
     return {
@@ -54,7 +65,7 @@ export default function CustomerDashboard() {
       title: job.title,
       status: "Wacht op offertes",
       location: job.jobLocation || job.location,
-      budget: job.budget,
+      budget: job.budget || 'Budget niet ingesteld',
       date: new Date(job.createdAt).toLocaleDateString('nl-NL', {
         day: 'numeric',
         month: 'short',
