@@ -457,10 +457,15 @@ export default function CraftsmanDashboard() {
                             Details
                           </Button>
                         </Link>
-                        <Button size="sm" className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform">
-                          <Target className="w-4 h-4 mr-2" />
-                          Aanmelden
-                        </Button>
+                        <JobApplicationModal
+                          job={job}
+                          onApplicationSubmit={handleJobApplication}
+                        >
+                          <Button size="sm" className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold hover:scale-105 transition-transform">
+                            <Target className="w-4 h-4 mr-2" />
+                            Aanmelden
+                          </Button>
+                        </JobApplicationModal>
                       </div>
                     </div>
                   </div>
