@@ -102,9 +102,15 @@ export default function QuoteAcceptanceModal({ quote, children, onAccept }: Quot
 
   const handleAccept = async () => {
     setIsProcessing(true);
-    
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    // If app payment is selected, show payment flow
+    if (acceptanceData.paymentMethod === 'app') {
+      setShowPayment(true);
+      await processAppPayment();
+    } else {
+      // For cash payment, just process the acceptance
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    }
     
     const acceptanceRecord = {
       quoteId: quote.id,
