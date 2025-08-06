@@ -322,7 +322,7 @@ export default function CraftsmanDashboard() {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-premium-300 text-sm">Nieuwe klussen</p>
-                    <p className="text-3xl font-bold text-premium-50">12</p>
+                    <p className="text-3xl font-bold text-premium-50">{availableJobs.length}</p>
                   </div>
                   <div className="w-12 h-12 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-orange/10 rounded-xl flex items-center justify-center">
                     <Bell className="w-6 h-6 text-klusdirect-orange" />
