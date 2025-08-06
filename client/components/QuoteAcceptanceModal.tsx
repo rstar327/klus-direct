@@ -270,6 +270,52 @@ export default function QuoteAcceptanceModal({ quote, children, onAccept }: Quot
               </CardContent>
             </Card>
 
+            {/* Payment Processing */}
+            {showPayment && isProcessing && (
+              <div className="space-y-6">
+                <div className="text-center">
+                  <div className="w-20 h-20 bg-gradient-to-br from-klusdirect-orange/20 to-klusdirect-gold/20 rounded-full flex items-center justify-center mx-auto mb-6 border border-klusdirect-orange/30">
+                    <div className="w-8 h-8 border-2 border-klusdirect-orange border-t-transparent rounded-full animate-spin"></div>
+                  </div>
+                  <h3 className="text-xl font-semibold text-premium-50 mb-2">
+                    Betaling wordt verwerkt
+                  </h3>
+                  <p className="text-premium-300 mb-6">
+                    {currentPaymentStep}
+                  </p>
+
+                  <div className="max-w-md mx-auto mb-6">
+                    <div className="w-full bg-premium-700 rounded-full h-2">
+                      <div
+                        className="bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold h-2 rounded-full transition-all duration-500"
+                        style={{ width: `${paymentProgress}%` }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between text-xs text-premium-400 mt-2">
+                      <span>0%</span>
+                      <span>{paymentProgress}%</span>
+                      <span>100%</span>
+                    </div>
+                  </div>
+
+                  <div className="bg-klusdirect-blue/10 border border-klusdirect-blue/20 rounded-lg p-4">
+                    <div className="flex items-center justify-center space-x-2">
+                      <Shield className="w-5 h-5 text-klusdirect-blue" />
+                      <span className="text-klusdirect-blue font-medium text-sm">
+                        Beveiligd door Mollie - Nederland's #1 betaalprovider
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="text-center mt-6">
+                    <p className="text-premium-400 text-sm">
+                      Sluit dit venster niet tijdens het betaalproces
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Step 1: Payment Options */}
             {step === 1 && !isProcessing && (
               <div className="space-y-6">
