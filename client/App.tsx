@@ -41,7 +41,11 @@ const App = () => (
 
 // Prevent multiple createRoot calls during hot reload
 const rootElement = document.getElementById("root")!;
-if (!rootElement._reactRoot) {
-  rootElement._reactRoot = createRoot(rootElement);
+let root = (rootElement as any)._reactRoot;
+
+if (!root) {
+  root = createRoot(rootElement);
+  (rootElement as any)._reactRoot = root;
 }
-rootElement._reactRoot.render(<App />);
+
+root.render(<App />);
