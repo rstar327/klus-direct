@@ -55,10 +55,8 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
   const [isOpen, setIsOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  const handleEditJob = () => {
-    // For now, just close this modal and trigger refresh
-    // In a real app, this would open an edit form
-    setIsOpen(false);
+  const handleJobUpdatedFromEdit = () => {
+    // Called when job is updated from edit modal
     if (onJobUpdated) {
       onJobUpdated();
     }
