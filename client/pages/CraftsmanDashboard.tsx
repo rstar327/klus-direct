@@ -426,14 +426,14 @@ export default function CraftsmanDashboard() {
                         
                         <div className="flex items-center mb-3">
                           <p className="text-premium-200 mr-4">
-                            Klant: <span className="text-klusdirect-gold font-medium">{job.client}</span>
+                            Klant: <span className="text-klusdirect-gold font-medium">{job.client.name}</span>
                           </p>
                           <div className="flex items-center text-klusdirect-blue">
                             <Eye className="w-4 h-4 mr-1" />
                             <span className="text-sm">{job.customerDetails}</span>
                           </div>
                         </div>
-                        
+
                         <div className="flex flex-wrap items-center gap-4 text-sm text-premium-300 mb-4">
                           <div className="flex items-center">
                             <MapPin className="w-4 h-4 mr-1 text-klusdirect-orange" />
@@ -441,7 +441,7 @@ export default function CraftsmanDashboard() {
                           </div>
                           <div className="flex items-center">
                             <Euro className="w-4 h-4 mr-1 text-green-400" />
-                            {job.budget}
+                            €{job.budget.min.toLocaleString()}-{job.budget.max.toLocaleString()}
                           </div>
                           <div className="flex items-center">
                             <Clock className="w-4 h-4 mr-1 text-klusdirect-blue" />
