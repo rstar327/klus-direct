@@ -60,17 +60,33 @@ export default function CustomerDashboard() {
 
   // Format jobs to match display structure
   const formatJobForDisplay = (job: any) => {
+    // Format budget properly
+    let budgetDisplay = 'Budget niet ingesteld';
+    if (job.budgetMin && job.budgetMax) {
+      budgetDisplay = `€${job.budgetMin} - €${job.budgetMax}`;
+    }
+
+    // Format date properly
+    let dateDisplay = 'Onbekende datum';
+    if (job.createdAt) {
+      try {
+        dateDisplay = new Date(job.createdAt).toLocaleDateString('nl-NL', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+      } catch (error) {
+        dateDisplay = 'Onbekende datum';
+      }
+    }
+
     return {
       id: job.id,
       title: job.title,
       status: "Wacht op offertes",
-      location: job.jobLocation || job.location,
-      budget: job.budget || 'Budget niet ingesteld',
-      date: new Date(job.createdAt).toLocaleDateString('nl-NL', {
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric'
-      }),
+      location: job.location || job.jobLocation || 'Locatie niet opgegeven',
+      budget: budgetDisplay,
+      date: dateDisplay,
       quotes: 0 // Start with 0 quotes for new jobs
     };
   };
