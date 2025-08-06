@@ -100,7 +100,14 @@ export default function CustomerJobDetailsModal({ children, job, onJobUpdated, o
   if (!job) return null;
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('nl-NL', {
+    if (!dateString) return 'Datum niet ingesteld';
+
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) {
+      return 'Ongeldige datum';
+    }
+
+    return date.toLocaleDateString('nl-NL', {
       weekday: 'long',
       year: 'numeric',
       month: 'long',
