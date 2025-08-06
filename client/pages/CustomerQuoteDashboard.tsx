@@ -54,6 +54,11 @@ export default function CustomerQuoteDashboard() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [customerName] = useState("Marie Jansen"); // Would come from authentication
 
+  const handleQuoteAcceptance = (acceptanceData: any) => {
+    console.log('Quote accepted:', acceptanceData);
+    // This would trigger notifications to the craftsman
+  };
+
   useEffect(() => {
     // Load quotes from localStorage (would normally come from API)
     const storedInvoices = localStorage.getItem('pendingInvoices');
