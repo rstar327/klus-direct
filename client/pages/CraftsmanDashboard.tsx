@@ -37,6 +37,16 @@ export default function CraftsmanDashboard() {
   const [activeOffers, setActiveOffers] = useState(8);
   const [pendingInvoices, setPendingInvoices] = useState([]);
 
+  const handleJobApplication = (applicationData: any) => {
+    // Update active offers count
+    const newCount = activeOffers + 1;
+    setActiveOffers(newCount);
+    localStorage.setItem('activeOffers', newCount.toString());
+
+    // Show success message or handle further logic
+    console.log('Job application submitted:', applicationData);
+  };
+
   useEffect(() => {
     // Load active offers from localStorage
     const storedOffers = localStorage.getItem('activeOffers');
