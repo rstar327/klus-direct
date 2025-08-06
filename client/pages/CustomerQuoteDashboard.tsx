@@ -24,6 +24,7 @@ import {
   Hammer
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import QuoteAcceptanceModal from "@/components/QuoteAcceptanceModal";
 
 interface Quote {
   id: string;
