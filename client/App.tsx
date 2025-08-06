@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import CustomerRegister from "./pages/CustomerRegister";
 import CraftsmanRegister from "./pages/CraftsmanRegister";
 import CustomerDashboard from "./pages/CustomerDashboard";
+import CustomerQuoteDashboard from "./pages/CustomerQuoteDashboard";
 import CraftsmanDashboard from "./pages/CraftsmanDashboard";
 import JobDetails from "./pages/JobDetails";
 
