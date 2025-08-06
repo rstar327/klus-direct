@@ -191,6 +191,9 @@ export default function NewJobModal({ children }: NewJobModalProps) {
     setIsSubmitting(false);
     setIsSuccess(true);
 
+    // Trigger event to notify dashboard about new job
+    window.dispatchEvent(new CustomEvent('jobAdded'));
+
     // Close modal after success
     setTimeout(() => {
       setIsOpen(false);
