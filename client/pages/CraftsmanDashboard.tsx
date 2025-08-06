@@ -48,6 +48,12 @@ export default function CraftsmanDashboard() {
   };
 
   useEffect(() => {
+    // Ensure user plan defaults to 'free' if not set
+    const currentPlan = localStorage.getItem('userPlan');
+    if (!currentPlan) {
+      localStorage.setItem('userPlan', 'free');
+    }
+
     // Load active offers from localStorage
     const storedOffers = localStorage.getItem('activeOffers');
     if (storedOffers) {
