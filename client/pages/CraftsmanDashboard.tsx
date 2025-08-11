@@ -465,6 +465,19 @@ export default function CraftsmanDashboard() {
                           <CheckCircle className="w-4 h-4 mr-2" />
                           {tier.buttonText}
                         </Button>
+                      ) : tier.name === "Professional" ? (
+                        <a
+                          href="https://buy.stripe.com/14A5kwgem7gs2oB2cdgw000"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block"
+                        >
+                          <Button
+                            className={`w-full bg-gradient-to-r ${tier.color} text-white hover:scale-105 transition-transform`}
+                          >
+                            {tier.buttonText}
+                          </Button>
+                        </a>
                       ) : (
                         <SubscriptionUpgradeModal
                           plan={{
