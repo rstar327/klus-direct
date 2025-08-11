@@ -478,6 +478,19 @@ export default function CraftsmanDashboard() {
                             {tier.buttonText}
                           </Button>
                         </a>
+                      ) : tier.name === "Elite" ? (
+                        <a
+                          href="https://buy.stripe.com/cNi5kwaU21W84wJ189gw001"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block"
+                        >
+                          <Button
+                            className={`w-full bg-gradient-to-r ${tier.color} text-white hover:scale-105 transition-transform`}
+                          >
+                            {tier.buttonText}
+                          </Button>
+                        </a>
                       ) : (
                         <SubscriptionUpgradeModal
                           plan={{
