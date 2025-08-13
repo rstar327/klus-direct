@@ -436,13 +436,13 @@ export default function CraftsmanRegister() {
                       >
                         Vorige
                       </Button>
-                      <Button 
+                      <Button
                         type="submit"
-                        disabled={!isStep3Valid}
+                        disabled={!isStep3Valid || isLoading}
                         className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold text-lg py-6 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Sparkles className="w-5 h-5 mr-2" />
-                        Complete Registratie
+                        {isLoading ? 'Registreren...' : 'Complete Registratie'}
                       </Button>
                     </div>
                   </div>
