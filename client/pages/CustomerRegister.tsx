@@ -28,6 +28,8 @@ import {
   Calendar,
   Globe,
 } from "lucide-react";
+import { registerUser } from "@/lib/supabase";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CustomerRegister() {
   const navigate = useNavigate();
