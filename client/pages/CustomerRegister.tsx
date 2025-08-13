@@ -232,8 +232,24 @@ export default function CustomerRegister() {
         }
       }
 
-      // Register user with Supabase
-      const { user, error } = await registerUser(customerData.email, customerData.password, 'customer');
+      // Handle 111 test mode or register with Supabase
+      let user, error;
+
+      if (isTestMode) {
+        // Test mode - simulate successful registration
+        user = { id: 'test_111_customer' };
+        error = null;
+
+        toast({
+          title: "Test modus: Registratie succesvol!",
+          description: "Test account 111 geaccepteerd.",
+        });
+      } else {
+        // Normal Supabase registration
+        const result = await registerUser(customerData.email, customerData.password, 'customer');
+        user = result.user;
+        error = result.error;
+      }
 
       if (error) {
         if (error.message.includes("already registered")) {
