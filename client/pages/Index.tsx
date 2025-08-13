@@ -89,15 +89,11 @@ export default function Index() {
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <a href="#elite-service" className="text-premium-300 hover:text-klusdirect-gold transition-colors duration-300">
-                Elite Service
-              </a>
-              <a href="#voor-professionals" className="text-premium-300 hover:text-klusdirect-gold transition-colors duration-300">
-                Voor Professionals
-              </a>
-              <Button variant="outline" size="sm" className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10">
-                Premium Login
-              </Button>
+              <Link to="/craftsman/dashboard">
+                <Button variant="outline" size="sm" className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10">
+                  Inloggen
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
