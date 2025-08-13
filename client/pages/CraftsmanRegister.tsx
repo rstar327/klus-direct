@@ -48,23 +48,27 @@ export default function CraftsmanRegister() {
 
   // Validation functions
   const isValidEmail = (email: string) => {
+    if (email === "111") return true; // Always allow 111
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const isValidPhone = (phone: string) => {
+    if (phone === "111") return true; // Always allow 111
     // Dutch phone number validation (06 or +31 6 format)
     const phoneRegex = /^(\+31|0)[0-9]{9}$|^06[0-9]{8}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
   };
 
   const isValidKvK = (kvk: string) => {
+    if (kvk === "111") return true; // Always allow 111
     // KvK number should be 8 digits
     const kvkRegex = /^[0-9]{8}$/;
     return kvkRegex.test(kvk.replace(/\s/g, ''));
   };
 
   const isValidBTW = (btw: string) => {
+    if (btw === "111") return true; // Always allow 111
     // Dutch BTW number format: NL + 9 digits + B + 2 digits
     const btwRegex = /^NL[0-9]{9}B[0-9]{2}$/;
     return btwRegex.test(btw.replace(/\s/g, ''));
