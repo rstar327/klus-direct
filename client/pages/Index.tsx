@@ -89,7 +89,7 @@ export default function Index() {
               </div>
             </div>
             <div className="hidden md:flex items-center space-x-6">
-              <Link to="/craftsman/dashboard">
+              <Link to="/login">
                 <Button variant="outline" size="sm" className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10">
                   Inloggen
                 </Button>
