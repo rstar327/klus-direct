@@ -39,12 +39,46 @@ export default function CraftsmanRegister() {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Here would be the actual registration logic
-    console.log("Registration data:", formData);
-    // Redirect to dashboard for demo
-    window.location.href = "/craftsman/dashboard";
+    setIsLoading(true);
+
+    try {
+      // Register user with Supabase
+      const { user, error } = await registerUser(formData.email, formData.password, 'basic');
+
+      if (error) {
+        toast({
+          title: "Registratie mislukt",
+          description: error.message,
+          variant: "destructive",
+        });
+        return;
+      }
+
+      toast({
+        title: "Registratie succesvol!",
+        description: "Check je e-mail om je account te bevestigen.",
+      });
+
+      // Store additional user data in localStorage for now
+      localStorage.setItem('userProfile', JSON.stringify({
+        ...formData,
+        userId: user?.id,
+        userPlan: 'free'
+      }));
+
+      // Redirect to dashboard
+      window.location.href = "/craftsman/dashboard";
+    } catch (error) {
+      toast({
+        title: "Er ging iets mis",
+        description: "Probeer het later opnieuw.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const isStep1Valid = formData.firstName && formData.lastName && formData.email && formData.phone;
