@@ -145,86 +145,91 @@ export default function CustomerRegister() {
     setIsSubmitting(true);
 
     try {
-      // Validate all form data before submission
-      if (!isValidEmail(customerData.email)) {
-        toast({
-          title: "Ongeldig email adres",
-          description: "Voer een geldig email adres in (bijv. naam@email.nl)",
-          variant: "destructive",
-        });
-        return;
-      }
+      // Check if using 111 test mode - skip validation
+      const isTestMode = customerData.email === "111" && customerData.password === "111";
 
-      if (customerData.password.length < 6) {
-        toast({
-          title: "Wachtwoord te kort",
-          description: "Wachtwoord moet minimaal 6 karakters zijn",
-          variant: "destructive",
-        });
-        return;
-      }
+      if (!isTestMode) {
+        // Validate all form data before submission
+        if (!isValidEmail(customerData.email)) {
+          toast({
+            title: "Ongeldig email adres",
+            description: "Voer een geldig email adres in (bijv. naam@email.nl)",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (customerData.password !== customerData.confirmPassword) {
-        toast({
-          title: "Wachtwoorden komen niet overeen",
-          description: "Voer hetzelfde wachtwoord in beide velden in",
-          variant: "destructive",
-        });
-        return;
-      }
+        if (customerData.password.length < 6) {
+          toast({
+            title: "Wachtwoord te kort",
+            description: "Wachtwoord moet minimaal 6 karakters zijn",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (!isValidPhone(customerData.phone)) {
-        toast({
-          title: "Ongeldig telefoonnummer",
-          description: "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
-          variant: "destructive",
-        });
-        return;
-      }
+        if (customerData.password !== customerData.confirmPassword) {
+          toast({
+            title: "Wachtwoorden komen niet overeen",
+            description: "Voer hetzelfde wachtwoord in beide velden in",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (!isValidPostalCode(customerData.postalCode)) {
-        toast({
-          title: "Ongeldige postcode",
-          description: "Voer een geldige Nederlandse postcode in (bijv. 1234AB)",
-          variant: "destructive",
-        });
-        return;
-      }
+        if (!isValidPhone(customerData.phone)) {
+          toast({
+            title: "Ongeldig telefoonnummer",
+            description: "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (customerData.isBusinessAccount && !isValidKvK(customerData.kvkNumber)) {
-        toast({
-          title: "Ongeldig KvK nummer",
-          description: "KvK nummer moet uit precies 8 cijfers bestaan",
-          variant: "destructive",
-        });
-        return;
-      }
+        if (!isValidPostalCode(customerData.postalCode)) {
+          toast({
+            title: "Ongeldige postcode",
+            description: "Voer een geldige Nederlandse postcode in (bijv. 1234AB)",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (customerData.isBusinessAccount && customerData.needsVat && !isValidBTW(customerData.vatNumber)) {
-        toast({
-          title: "Ongeldig BTW nummer",
-          description: "BTW nummer moet het formaat hebben: NL123456789B12",
-          variant: "destructive",
-        });
-        return;
-      }
+        if (customerData.isBusinessAccount && !isValidKvK(customerData.kvkNumber)) {
+          toast({
+            title: "Ongeldig KvK nummer",
+            description: "KvK nummer moet uit precies 8 cijfers bestaan",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (customerData.firstName.length < 2) {
-        toast({
-          title: "Voornaam te kort",
-          description: "Voornaam moet minimaal 2 karakters zijn",
-          variant: "destructive",
-        });
-        return;
-      }
+        if (customerData.isBusinessAccount && customerData.needsVat && !isValidBTW(customerData.vatNumber)) {
+          toast({
+            title: "Ongeldig BTW nummer",
+            description: "BTW nummer moet het formaat hebben: NL123456789B12",
+            variant: "destructive",
+          });
+          return;
+        }
 
-      if (customerData.lastName.length < 2) {
-        toast({
-          title: "Achternaam te kort",
-          description: "Achternaam moet minimaal 2 karakters zijn",
-          variant: "destructive",
-        });
-        return;
+        if (customerData.firstName.length < 2) {
+          toast({
+            title: "Voornaam te kort",
+            description: "Voornaam moet minimaal 2 karakters zijn",
+            variant: "destructive",
+          });
+          return;
+        }
+
+        if (customerData.lastName.length < 2) {
+          toast({
+            title: "Achternaam te kort",
+            description: "Achternaam moet minimaal 2 karakters zijn",
+            variant: "destructive",
+          });
+          return;
+        }
       }
 
       // Register user with Supabase
