@@ -729,14 +729,16 @@ export default function CraftsmanDashboard() {
                         </div>
 
                         <div className="flex gap-3 mt-4 md:mt-0">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="border-premium-600 text-premium-200 hover:bg-premium-700"
-                          >
-                            <Eye className="w-4 h-4 mr-2" />
-                            Bekijk offerte
-                          </Button>
+                          <OfferteDetailsModal invoice={invoice}>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              className="border-premium-600 text-premium-200 hover:bg-premium-700"
+                            >
+                              <Eye className="w-4 h-4 mr-2" />
+                              Bekijk offerte
+                            </Button>
+                          </OfferteDetailsModal>
                         </div>
                       </div>
                     </div>
