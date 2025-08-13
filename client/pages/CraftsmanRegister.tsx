@@ -81,7 +81,7 @@ export default function CraftsmanRegister() {
     }
   };
 
-  const isStep1Valid = formData.firstName && formData.lastName && formData.email && formData.phone;
+  const isStep1Valid = formData.firstName && formData.lastName && formData.email && formData.password && formData.phone;
   const isStep2Valid = formData.companyName && formData.kvkNumber && formData.vatNumber;
   const isStep3Valid = formData.specialization && formData.workArea && formData.acceptTerms;
 
