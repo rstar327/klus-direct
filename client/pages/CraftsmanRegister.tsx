@@ -6,7 +6,21 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
-import { ArrowLeft, Hammer, Building, Award, MapPin, Crown, Sparkles, Shield, CheckCircle, Phone, Mail, User, FileText } from "lucide-react";
+import {
+  ArrowLeft,
+  Hammer,
+  Building,
+  Award,
+  MapPin,
+  Crown,
+  Sparkles,
+  Shield,
+  CheckCircle,
+  Phone,
+  Mail,
+  User,
+  FileText,
+} from "lucide-react";
 import { useState } from "react";
 import { registerUser } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
@@ -26,16 +40,16 @@ export default function CraftsmanRegister() {
     workArea: "",
     experience: "",
     acceptTerms: false,
-    acceptMarketing: false
+    acceptMarketing: false,
   });
 
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field: string, value: string | boolean) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
@@ -45,7 +59,11 @@ export default function CraftsmanRegister() {
 
     try {
       // Register user with Supabase
-      const { user, error } = await registerUser(formData.email, formData.password, 'basic');
+      const { user, error } = await registerUser(
+        formData.email,
+        formData.password,
+        "basic",
+      );
 
       if (error) {
         toast({
@@ -62,11 +80,14 @@ export default function CraftsmanRegister() {
       });
 
       // Store additional user data in localStorage for now
-      localStorage.setItem('userProfile', JSON.stringify({
-        ...formData,
-        userId: user?.id,
-        userPlan: 'free'
-      }));
+      localStorage.setItem(
+        "userProfile",
+        JSON.stringify({
+          ...formData,
+          userId: user?.id,
+          userPlan: "free",
+        }),
+      );
 
       // Redirect to dashboard
       window.location.href = "/craftsman/dashboard";
@@ -81,9 +102,16 @@ export default function CraftsmanRegister() {
     }
   };
 
-  const isStep1Valid = formData.firstName && formData.lastName && formData.email && formData.password && formData.phone;
-  const isStep2Valid = formData.companyName && formData.kvkNumber && formData.vatNumber;
-  const isStep3Valid = formData.specialization && formData.workArea && formData.acceptTerms;
+  const isStep1Valid =
+    formData.firstName &&
+    formData.lastName &&
+    formData.email &&
+    formData.password &&
+    formData.phone;
+  const isStep2Valid =
+    formData.companyName && formData.kvkNumber && formData.vatNumber;
+  const isStep3Valid =
+    formData.specialization && formData.workArea && formData.acceptTerms;
 
   return (
     <div className="min-h-screen bg-premium-900 relative overflow-hidden">
@@ -93,11 +121,14 @@ export default function CraftsmanRegister() {
         <div className="absolute top-20 left-10 w-72 h-72 bg-klusdirect-orange/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-96 h-96 bg-klusdirect-blue/5 rounded-full blur-3xl"></div>
       </div>
-      
+
       <div className="relative z-10 container mx-auto px-4 py-8">
         <div className="max-w-3xl mx-auto">
           <div className="mb-8">
-            <Link to="/" className="inline-flex items-center text-premium-300 hover:text-klusdirect-gold transition-colors">
+            <Link
+              to="/"
+              className="inline-flex items-center text-premium-300 hover:text-klusdirect-gold transition-colors"
+            >
               <ArrowLeft className="w-5 h-5 mr-2" />
               Terug naar home
             </Link>
@@ -117,31 +148,47 @@ export default function CraftsmanRegister() {
               <p className="text-premium-200">
                 Sluit je aan bij Nederland's meest exclusieve vakmannen platform
               </p>
-              
+
               {/* Progress Indicator */}
               <div className="flex justify-center mt-6">
                 <div className="flex items-center space-x-4">
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                    step >= 1 ? 'bg-klusdirect-orange border-klusdirect-orange text-black' : 'border-premium-600 text-premium-400'
-                  }`}>
-                    {step > 1 ? <CheckCircle className="w-5 h-5" /> : '1'}
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+                      step >= 1
+                        ? "bg-klusdirect-orange border-klusdirect-orange text-black"
+                        : "border-premium-600 text-premium-400"
+                    }`}
+                  >
+                    {step > 1 ? <CheckCircle className="w-5 h-5" /> : "1"}
                   </div>
-                  <div className={`w-12 h-1 ${step > 1 ? 'bg-klusdirect-orange' : 'bg-premium-700'}`}></div>
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                    step >= 2 ? 'bg-klusdirect-orange border-klusdirect-orange text-black' : 'border-premium-600 text-premium-400'
-                  }`}>
-                    {step > 2 ? <CheckCircle className="w-5 h-5" /> : '2'}
+                  <div
+                    className={`w-12 h-1 ${step > 1 ? "bg-klusdirect-orange" : "bg-premium-700"}`}
+                  ></div>
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+                      step >= 2
+                        ? "bg-klusdirect-orange border-klusdirect-orange text-black"
+                        : "border-premium-600 text-premium-400"
+                    }`}
+                  >
+                    {step > 2 ? <CheckCircle className="w-5 h-5" /> : "2"}
                   </div>
-                  <div className={`w-12 h-1 ${step > 2 ? 'bg-klusdirect-orange' : 'bg-premium-700'}`}></div>
-                  <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
-                    step >= 3 ? 'bg-klusdirect-orange border-klusdirect-orange text-black' : 'border-premium-600 text-premium-400'
-                  }`}>
+                  <div
+                    className={`w-12 h-1 ${step > 2 ? "bg-klusdirect-orange" : "bg-premium-700"}`}
+                  ></div>
+                  <div
+                    className={`flex items-center justify-center w-10 h-10 rounded-full border-2 ${
+                      step >= 3
+                        ? "bg-klusdirect-orange border-klusdirect-orange text-black"
+                        : "border-premium-600 text-premium-400"
+                    }`}
+                  >
                     3
                   </div>
                 </div>
               </div>
             </CardHeader>
-            
+
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Step 1: Personal Information */}
@@ -161,24 +208,32 @@ export default function CraftsmanRegister() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="firstName" className="text-premium-200">Voornaam *</Label>
+                        <Label htmlFor="firstName" className="text-premium-200">
+                          Voornaam *
+                        </Label>
                         <Input
                           id="firstName"
                           type="text"
                           value={formData.firstName}
-                          onChange={(e) => handleInputChange('firstName', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("firstName", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400"
                           placeholder="Je voornaam"
                           required
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="lastName" className="text-premium-200">Achternaam *</Label>
+                        <Label htmlFor="lastName" className="text-premium-200">
+                          Achternaam *
+                        </Label>
                         <Input
                           id="lastName"
                           type="text"
                           value={formData.lastName}
-                          onChange={(e) => handleInputChange('lastName', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("lastName", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400"
                           placeholder="Je achternaam"
                           required
@@ -187,14 +242,18 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="email" className="text-premium-200">Email adres *</Label>
+                      <Label htmlFor="email" className="text-premium-200">
+                        Email adres *
+                      </Label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="email"
                           type="email"
                           value={formData.email}
-                          onChange={(e) => handleInputChange('email', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("email", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="je@email.nl"
                           required
@@ -203,14 +262,18 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="password" className="text-premium-200">Wachtwoord *</Label>
+                      <Label htmlFor="password" className="text-premium-200">
+                        Wachtwoord *
+                      </Label>
                       <div className="relative">
                         <Shield className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="password"
                           type="password"
                           value={formData.password}
-                          onChange={(e) => handleInputChange('password', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("password", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="Minimaal 6 karakters"
                           required
@@ -220,14 +283,18 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-premium-200">Telefoonnummer *</Label>
+                      <Label htmlFor="phone" className="text-premium-200">
+                        Telefoonnummer *
+                      </Label>
                       <div className="relative">
                         <Phone className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="phone"
                           type="tel"
                           value={formData.phone}
-                          onChange={(e) => handleInputChange('phone', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("phone", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="06 12345678"
                           required
@@ -235,7 +302,7 @@ export default function CraftsmanRegister() {
                       </div>
                     </div>
 
-                    <Button 
+                    <Button
                       type="button"
                       onClick={() => setStep(2)}
                       disabled={!isStep1Valid}
@@ -265,24 +332,31 @@ export default function CraftsmanRegister() {
                       <div className="flex items-start space-x-3">
                         <Shield className="w-5 h-5 text-klusdirect-blue mt-0.5" />
                         <div>
-                          <h4 className="text-klusdirect-blue font-medium text-sm">Waarom vragen we dit?</h4>
+                          <h4 className="text-klusdirect-blue font-medium text-sm">
+                            Waarom vragen we dit?
+                          </h4>
                           <p className="text-premium-300 text-sm mt-1">
-                            We verifiëren alle bedrijfsgegevens om onze klanten te beschermen tegen 
-                            onbetrouwbare aanbieders en om de kwaliteit van ons platform te waarborgen.
+                            We verifiëren alle bedrijfsgegevens om onze klanten
+                            te beschermen tegen onbetrouwbare aanbieders en om
+                            de kwaliteit van ons platform te waarborgen.
                           </p>
                         </div>
                       </div>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="companyName" className="text-premium-200">Bedrijfsnaam *</Label>
+                      <Label htmlFor="companyName" className="text-premium-200">
+                        Bedrijfsnaam *
+                      </Label>
                       <div className="relative">
                         <Building className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="companyName"
                           type="text"
                           value={formData.companyName}
-                          onChange={(e) => handleInputChange('companyName', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("companyName", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="Jouw Bedrijf B.V."
                           required
@@ -291,14 +365,18 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="kvkNumber" className="text-premium-200">KvK Nummer *</Label>
+                      <Label htmlFor="kvkNumber" className="text-premium-200">
+                        KvK Nummer *
+                      </Label>
                       <div className="relative">
                         <FileText className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="kvkNumber"
                           type="text"
                           value={formData.kvkNumber}
-                          onChange={(e) => handleInputChange('kvkNumber', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("kvkNumber", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="12345678"
                           pattern="[0-9]{8}"
@@ -306,28 +384,36 @@ export default function CraftsmanRegister() {
                           required
                         />
                       </div>
-                      <p className="text-premium-400 text-xs">8 cijfers van je Kamer van Koophandel registratie</p>
+                      <p className="text-premium-400 text-xs">
+                        8 cijfers van je Kamer van Koophandel registratie
+                      </p>
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="vatNumber" className="text-premium-200">BTW Nummer *</Label>
+                      <Label htmlFor="vatNumber" className="text-premium-200">
+                        BTW Nummer *
+                      </Label>
                       <div className="relative">
                         <FileText className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="vatNumber"
                           type="text"
                           value={formData.vatNumber}
-                          onChange={(e) => handleInputChange('vatNumber', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("vatNumber", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="NL123456789B01"
                           required
                         />
                       </div>
-                      <p className="text-premium-400 text-xs">Je BTW identificatienummer (bijv. NL123456789B01)</p>
+                      <p className="text-premium-400 text-xs">
+                        Je BTW identificatienummer (bijv. NL123456789B01)
+                      </p>
                     </div>
 
                     <div className="flex gap-3">
-                      <Button 
+                      <Button
                         type="button"
                         onClick={() => setStep(1)}
                         variant="outline"
@@ -335,7 +421,7 @@ export default function CraftsmanRegister() {
                       >
                         Vorige
                       </Button>
-                      <Button 
+                      <Button
                         type="button"
                         onClick={() => setStep(3)}
                         disabled={!isStep2Valid}
@@ -363,11 +449,18 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="specialization" className="text-premium-200">Specialisatie *</Label>
+                      <Label
+                        htmlFor="specialization"
+                        className="text-premium-200"
+                      >
+                        Specialisatie *
+                      </Label>
                       <Textarea
                         id="specialization"
                         value={formData.specialization}
-                        onChange={(e) => handleInputChange('specialization', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("specialization", e.target.value)
+                        }
                         className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 min-h-[100px]"
                         placeholder="Beschrijf je specialisaties (bijv. Sanitair, CV installaties, Badkamer renovaties...)"
                         required
@@ -375,14 +468,18 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="workArea" className="text-premium-200">Werkgebied *</Label>
+                      <Label htmlFor="workArea" className="text-premium-200">
+                        Werkgebied *
+                      </Label>
                       <div className="relative">
                         <MapPin className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
                         <Input
                           id="workArea"
                           type="text"
                           value={formData.workArea}
-                          onChange={(e) => handleInputChange('workArea', e.target.value)}
+                          onChange={(e) =>
+                            handleInputChange("workArea", e.target.value)
+                          }
                           className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
                           placeholder="Amsterdam en omgeving (30km)"
                           required
@@ -391,11 +488,15 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="experience" className="text-premium-200">Ervaring (optioneel)</Label>
+                      <Label htmlFor="experience" className="text-premium-200">
+                        Ervaring (optioneel)
+                      </Label>
                       <Textarea
                         id="experience"
                         value={formData.experience}
-                        onChange={(e) => handleInputChange('experience', e.target.value)}
+                        onChange={(e) =>
+                          handleInputChange("experience", e.target.value)
+                        }
                         className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 min-h-[80px]"
                         placeholder="Aantal jaren ervaring, certificaten, specialisaties..."
                       />
@@ -406,11 +507,24 @@ export default function CraftsmanRegister() {
                         <Checkbox
                           id="acceptTerms"
                           checked={formData.acceptTerms}
-                          onCheckedChange={(checked) => handleInputChange('acceptTerms', checked as boolean)}
+                          onCheckedChange={(checked) =>
+                            handleInputChange("acceptTerms", checked as boolean)
+                          }
                           className="border-premium-600 data-[state=checked]:bg-klusdirect-orange data-[state=checked]:border-klusdirect-orange"
                         />
-                        <Label htmlFor="acceptTerms" className="text-premium-200 text-sm">
-                          Ik ga akkoord met de <span className="text-klusdirect-gold hover:underline cursor-pointer">algemene voorwaarden</span> en <span className="text-klusdirect-gold hover:underline cursor-pointer">privacybeleid</span> van KlusDirect *
+                        <Label
+                          htmlFor="acceptTerms"
+                          className="text-premium-200 text-sm"
+                        >
+                          Ik ga akkoord met de{" "}
+                          <span className="text-klusdirect-gold hover:underline cursor-pointer">
+                            algemene voorwaarden
+                          </span>{" "}
+                          en{" "}
+                          <span className="text-klusdirect-gold hover:underline cursor-pointer">
+                            privacybeleid
+                          </span>{" "}
+                          van KlusDirect *
                         </Label>
                       </div>
 
@@ -418,17 +532,26 @@ export default function CraftsmanRegister() {
                         <Checkbox
                           id="acceptMarketing"
                           checked={formData.acceptMarketing}
-                          onCheckedChange={(checked) => handleInputChange('acceptMarketing', checked as boolean)}
+                          onCheckedChange={(checked) =>
+                            handleInputChange(
+                              "acceptMarketing",
+                              checked as boolean,
+                            )
+                          }
                           className="border-premium-600 data-[state=checked]:bg-klusdirect-orange data-[state=checked]:border-klusdirect-orange"
                         />
-                        <Label htmlFor="acceptMarketing" className="text-premium-200 text-sm">
-                          Ik wil graag updates ontvangen over nieuwe klussen en platform ontwikkelingen
+                        <Label
+                          htmlFor="acceptMarketing"
+                          className="text-premium-200 text-sm"
+                        >
+                          Ik wil graag updates ontvangen over nieuwe klussen en
+                          platform ontwikkelingen
                         </Label>
                       </div>
                     </div>
 
                     <div className="flex gap-3">
-                      <Button 
+                      <Button
                         type="button"
                         onClick={() => setStep(2)}
                         variant="outline"
@@ -442,7 +565,7 @@ export default function CraftsmanRegister() {
                         className="flex-1 bg-gradient-to-r from-klusdirect-orange to-klusdirect-gold text-black font-semibold text-lg py-6 disabled:opacity-50 disabled:cursor-not-allowed"
                       >
                         <Sparkles className="w-5 h-5 mr-2" />
-                        {isLoading ? 'Registreren...' : 'Complete Registratie'}
+                        {isLoading ? "Registreren..." : "Complete Registratie"}
                       </Button>
                     </div>
                   </div>
@@ -453,10 +576,17 @@ export default function CraftsmanRegister() {
               <div className="mt-8 pt-6 border-t border-premium-600/30">
                 <div className="text-center">
                   <p className="text-premium-300 text-sm">
-                    Al een account? <Link to="/craftsman/login" className="text-klusdirect-gold hover:underline">Log hier in</Link>
+                    Al een account?{" "}
+                    <Link
+                      to="/craftsman/login"
+                      className="text-klusdirect-gold hover:underline"
+                    >
+                      Log hier in
+                    </Link>
                   </p>
                   <p className="text-premium-400 text-xs mt-2">
-                    Je gegevens worden veilig versleuteld en alleen gebruikt voor verificatie doeleinden.
+                    Je gegevens worden veilig versleuteld en alleen gebruikt
+                    voor verificatie doeleinden.
                   </p>
                 </div>
               </div>
