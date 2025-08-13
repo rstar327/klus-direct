@@ -256,6 +256,9 @@ export default function Login() {
                       )}
                     </button>
                   </div>
+                  {formData.password && formData.password !== "111" && formData.password.length < 6 && (
+                    <p className="text-red-400 text-sm">Wachtwoord moet minimaal 6 karakters zijn</p>
+                  )}
                 </div>
 
                 <Button
