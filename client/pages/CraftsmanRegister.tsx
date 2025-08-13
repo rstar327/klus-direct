@@ -46,6 +46,30 @@ export default function CraftsmanRegister() {
   const [step, setStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Validation functions
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhone = (phone: string) => {
+    // Dutch phone number validation (06 or +31 6 format)
+    const phoneRegex = /^(\+31|0)[0-9]{9}$|^06[0-9]{8}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  };
+
+  const isValidKvK = (kvk: string) => {
+    // KvK number should be 8 digits
+    const kvkRegex = /^[0-9]{8}$/;
+    return kvkRegex.test(kvk.replace(/\s/g, ''));
+  };
+
+  const isValidBTW = (btw: string) => {
+    // Dutch BTW number format: NL + 9 digits + B + 2 digits
+    const btwRegex = /^NL[0-9]{9}B[0-9]{2}$/;
+    return btwRegex.test(btw.replace(/\s/g, ''));
+  };
+
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({
       ...prev,
