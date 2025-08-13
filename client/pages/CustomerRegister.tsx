@@ -33,9 +33,47 @@ import { useToast } from "@/hooks/use-toast";
 
 export default function CustomerRegister() {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+
+  // Validation functions
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isValidPhone = (phone: string) => {
+    // Dutch phone number validation (06 or +31 6 format)
+    const phoneRegex = /^(\+31|0)[0-9]{9}$|^06[0-9]{8}$/;
+    return phoneRegex.test(phone.replace(/\s/g, ''));
+  };
+
+  const isValidPostalCode = (postalCode: string) => {
+    // Dutch postal code format: 1234AB
+    const postalCodeRegex = /^[1-9][0-9]{3}[A-Z]{2}$/;
+    return postalCodeRegex.test(postalCode.replace(/\s/g, ''));
+  };
+
+  const isValidDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const now = new Date();
+    const minAge = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
+    return date instanceof Date && !isNaN(date.getTime()) && date < minAge;
+  };
+
+  const isValidKvK = (kvk: string) => {
+    // KvK number should be 8 digits
+    const kvkRegex = /^[0-9]{8}$/;
+    return kvkRegex.test(kvk.replace(/\s/g, ''));
+  };
+
+  const isValidBTW = (btw: string) => {
+    // Dutch BTW number format: NL + 9 digits + B + 2 digits
+    const btwRegex = /^NL[0-9]{9}B[0-9]{2}$/;
+    return btwRegex.test(btw.replace(/\s/g, ''));
+  };
 
   const [customerData, setCustomerData] = useState({
     // Personal Info
