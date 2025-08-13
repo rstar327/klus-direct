@@ -164,12 +164,28 @@ export default function CraftsmanRegister() {
         }
       }
 
-      // Register user with Supabase
-      const { user, error } = await registerUser(
-        formData.email,
-        formData.password,
-        "basic",
-      );
+      // Handle 111 test mode or register with Supabase
+      let user, error;
+
+      if (isTestMode) {
+        // Test mode - simulate successful registration
+        user = { id: 'test_111_user' };
+        error = null;
+
+        toast({
+          title: "Test modus: Registratie succesvol!",
+          description: "Test account 111 geaccepteerd.",
+        });
+      } else {
+        // Normal Supabase registration
+        const result = await registerUser(
+          formData.email,
+          formData.password,
+          "basic",
+        );
+        user = result.user;
+        error = result.error;
+      }
 
       if (error) {
         if (error.message.includes("already registered")) {
