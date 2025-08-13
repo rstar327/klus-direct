@@ -208,11 +208,18 @@ export default function Login() {
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
                       }
-                      className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
-                      placeholder="je@email.nl"
+                      className={`glass bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11 ${
+                        formData.email && formData.email !== "111" && !isValidEmail(formData.email)
+                          ? 'border-red-500/50'
+                          : 'border-premium-600/30'
+                      }`}
+                      placeholder="je@email.nl (of '111' voor test)"
                       required
                     />
                   </div>
+                  {formData.email && formData.email !== "111" && !isValidEmail(formData.email) && (
+                    <p className="text-red-400 text-sm">Voer een geldig email adres in</p>
+                  )}
                 </div>
 
                 <div className="space-y-2">
