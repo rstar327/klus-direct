@@ -8,6 +8,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { ArrowLeft, Hammer, Building, Award, MapPin, Crown, Sparkles, Shield, CheckCircle, Phone, Mail, User, FileText } from "lucide-react";
 import { useState } from "react";
+import { registerUser } from "@/lib/supabase";
+import { useToast } from "@/hooks/use-toast";
 
 export default function CraftsmanRegister() {
   const [formData, setFormData] = useState({
