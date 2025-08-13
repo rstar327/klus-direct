@@ -203,6 +203,23 @@ export default function CraftsmanRegister() {
                     </div>
 
                     <div className="space-y-2">
+                      <Label htmlFor="password" className="text-premium-200">Wachtwoord *</Label>
+                      <div className="relative">
+                        <Shield className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
+                        <Input
+                          id="password"
+                          type="password"
+                          value={formData.password}
+                          onChange={(e) => handleInputChange('password', e.target.value)}
+                          className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11"
+                          placeholder="Minimaal 6 karakters"
+                          required
+                          minLength={6}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
                       <Label htmlFor="phone" className="text-premium-200">Telefoonnummer *</Label>
                       <div className="relative">
                         <Phone className="absolute left-3 top-3 w-5 h-5 text-premium-400" />
