@@ -480,12 +480,14 @@ export default function OfferteDetailsModal({ children, invoice }: OfferteDetail
 
         {/* Action Buttons */}
         <div className="flex justify-between pt-4">
-          <Button 
+          <Button
+            onClick={generatePDF}
+            disabled={isGeneratingPDF}
             variant="outline"
-            className="border-klusdirect-blue text-klusdirect-blue hover:bg-klusdirect-blue/10"
+            className="border-klusdirect-blue text-klusdirect-blue hover:bg-klusdirect-blue/10 disabled:opacity-50"
           >
             <Download className="w-4 h-4 mr-2" />
-            Download PDF
+            {isGeneratingPDF ? 'Genereren...' : 'Download PDF'}
           </Button>
           
           <Button 
