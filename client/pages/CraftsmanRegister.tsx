@@ -82,6 +82,79 @@ export default function CraftsmanRegister() {
     setIsLoading(true);
 
     try {
+      // Validate all form data before submission
+      if (!isValidEmail(formData.email)) {
+        toast({
+          title: "Ongeldig email adres",
+          description: "Voer een geldig email adres in (bijv. naam@email.nl)",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (formData.password.length < 6) {
+        toast({
+          title: "Wachtwoord te kort",
+          description: "Wachtwoord moet minimaal 6 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (!isValidPhone(formData.phone)) {
+        toast({
+          title: "Ongeldig telefoonnummer",
+          description: "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (!isValidKvK(formData.kvkNumber)) {
+        toast({
+          title: "Ongeldig KvK nummer",
+          description: "KvK nummer moet uit precies 8 cijfers bestaan",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (!isValidBTW(formData.vatNumber)) {
+        toast({
+          title: "Ongeldig BTW nummer",
+          description: "BTW nummer moet het formaat hebben: NL123456789B12",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (formData.firstName.length < 2) {
+        toast({
+          title: "Voornaam te kort",
+          description: "Voornaam moet minimaal 2 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (formData.lastName.length < 2) {
+        toast({
+          title: "Achternaam te kort",
+          description: "Achternaam moet minimaal 2 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (formData.companyName.length < 2) {
+        toast({
+          title: "Bedrijfsnaam te kort",
+          description: "Bedrijfsnaam moet minimaal 2 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
       // Register user with Supabase
       const { user, error } = await registerUser(
         formData.email,
@@ -90,11 +163,19 @@ export default function CraftsmanRegister() {
       );
 
       if (error) {
-        toast({
-          title: "Registratie mislukt",
-          description: error.message,
-          variant: "destructive",
-        });
+        if (error.message.includes("already registered")) {
+          toast({
+            title: "Account bestaat al",
+            description: "Er bestaat al een account met dit email adres.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Registratie mislukt",
+            description: error.message,
+            variant: "destructive",
+          });
+        }
         return;
       }
 
@@ -118,7 +199,7 @@ export default function CraftsmanRegister() {
     } catch (error) {
       toast({
         title: "Er ging iets mis",
-        description: "Probeer het later opnieuw.",
+        description: "Controleer je gegevens en probeer opnieuw.",
         variant: "destructive",
       });
     } finally {
