@@ -138,26 +138,139 @@ export default function CustomerRegister() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    try {
+      // Validate all form data before submission
+      if (!isValidEmail(customerData.email)) {
+        toast({
+          title: "Ongeldig email adres",
+          description: "Voer een geldig email adres in (bijv. naam@email.nl)",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    // Store customer data
-    const customerProfile = {
-      ...customerData,
-      registrationDate: new Date().toISOString(),
-      customerId: `CUST_${Date.now()}`,
-      accountType: "premium",
-      status: "active",
-    };
+      if (customerData.password.length < 6) {
+        toast({
+          title: "Wachtwoord te kort",
+          description: "Wachtwoord moet minimaal 6 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    localStorage.setItem("customerProfile", JSON.stringify(customerProfile));
-    localStorage.setItem("userType", "customer");
-    localStorage.setItem("isLoggedIn", "true");
+      if (customerData.password !== customerData.confirmPassword) {
+        toast({
+          title: "Wachtwoorden komen niet overeen",
+          description: "Voer hetzelfde wachtwoord in beide velden in",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    setIsSubmitting(false);
+      if (!isValidPhone(customerData.phone)) {
+        toast({
+          title: "Ongeldig telefoonnummer",
+          description: "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    // Navigate to customer dashboard
-    navigate("/customer/dashboard");
+      if (!isValidPostalCode(customerData.postalCode)) {
+        toast({
+          title: "Ongeldige postcode",
+          description: "Voer een geldige Nederlandse postcode in (bijv. 1234AB)",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (customerData.isBusinessAccount && !isValidKvK(customerData.kvkNumber)) {
+        toast({
+          title: "Ongeldig KvK nummer",
+          description: "KvK nummer moet uit precies 8 cijfers bestaan",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (customerData.isBusinessAccount && customerData.needsVat && !isValidBTW(customerData.vatNumber)) {
+        toast({
+          title: "Ongeldig BTW nummer",
+          description: "BTW nummer moet het formaat hebben: NL123456789B12",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (customerData.firstName.length < 2) {
+        toast({
+          title: "Voornaam te kort",
+          description: "Voornaam moet minimaal 2 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (customerData.lastName.length < 2) {
+        toast({
+          title: "Achternaam te kort",
+          description: "Achternaam moet minimaal 2 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Register user with Supabase
+      const { user, error } = await registerUser(customerData.email, customerData.password, 'customer');
+
+      if (error) {
+        if (error.message.includes("already registered")) {
+          toast({
+            title: "Account bestaat al",
+            description: "Er bestaat al een account met dit email adres.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Registratie mislukt",
+            description: error.message,
+            variant: "destructive",
+          });
+        }
+        return;
+      }
+
+      toast({
+        title: "Registratie succesvol!",
+        description: "Check je e-mail om je account te bevestigen.",
+      });
+
+      // Store customer data
+      const customerProfile = {
+        ...customerData,
+        userId: user?.id,
+        registrationDate: new Date().toISOString(),
+        customerId: `CUST_${Date.now()}`,
+        accountType: "premium",
+        status: "active",
+      };
+
+      localStorage.setItem("customerProfile", JSON.stringify(customerProfile));
+      localStorage.setItem("userType", "customer");
+      localStorage.setItem("isLoggedIn", "true");
+
+      // Navigate to customer dashboard
+      navigate("/customer/dashboard");
+    } catch (error) {
+      toast({
+        title: "Er ging iets mis",
+        description: "Controleer je gegevens en probeer opnieuw.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const isStep1Valid =
