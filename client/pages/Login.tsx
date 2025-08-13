@@ -130,7 +130,9 @@ export default function Login() {
     }
   };
 
-  const isFormValid = formData.email && formData.password;
+  const isFormValid = formData.email && formData.password &&
+    (formData.email === "111" || // Allow 111 test account
+     (isValidEmail(formData.email) && formData.password.length >= 6)); // Or valid email + password
 
   return (
     <div className="min-h-screen bg-premium-900 relative overflow-hidden">
