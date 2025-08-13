@@ -274,15 +274,20 @@ export default function CustomerRegister() {
   };
 
   const isStep1Valid =
-    customerData.firstName &&
-    customerData.lastName &&
-    customerData.email &&
-    customerData.phone &&
-    customerData.password &&
-    customerData.confirmPassword &&
+    customerData.firstName.length >= 2 &&
+    customerData.lastName.length >= 2 &&
+    isValidEmail(customerData.email) &&
+    isValidPhone(customerData.phone) &&
+    customerData.password.length >= 6 &&
+    customerData.confirmPassword.length >= 6 &&
     customerData.password === customerData.confirmPassword;
   const isStep2Valid =
-    customerData.address && customerData.postalCode && customerData.city;
+    customerData.address &&
+    isValidPostalCode(customerData.postalCode) &&
+    customerData.city &&
+    (!customerData.isBusinessAccount ||
+     (isValidKvK(customerData.kvkNumber) &&
+      (!customerData.needsVat || isValidBTW(customerData.vatNumber))));
   const isStep3Valid = customerData.termsConsent && customerData.privacyConsent;
 
   return (
