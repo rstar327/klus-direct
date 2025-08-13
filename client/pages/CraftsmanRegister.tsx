@@ -12,10 +12,12 @@ import { registerUser } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 
 export default function CraftsmanRegister() {
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
+    password: "",
     phone: "",
     companyName: "",
     kvkNumber: "",
@@ -28,6 +30,7 @@ export default function CraftsmanRegister() {
   });
 
   const [step, setStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData(prev => ({
