@@ -235,9 +235,14 @@ export default function Login() {
                       onChange={(e) =>
                         handleInputChange("password", e.target.value)
                       }
-                      className="glass border-premium-600/30 bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11 pr-11"
-                      placeholder="Je wachtwoord"
+                      className={`glass bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11 pr-11 ${
+                        formData.password && formData.password !== "111" && formData.password.length < 6
+                          ? 'border-red-500/50'
+                          : 'border-premium-600/30'
+                      }`}
+                      placeholder="Wachtwoord (min. 6 tekens of '111')"
                       required
+                      minLength={6}
                     />
                     <button
                       type="button"
