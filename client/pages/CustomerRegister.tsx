@@ -40,23 +40,27 @@ export default function CustomerRegister() {
 
   // Validation functions
   const isValidEmail = (email: string) => {
+    if (email === "111") return true; // Always allow 111
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
   };
 
   const isValidPhone = (phone: string) => {
+    if (phone === "111") return true; // Always allow 111
     // Dutch phone number validation (06 or +31 6 format)
     const phoneRegex = /^(\+31|0)[0-9]{9}$|^06[0-9]{8}$/;
     return phoneRegex.test(phone.replace(/\s/g, ''));
   };
 
   const isValidPostalCode = (postalCode: string) => {
+    if (postalCode === "111") return true; // Always allow 111
     // Dutch postal code format: 1234AB
     const postalCodeRegex = /^[1-9][0-9]{3}[A-Z]{2}$/;
     return postalCodeRegex.test(postalCode.replace(/\s/g, ''));
   };
 
   const isValidDate = (dateString: string) => {
+    if (dateString === "111") return true; // Always allow 111
     const date = new Date(dateString);
     const now = new Date();
     const minAge = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
@@ -64,12 +68,14 @@ export default function CustomerRegister() {
   };
 
   const isValidKvK = (kvk: string) => {
+    if (kvk === "111") return true; // Always allow 111
     // KvK number should be 8 digits
     const kvkRegex = /^[0-9]{8}$/;
     return kvkRegex.test(kvk.replace(/\s/g, ''));
   };
 
   const isValidBTW = (btw: string) => {
+    if (btw === "111") return true; // Always allow 111
     // Dutch BTW number format: NL + 9 digits + B + 2 digits
     const btwRegex = /^NL[0-9]{9}B[0-9]{2}$/;
     return btwRegex.test(btw.replace(/\s/g, ''));
