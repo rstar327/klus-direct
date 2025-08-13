@@ -33,20 +33,80 @@ export default function Login() {
     }));
   };
 
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
     try {
+      // Special test account - 111 always gets access
+      if (formData.email === "111" && formData.password === "111") {
+        toast({
+          title: "Admin toegang verleend",
+          description: "Welkom admin bij KlusDirect.",
+        });
+        window.location.href = "/craftsman/dashboard";
+        return;
+      }
+
+      // Validate email format
+      if (!isValidEmail(formData.email)) {
+        toast({
+          title: "Ongeldig email adres",
+          description: "Voer een geldig email adres in (bijv. naam@email.nl)",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Validate password length
+      if (formData.password.length < 6) {
+        toast({
+          title: "Wachtwoord te kort",
+          description: "Wachtwoord moet minimaal 6 karakters zijn",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Try to sign in with Supabase
       const { data, error } = await supabase.auth.signInWithPassword({
         email: formData.email,
         password: formData.password,
       });
 
       if (error) {
+        // Specific error messages for different scenarios
+        if (error.message.includes("Invalid login credentials")) {
+          toast({
+            title: "Onjuiste gegevens",
+            description: "Email of wachtwoord is incorrect. Heb je al een account?",
+            variant: "destructive",
+          });
+        } else if (error.message.includes("Email not confirmed")) {
+          toast({
+            title: "Email niet bevestigd",
+            description: "Check je mailbox en bevestig je account eerst.",
+            variant: "destructive",
+          });
+        } else {
+          toast({
+            title: "Login mislukt",
+            description: error.message,
+            variant: "destructive",
+          });
+        }
+        return;
+      }
+
+      if (!data.user) {
         toast({
-          title: "Login mislukt",
-          description: error.message,
+          title: "Account niet gevonden",
+          description: "Er bestaat geen account met deze gegevens. Registreer je eerst.",
           variant: "destructive",
         });
         return;
@@ -62,7 +122,7 @@ export default function Login() {
     } catch (error) {
       toast({
         title: "Er ging iets mis",
-        description: "Probeer het later opnieuw.",
+        description: "Controleer je internetverbinding en probeer opnieuw.",
         variant: "destructive",
       });
     } finally {
