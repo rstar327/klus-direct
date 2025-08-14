@@ -334,12 +334,14 @@ export default function CustomerDashboard() {
                             </Button>
                           </CustomerJobDetailsModal>
                           {displayJob.quotes > 0 && (
-                            <Button
-                              size="sm"
-                              className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform"
-                            >
-                              Bekijk Premium Offertes
-                            </Button>
+                            <Link to="/customer/quotes">
+                              <Button
+                                size="sm"
+                                className="bg-gradient-to-r from-klusdirect-gold to-klusdirect-orange text-black font-semibold hover:scale-105 transition-transform"
+                              >
+                                Bekijk Premium Offertes
+                              </Button>
+                            </Link>
                           )}
                         </div>
                       </div>
