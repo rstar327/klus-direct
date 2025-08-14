@@ -9,6 +9,7 @@ import {
   Calendar,
   User,
   Building,
+  MessageCircle,
   CheckCircle,
   Clock,
   AlertCircle,
