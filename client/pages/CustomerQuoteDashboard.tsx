@@ -426,6 +426,29 @@ export default function CustomerQuoteDashboard() {
                             Download contract
                           </Button>
                         )}
+                        <ChatModal
+                          chatId={`job_${quote.jobId}_${quote.craftsmanId}`}
+                          currentUser={{
+                            id: 'customer_123',
+                            name: 'Marie Jansen',
+                            type: 'customer'
+                          }}
+                          otherUser={{
+                            id: quote.craftsmanId,
+                            name: quote.craftsmanName,
+                            type: 'craftsman'
+                          }}
+                          jobTitle={quote.jobTitle}
+                        >
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-klusdirect-blue text-klusdirect-blue hover:bg-klusdirect-blue/10"
+                          >
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            Chat
+                          </Button>
+                        </ChatModal>
                         <Button
                           variant="outline"
                           size="sm"
