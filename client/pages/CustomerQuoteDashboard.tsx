@@ -13,7 +13,6 @@ import {
   CheckCircle,
   Clock,
   AlertCircle,
-  MessageCircle,
   CreditCard,
   Banknote,
   Star,
