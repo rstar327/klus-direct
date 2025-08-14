@@ -429,14 +429,14 @@ export default function CustomerQuoteDashboard() {
                         <ChatModal
                           chatId={`job_${quote.jobId}_${quote.craftsmanId}`}
                           currentUser={{
-                            id: 'customer_123',
-                            name: 'Marie Jansen',
-                            type: 'customer'
+                            id: "customer_123",
+                            name: "Marie Jansen",
+                            type: "customer",
                           }}
                           otherUser={{
                             id: quote.craftsmanId,
                             name: quote.craftsmanName,
-                            type: 'craftsman'
+                            type: "craftsman",
                           }}
                           jobTitle={quote.jobTitle}
                         >

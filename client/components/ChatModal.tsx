@@ -3,14 +3,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
+import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { 
+import {
   MessageCircle,
   Send,
   User,
@@ -18,7 +18,7 @@ import {
   Check,
   CheckCheck,
   Clock,
-  X
+  X,
 } from "lucide-react";
 
 interface ChatModalProps {
@@ -27,12 +27,12 @@ interface ChatModalProps {
   currentUser: {
     id: string;
     name: string;
-    type: 'customer' | 'craftsman';
+    type: "customer" | "craftsman";
   };
   otherUser: {
     id: string;
     name: string;
-    type: 'customer' | 'craftsman';
+    type: "customer" | "craftsman";
   };
   jobTitle?: string;
 }
@@ -45,7 +45,13 @@ interface Message {
   read: boolean;
 }
 
-export default function ChatModal({ children, chatId, currentUser, otherUser, jobTitle }: ChatModalProps) {
+export default function ChatModal({
+  children,
+  chatId,
+  currentUser,
+  otherUser,
+  jobTitle,
+}: ChatModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [newMessage, setNewMessage] = useState("");
@@ -76,10 +82,10 @@ export default function ChatModal({ children, chatId, currentUser, otherUser, jo
       // Initialize with welcome message
       const welcomeMessage: Message = {
         id: `msg_${Date.now()}`,
-        senderId: 'system',
-        content: `Chat gestart voor project: ${jobTitle || 'Klus'}. Je kunt nu direct communiceren!`,
+        senderId: "system",
+        content: `Chat gestart voor project: ${jobTitle || "Klus"}. Je kunt nu direct communiceren!`,
         timestamp: new Date().toISOString(),
-        read: true
+        read: true,
       };
       setMessages([welcomeMessage]);
       localStorage.setItem(chatKey, JSON.stringify([welcomeMessage]));
@@ -94,16 +100,16 @@ export default function ChatModal({ children, chatId, currentUser, otherUser, jo
       senderId: currentUser.id,
       content: newMessage.trim(),
       timestamp: new Date().toISOString(),
-      read: false
+      read: false,
     };
 
     const updatedMessages = [...messages, message];
     setMessages(updatedMessages);
-    
+
     // Save to localStorage
     const chatKey = `chat_${chatId}`;
     localStorage.setItem(chatKey, JSON.stringify(updatedMessages));
-    
+
     // Clear input
     setNewMessage("");
 
@@ -111,19 +117,20 @@ export default function ChatModal({ children, chatId, currentUser, otherUser, jo
     setIsTyping(true);
     setTimeout(() => {
       setIsTyping(false);
-      
+
       // Simulate auto-response for demo
       if (Math.random() > 0.7) {
         const autoResponse: Message = {
           id: `msg_${Date.now() + 1}`,
           senderId: otherUser.id,
-          content: currentUser.type === 'customer' 
-            ? "Bedankt voor je bericht! Ik ga hier zo snel mogelijk mee aan de slag." 
-            : "Perfect, ik heb je offerte ontvangen. Ik neem contact op als ik vragen heb.",
+          content:
+            currentUser.type === "customer"
+              ? "Bedankt voor je bericht! Ik ga hier zo snel mogelijk mee aan de slag."
+              : "Perfect, ik heb je offerte ontvangen. Ik neem contact op als ik vragen heb.",
           timestamp: new Date().toISOString(),
-          read: false
+          read: false,
         };
-        
+
         const finalMessages = [...updatedMessages, autoResponse];
         setMessages(finalMessages);
         localStorage.setItem(chatKey, JSON.stringify(finalMessages));
@@ -132,27 +139,25 @@ export default function ChatModal({ children, chatId, currentUser, otherUser, jo
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       sendMessage();
     }
   };
 
   const formatTime = (timestamp: string) => {
-    return new Date(timestamp).toLocaleTimeString('nl-NL', {
-      hour: '2-digit',
-      minute: '2-digit'
+    return new Date(timestamp).toLocaleTimeString("nl-NL", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
   const isFromCurrentUser = (senderId: string) => senderId === currentUser.id;
-  const isSystemMessage = (senderId: string) => senderId === 'system';
+  const isSystemMessage = (senderId: string) => senderId === "system";
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogTrigger asChild>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="max-w-2xl h-[600px] glass border border-premium-600/30 flex flex-col p-0">
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="text-xl text-premium-50 flex items-center justify-between">
@@ -162,7 +167,7 @@ export default function ChatModal({ children, chatId, currentUser, otherUser, jo
             </div>
             <Badge className="bg-green-400/20 text-green-400 border-green-400/30">
               <Crown className="w-3 h-3 mr-1" />
-              {otherUser.type === 'craftsman' ? 'Vakman' : 'Klant'}
+              {otherUser.type === "craftsman" ? "Vakman" : "Klant"}
             </Badge>
           </DialogTitle>
           {jobTitle && (
@@ -181,39 +186,58 @@ export default function ChatModal({ children, chatId, currentUser, otherUser, jo
                   </div>
                 </div>
               ) : (
-                <div className={`flex ${isFromCurrentUser(message.senderId) ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-[70%] ${
-                    isFromCurrentUser(message.senderId)
-                      ? 'bg-klusdirect-blue text-white'
-                      : 'bg-premium-700 text-premium-50'
-                  } rounded-lg p-3 relative`}>
+                <div
+                  className={`flex ${isFromCurrentUser(message.senderId) ? "justify-end" : "justify-start"}`}
+                >
+                  <div
+                    className={`max-w-[70%] ${
+                      isFromCurrentUser(message.senderId)
+                        ? "bg-klusdirect-blue text-white"
+                        : "bg-premium-700 text-premium-50"
+                    } rounded-lg p-3 relative`}
+                  >
                     <p className="break-words">{message.content}</p>
-                    <div className={`flex items-center justify-end mt-1 gap-1 ${
-                      isFromCurrentUser(message.senderId) ? 'text-blue-100' : 'text-premium-400'
-                    }`}>
-                      <span className="text-xs">{formatTime(message.timestamp)}</span>
-                      {isFromCurrentUser(message.senderId) && (
-                        message.read ? 
-                          <CheckCheck className="w-3 h-3" /> : 
+                    <div
+                      className={`flex items-center justify-end mt-1 gap-1 ${
+                        isFromCurrentUser(message.senderId)
+                          ? "text-blue-100"
+                          : "text-premium-400"
+                      }`}
+                    >
+                      <span className="text-xs">
+                        {formatTime(message.timestamp)}
+                      </span>
+                      {isFromCurrentUser(message.senderId) &&
+                        (message.read ? (
+                          <CheckCheck className="w-3 h-3" />
+                        ) : (
                           <Check className="w-3 h-3" />
-                      )}
+                        ))}
                     </div>
                   </div>
                 </div>
               )}
             </div>
           ))}
-          
+
           {isTyping && (
             <div className="flex justify-start">
               <div className="bg-premium-700 text-premium-300 rounded-lg p-3 max-w-[70%]">
                 <div className="flex items-center space-x-1">
                   <div className="flex space-x-1">
                     <div className="w-2 h-2 bg-current rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                    <div className="w-2 h-2 bg-current rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                    <div
+                      className="w-2 h-2 bg-current rounded-full animate-bounce"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-current rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
                   </div>
-                  <span className="text-xs ml-2">{otherUser.name} is aan het typen...</span>
+                  <span className="text-xs ml-2">
+                    {otherUser.name} is aan het typen...
+                  </span>
                 </div>
               </div>
             </div>

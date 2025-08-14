@@ -608,14 +608,14 @@ export default function CraftsmanDashboard() {
                         <ChatModal
                           chatId={`job_${job.id}_craftsman_123`}
                           currentUser={{
-                            id: 'craftsman_123',
-                            name: 'Piet Bakker',
-                            type: 'craftsman'
+                            id: "craftsman_123",
+                            name: "Piet Bakker",
+                            type: "craftsman",
                           }}
                           otherUser={{
-                            id: job.client?.id || 'customer_unknown',
-                            name: job.client?.name || 'Klant',
-                            type: 'customer'
+                            id: job.client?.id || "customer_unknown",
+                            name: job.client?.name || "Klant",
+                            type: "customer",
                           }}
                           jobTitle={job.title}
                         >
