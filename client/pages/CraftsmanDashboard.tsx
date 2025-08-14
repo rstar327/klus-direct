@@ -605,6 +605,29 @@ export default function CraftsmanDashboard() {
                             Details
                           </Button>
                         </Link>
+                        <ChatModal
+                          chatId={`job_${job.id}_craftsman_123`}
+                          currentUser={{
+                            id: 'craftsman_123',
+                            name: 'Piet Bakker',
+                            type: 'craftsman'
+                          }}
+                          otherUser={{
+                            id: job.client?.id || 'customer_unknown',
+                            name: job.client?.name || 'Klant',
+                            type: 'customer'
+                          }}
+                          jobTitle={job.title}
+                        >
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="border-klusdirect-blue text-klusdirect-blue hover:bg-klusdirect-blue/10"
+                          >
+                            <MessageCircle className="w-4 h-4 mr-2" />
+                            Chat
+                          </Button>
+                        </ChatModal>
                         <JobApplicationModal
                           job={job}
                           onApplicationSubmit={handleJobApplication}
