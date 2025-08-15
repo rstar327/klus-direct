@@ -128,74 +128,7 @@ export default function CraftsmanDashboard() {
     };
   }, []);
 
-  const mockJobs = [
-    {
-      id: 1,
-      title: "Luxe badkamer renovatie",
-      client: {
-        name: "Jan de Vries",
-      },
-      location: "Amsterdam Noord",
-      budget: {
-        min: 2500,
-        max: 4000,
-        currency: "EUR",
-      },
-      distance: "2.1 km",
-      posted: "15 min geleden",
-      urgency: "Premium",
-      customerDetails: "Volledige contactgegevens beschikbaar",
-      timing: {
-        startDate: "2024-02-15",
-        duration: "2-3 weken",
-      },
-      category: "Badkamer renovatie",
-    },
-    {
-      id: 2,
-      title: "Design keuken installatie",
-      client: {
-        name: "Marie Jansen",
-      },
-      location: "Amsterdam Centrum",
-      budget: {
-        min: 5000,
-        max: 8000,
-        currency: "EUR",
-      },
-      distance: "5.3 km",
-      posted: "1 uur geleden",
-      urgency: "Exclusief",
-      customerDetails: "Premium klant - directe toegang",
-      timing: {
-        startDate: "2024-02-20",
-        duration: "3-4 weken",
-      },
-      category: "Keuken installatie",
-    },
-    {
-      id: 3,
-      title: "Dak isolatie project",
-      client: {
-        name: "Peter Bakker",
-      },
-      location: "Amsterdam West",
-      budget: {
-        min: 3000,
-        max: 5000,
-        currency: "EUR",
-      },
-      distance: "3.8 km",
-      posted: "2 uur geleden",
-      urgency: "Premium",
-      customerDetails: "Volledige contactgegevens beschikbaar",
-      timing: {
-        startDate: "2024-02-10",
-        duration: "1 week",
-      },
-      category: "Isolatie werk",
-    },
-  ];
+  const mockJobs = []; // No mock jobs for new accounts
 
   const pricingTiers = [
     {
