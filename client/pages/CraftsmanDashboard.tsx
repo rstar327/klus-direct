@@ -807,7 +807,7 @@ export default function CraftsmanDashboard() {
                         ))}
                       </div>
                       <span className="ml-2 text-sm text-premium-300">
-                        Jan D.
+                        Klant
                       </span>
                     </div>
                     <p className="text-sm text-premium-200">
