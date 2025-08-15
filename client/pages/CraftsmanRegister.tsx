@@ -172,6 +172,12 @@ export default function CraftsmanRegister() {
         user = { id: 'test_111_user' };
         error = null;
 
+        // Save user info for test account
+        localStorage.setItem('userFirstName', 'Test');
+        localStorage.setItem('userLastName', 'Vakman');
+        localStorage.setItem('userEmail', '111');
+        localStorage.setItem('userType', 'craftsman');
+
         toast({
           title: "Test modus: Registratie succesvol!",
           description: "Test account 111 geaccepteerd.",
@@ -185,6 +191,14 @@ export default function CraftsmanRegister() {
         );
         user = result.user;
         error = result.error;
+
+        // Save user info if registration successful
+        if (user && !error) {
+          localStorage.setItem('userFirstName', formData.firstName);
+          localStorage.setItem('userLastName', formData.lastName);
+          localStorage.setItem('userEmail', formData.email);
+          localStorage.setItem('userType', 'craftsman');
+        }
       }
 
       if (error) {
