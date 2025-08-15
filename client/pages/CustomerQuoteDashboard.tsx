@@ -54,7 +54,10 @@ interface Quote {
 
 export default function CustomerQuoteDashboard() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
-  const [customerName] = useState("Klant Account"); // Would come from authentication
+  // Get user name from localStorage
+  const firstName = localStorage.getItem('userFirstName') || 'Klant';
+  const lastName = localStorage.getItem('userLastName') || '';
+  const customerName = `${firstName}${lastName ? ' ' + lastName : ''}`;
 
   const handleQuoteAcceptance = (acceptanceData: any) => {
     console.log("Quote accepted:", acceptanceData);

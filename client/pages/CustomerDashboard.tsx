@@ -23,6 +23,11 @@ import {
 export default function CustomerDashboard() {
   const [customerJobs, setCustomerJobs] = useState([]);
 
+  // Get user name from localStorage
+  const firstName = localStorage.getItem('userFirstName') || 'Klant';
+  const lastName = localStorage.getItem('userLastName') || '';
+  const fullName = `${firstName}${lastName ? ' ' + lastName : ''}`;
+
   useEffect(() => {
     // Load customer jobs from localStorage
     const loadCustomerJobs = () => {
@@ -163,7 +168,7 @@ export default function CustomerDashboard() {
             <div className="flex items-center space-x-4">
               <span className="text-premium-200">
                 Welkom,{" "}
-                <span className="text-klusdirect-blue font-medium">Klant</span>
+                <span className="text-klusdirect-blue font-medium">{firstName}</span>
               </span>
               <Button
                 variant="outline"

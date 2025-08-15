@@ -38,6 +38,11 @@ import {
 
 export default function CraftsmanDashboard() {
   const [activeOffers, setActiveOffers] = useState(8);
+
+  // Get user name from localStorage
+  const firstName = localStorage.getItem('userFirstName') || 'Vakman';
+  const lastName = localStorage.getItem('userLastName') || '';
+  const fullName = `${firstName}${lastName ? ' ' + lastName : ''}`;
   const [pendingInvoices, setPendingInvoices] = useState([]);
   const [availableJobs, setAvailableJobs] = useState([]);
 
@@ -223,7 +228,7 @@ export default function CraftsmanDashboard() {
               <span className="text-premium-200">
                 Welkom,{" "}
                 <span className="text-klusdirect-gold font-medium">
-                  Vakman Account
+                  {fullName}
                 </span>
               </span>
               <Button
