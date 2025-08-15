@@ -255,6 +255,14 @@ export default function CustomerRegister() {
         const result = await registerUser(customerData.email, customerData.password, 'customer');
         user = result.user;
         error = result.error;
+
+        // Save user info if registration successful
+        if (user && !error) {
+          localStorage.setItem('userFirstName', customerData.firstName);
+          localStorage.setItem('userLastName', customerData.lastName);
+          localStorage.setItem('userEmail', customerData.email);
+          localStorage.setItem('userType', 'customer');
+        }
       }
 
       if (error) {
