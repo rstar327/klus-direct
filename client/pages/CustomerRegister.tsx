@@ -240,6 +240,12 @@ export default function CustomerRegister() {
         user = { id: 'test_111_customer' };
         error = null;
 
+        // Save user info for test account
+        localStorage.setItem('userFirstName', 'Test');
+        localStorage.setItem('userLastName', 'Gebruiker');
+        localStorage.setItem('userEmail', '111');
+        localStorage.setItem('userType', 'customer');
+
         toast({
           title: "Test modus: Registratie succesvol!",
           description: "Test account 111 geaccepteerd.",
