@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import ChatModal from "@/components/ChatModal";
+import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -179,9 +180,7 @@ export default function CustomerQuoteDashboard() {
                   // Clear all stored data
                   localStorage.clear();
                   // Logout from Supabase
-                  if (window.supabase) {
-                    window.supabase.auth.signOut();
-                  }
+                  supabase.auth.signOut();
                   // Redirect to home
                   window.location.href = '/';
                 }}
