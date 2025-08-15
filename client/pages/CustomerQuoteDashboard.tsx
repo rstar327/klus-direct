@@ -53,7 +53,7 @@ interface Quote {
 
 export default function CustomerQuoteDashboard() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
-  const [customerName] = useState("Marie Jansen"); // Would come from authentication
+  const [customerName] = useState("Klant Account"); // Would come from authentication
 
   const handleQuoteAcceptance = (acceptanceData: any) => {
     console.log("Quote accepted:", acceptanceData);
