@@ -439,7 +439,7 @@ export default function CustomerQuoteDashboard() {
                           chatId={`job_${quote.jobId}_${quote.craftsmanId}`}
                           currentUser={{
                             id: "customer_123",
-                            name: "Marie Jansen",
+                            name: "Klant Account",
                             type: "customer",
                           }}
                           otherUser={{

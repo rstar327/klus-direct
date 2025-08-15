@@ -86,8 +86,8 @@ export default function NewJobModal({ children }: NewJobModalProps) {
   });
 
   const [customerInfo] = useState({
-    name: "Marie Jansen",
-    email: "marie@example.com",
+    name: "Klant Account",
+    email: "klant@klusdirect.nl",
     phone: "06 12345678",
     businessAddress: "Hoofdstraat 123, 1012 AB Amsterdam",
   });
