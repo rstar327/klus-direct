@@ -112,13 +112,34 @@ export default function Login() {
         return;
       }
 
+      // Determine user type based on stored package info or email domain
+      let userType = "customer"; // default
+
+      // Check localStorage for package info (set during registration)
+      const packageInfo = localStorage.getItem(`user_package_${data.user.id}`);
+
+      // Check if this might be a craftsman based on typical business email patterns
+      const email = data.user.email?.toLowerCase() || "";
+      const isCraftsman = email.includes("vakman") ||
+                         email.includes("bouw") ||
+                         email.includes("klus") ||
+                         packageInfo === "craftsman";
+
+      if (isCraftsman) {
+        userType = "craftsman";
+      }
+
       toast({
         title: "Login succesvol!",
-        description: "Welkom terug bij KlusDirect.",
+        description: `Welkom terug ${userType === "craftsman" ? "vakman" : "klant"}!`,
       });
 
-      // Redirect to dashboard
-      window.location.href = "/craftsman/dashboard";
+      // Redirect to appropriate dashboard
+      const dashboardUrl = userType === "craftsman"
+        ? "/craftsman/dashboard"
+        : "/customer/dashboard";
+
+      window.location.href = dashboardUrl;
     } catch (error) {
       toast({
         title: "Er ging iets mis",
