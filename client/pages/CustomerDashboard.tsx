@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import NewJobModal from "@/components/NewJobModal";
 import CustomerJobDetailsModal from "@/components/CustomerJobDetailsModal";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -172,9 +173,7 @@ export default function CustomerDashboard() {
                   // Clear all stored data
                   localStorage.clear();
                   // Logout from Supabase
-                  if (window.supabase) {
-                    window.supabase.auth.signOut();
-                  }
+                  supabase.auth.signOut();
                   // Redirect to home
                   window.location.href = '/';
                 }}

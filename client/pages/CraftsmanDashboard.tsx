@@ -6,6 +6,7 @@ import ProfileEditModal from "@/components/ProfileEditModal";
 import JobApplicationModal from "@/components/JobApplicationModal";
 import OfferteDetailsModal from "@/components/OfferteDetailsModal";
 import ChatModal from "@/components/ChatModal";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -300,9 +301,7 @@ export default function CraftsmanDashboard() {
                   // Clear all stored data
                   localStorage.clear();
                   // Logout from Supabase
-                  if (window.supabase) {
-                    window.supabase.auth.signOut();
-                  }
+                  supabase.auth.signOut();
                   // Redirect to home
                   window.location.href = '/';
                 }}
@@ -829,7 +828,7 @@ export default function CraftsmanDashboard() {
                   </div>
                   <div className="p-3 bg-klusdirect-blue/10 rounded-lg border border-klusdirect-blue/20">
                     <p className="text-klusdirect-blue text-sm">
-                      💡 Met Professional plan: slechts €656.25 commissie (7.5%)
+                      💡 Met Professional plan: slechts ��656.25 commissie (7.5%)
                     </p>
                   </div>
                   <hr className="border-premium-700" />
