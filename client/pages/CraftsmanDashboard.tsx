@@ -289,13 +289,23 @@ export default function CraftsmanDashboard() {
               <span className="text-premium-200">
                 Welkom,{" "}
                 <span className="text-klusdirect-gold font-medium">
-                  Piet Bakker
+                  Vakman Account
                 </span>
               </span>
               <Button
                 variant="outline"
                 size="sm"
                 className="border-klusdirect-gold/30 text-klusdirect-gold hover:bg-klusdirect-gold/10"
+                onClick={() => {
+                  // Clear all stored data
+                  localStorage.clear();
+                  // Logout from Supabase
+                  if (window.supabase) {
+                    window.supabase.auth.signOut();
+                  }
+                  // Redirect to home
+                  window.location.href = '/';
+                }}
               >
                 Uitloggen
               </Button>

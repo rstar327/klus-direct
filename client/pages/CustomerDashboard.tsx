@@ -168,6 +168,16 @@ export default function CustomerDashboard() {
                 variant="outline"
                 size="sm"
                 className="border-klusdirect-blue/30 text-klusdirect-blue hover:bg-klusdirect-blue/10"
+                onClick={() => {
+                  // Clear all stored data
+                  localStorage.clear();
+                  // Logout from Supabase
+                  if (window.supabase) {
+                    window.supabase.auth.signOut();
+                  }
+                  // Redirect to home
+                  window.location.href = '/';
+                }}
               >
                 Uitloggen
               </Button>
