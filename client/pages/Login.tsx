@@ -84,7 +84,8 @@ export default function Login() {
         if (error.message.includes("Invalid login credentials")) {
           toast({
             title: "Onjuiste gegevens",
-            description: "Email of wachtwoord is incorrect. Heb je al een account?",
+            description:
+              "Email of wachtwoord is incorrect. Heb je al een account?",
             variant: "destructive",
           });
         } else if (error.message.includes("Email not confirmed")) {
@@ -106,7 +107,8 @@ export default function Login() {
       if (!data.user) {
         toast({
           title: "Account niet gevonden",
-          description: "Er bestaat geen account met deze gegevens. Registreer je eerst.",
+          description:
+            "Er bestaat geen account met deze gegevens. Registreer je eerst.",
           variant: "destructive",
         });
         return;
@@ -120,10 +122,11 @@ export default function Login() {
 
       // Check if this might be a craftsman based on typical business email patterns
       const email = data.user.email?.toLowerCase() || "";
-      const isCraftsman = email.includes("vakman") ||
-                         email.includes("bouw") ||
-                         email.includes("klus") ||
-                         packageInfo === "craftsman";
+      const isCraftsman =
+        email.includes("vakman") ||
+        email.includes("bouw") ||
+        email.includes("klus") ||
+        packageInfo === "craftsman";
 
       if (isCraftsman) {
         userType = "craftsman";
@@ -135,9 +138,10 @@ export default function Login() {
       });
 
       // Redirect to appropriate dashboard
-      const dashboardUrl = userType === "craftsman"
-        ? "/craftsman/dashboard"
-        : "/customer/dashboard";
+      const dashboardUrl =
+        userType === "craftsman"
+          ? "/craftsman/dashboard"
+          : "/customer/dashboard";
 
       window.location.href = dashboardUrl;
     } catch (error) {
@@ -151,9 +155,11 @@ export default function Login() {
     }
   };
 
-  const isFormValid = formData.email && formData.password &&
+  const isFormValid =
+    formData.email &&
+    formData.password &&
     (formData.email === "111" || // Allow 111 test account
-     (isValidEmail(formData.email) && formData.password.length >= 6)); // Or valid email + password
+      (isValidEmail(formData.email) && formData.password.length >= 6)); // Or valid email + password
 
   return (
     <div className="min-h-screen bg-premium-900 relative overflow-hidden">
@@ -230,17 +236,23 @@ export default function Login() {
                         handleInputChange("email", e.target.value)
                       }
                       className={`glass bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11 ${
-                        formData.email && formData.email !== "111" && !isValidEmail(formData.email)
-                          ? 'border-red-500/50'
-                          : 'border-premium-600/30'
+                        formData.email &&
+                        formData.email !== "111" &&
+                        !isValidEmail(formData.email)
+                          ? "border-red-500/50"
+                          : "border-premium-600/30"
                       }`}
                       placeholder="je@email.nl (of '111' voor test)"
                       required
                     />
                   </div>
-                  {formData.email && formData.email !== "111" && !isValidEmail(formData.email) && (
-                    <p className="text-red-400 text-sm">Voer een geldig email adres in</p>
-                  )}
+                  {formData.email &&
+                    formData.email !== "111" &&
+                    !isValidEmail(formData.email) && (
+                      <p className="text-red-400 text-sm">
+                        Voer een geldig email adres in
+                      </p>
+                    )}
                 </div>
 
                 <div className="space-y-2">
@@ -257,9 +269,11 @@ export default function Login() {
                         handleInputChange("password", e.target.value)
                       }
                       className={`glass bg-premium-800/50 text-premium-50 placeholder:text-premium-400 pl-11 pr-11 ${
-                        formData.password && formData.password !== "111" && formData.password.length < 6
-                          ? 'border-red-500/50'
-                          : 'border-premium-600/30'
+                        formData.password &&
+                        formData.password !== "111" &&
+                        formData.password.length < 6
+                          ? "border-red-500/50"
+                          : "border-premium-600/30"
                       }`}
                       placeholder="Wachtwoord (min. 6 tekens of '111')"
                       required
@@ -277,9 +291,13 @@ export default function Login() {
                       )}
                     </button>
                   </div>
-                  {formData.password && formData.password !== "111" && formData.password.length < 6 && (
-                    <p className="text-red-400 text-sm">Wachtwoord moet minimaal 6 karakters zijn</p>
-                  )}
+                  {formData.password &&
+                    formData.password !== "111" &&
+                    formData.password.length < 6 && (
+                      <p className="text-red-400 text-sm">
+                        Wachtwoord moet minimaal 6 karakters zijn
+                      </p>
+                    )}
                 </div>
 
                 <Button

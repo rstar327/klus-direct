@@ -15,13 +15,13 @@ export async function registerUser(
   try {
     // For test accounts, skip Supabase and return success
     if (email === "111" && password === "111") {
-      return { 
-        user: { 
-          id: "test_user_111", 
+      return {
+        user: {
+          id: "test_user_111",
           email: "111",
-          package: packageType 
-        }, 
-        error: null 
+          package: packageType,
+        },
+        error: null,
       };
     }
 
@@ -44,7 +44,7 @@ export async function registerUser(
 
     // Store package info in localStorage for now (since database table may not exist)
     localStorage.setItem(`user_package_${user.id}`, packageType);
-    
+
     return { user, error: null };
   } catch (error) {
     return { user: null, error };
