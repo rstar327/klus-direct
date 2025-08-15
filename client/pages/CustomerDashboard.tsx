@@ -175,7 +175,7 @@ export default function CustomerDashboard() {
                   // Logout from Supabase
                   supabase.auth.signOut();
                   // Redirect to home
-                  window.location.href = '/';
+                  window.location.href = "/";
                 }}
               >
                 Uitloggen

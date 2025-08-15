@@ -303,7 +303,7 @@ export default function CraftsmanDashboard() {
                   // Logout from Supabase
                   supabase.auth.signOut();
                   // Redirect to home
-                  window.location.href = '/';
+                  window.location.href = "/";
                 }}
               >
                 Uitloggen
@@ -828,7 +828,8 @@ export default function CraftsmanDashboard() {
                   </div>
                   <div className="p-3 bg-klusdirect-blue/10 rounded-lg border border-klusdirect-blue/20">
                     <p className="text-klusdirect-blue text-sm">
-                      💡 Met Professional plan: slechts ��656.25 commissie (7.5%)
+                      💡 Met Professional plan: slechts ��656.25 commissie
+                      (7.5%)
                     </p>
                   </div>
                   <hr className="border-premium-700" />
