@@ -49,21 +49,25 @@ export default function CustomerRegister() {
     if (phone === "111") return true; // Always allow 111
     // Dutch phone number validation (06 or +31 6 format)
     const phoneRegex = /^(\+31|0)[0-9]{9}$|^06[0-9]{8}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
+    return phoneRegex.test(phone.replace(/\s/g, ""));
   };
 
   const isValidPostalCode = (postalCode: string) => {
     if (postalCode === "111") return true; // Always allow 111
     // Dutch postal code format: 1234AB
     const postalCodeRegex = /^[1-9][0-9]{3}[A-Z]{2}$/;
-    return postalCodeRegex.test(postalCode.replace(/\s/g, ''));
+    return postalCodeRegex.test(postalCode.replace(/\s/g, ""));
   };
 
   const isValidDate = (dateString: string) => {
     if (dateString === "111") return true; // Always allow 111
     const date = new Date(dateString);
     const now = new Date();
-    const minAge = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
+    const minAge = new Date(
+      now.getFullYear() - 18,
+      now.getMonth(),
+      now.getDate(),
+    );
     return date instanceof Date && !isNaN(date.getTime()) && date < minAge;
   };
 
@@ -71,14 +75,14 @@ export default function CustomerRegister() {
     if (kvk === "111") return true; // Always allow 111
     // KvK number should be 8 digits
     const kvkRegex = /^[0-9]{8}$/;
-    return kvkRegex.test(kvk.replace(/\s/g, ''));
+    return kvkRegex.test(kvk.replace(/\s/g, ""));
   };
 
   const isValidBTW = (btw: string) => {
     if (btw === "111") return true; // Always allow 111
     // Dutch BTW number format: NL + 9 digits + B + 2 digits
     const btwRegex = /^NL[0-9]{9}B[0-9]{2}$/;
-    return btwRegex.test(btw.replace(/\s/g, ''));
+    return btwRegex.test(btw.replace(/\s/g, ""));
   };
 
   const [customerData, setCustomerData] = useState({
@@ -146,7 +150,8 @@ export default function CustomerRegister() {
 
     try {
       // Check if using 111 test mode - skip validation
-      const isTestMode = customerData.email === "111" && customerData.password === "111";
+      const isTestMode =
+        customerData.email === "111" && customerData.password === "111";
 
       if (!isTestMode) {
         // Validate all form data before submission
@@ -180,7 +185,8 @@ export default function CustomerRegister() {
         if (!isValidPhone(customerData.phone)) {
           toast({
             title: "Ongeldig telefoonnummer",
-            description: "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
+            description:
+              "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
             variant: "destructive",
           });
           return;
@@ -189,13 +195,17 @@ export default function CustomerRegister() {
         if (!isValidPostalCode(customerData.postalCode)) {
           toast({
             title: "Ongeldige postcode",
-            description: "Voer een geldige Nederlandse postcode in (bijv. 1234AB)",
+            description:
+              "Voer een geldige Nederlandse postcode in (bijv. 1234AB)",
             variant: "destructive",
           });
           return;
         }
 
-        if (customerData.isBusinessAccount && !isValidKvK(customerData.kvkNumber)) {
+        if (
+          customerData.isBusinessAccount &&
+          !isValidKvK(customerData.kvkNumber)
+        ) {
           toast({
             title: "Ongeldig KvK nummer",
             description: "KvK nummer moet uit precies 8 cijfers bestaan",
@@ -204,7 +214,11 @@ export default function CustomerRegister() {
           return;
         }
 
-        if (customerData.isBusinessAccount && customerData.needsVat && !isValidBTW(customerData.vatNumber)) {
+        if (
+          customerData.isBusinessAccount &&
+          customerData.needsVat &&
+          !isValidBTW(customerData.vatNumber)
+        ) {
           toast({
             title: "Ongeldig BTW nummer",
             description: "BTW nummer moet het formaat hebben: NL123456789B12",
@@ -237,14 +251,14 @@ export default function CustomerRegister() {
 
       if (isTestMode) {
         // Test mode - simulate successful registration
-        user = { id: 'test_111_customer' };
+        user = { id: "test_111_customer" };
         error = null;
 
         // Save user info for test account
-        localStorage.setItem('userFirstName', 'Test');
-        localStorage.setItem('userLastName', 'Gebruiker');
-        localStorage.setItem('userEmail', '111');
-        localStorage.setItem('userType', 'customer');
+        localStorage.setItem("userFirstName", "Test");
+        localStorage.setItem("userLastName", "Gebruiker");
+        localStorage.setItem("userEmail", "111");
+        localStorage.setItem("userType", "customer");
 
         toast({
           title: "Test modus: Registratie succesvol!",
@@ -252,16 +266,20 @@ export default function CustomerRegister() {
         });
       } else {
         // Normal Supabase registration
-        const result = await registerUser(customerData.email, customerData.password, 'customer');
+        const result = await registerUser(
+          customerData.email,
+          customerData.password,
+          "customer",
+        );
         user = result.user;
         error = result.error;
 
         // Save user info if registration successful
         if (user && !error) {
-          localStorage.setItem('userFirstName', customerData.firstName);
-          localStorage.setItem('userLastName', customerData.lastName);
-          localStorage.setItem('userEmail', customerData.email);
-          localStorage.setItem('userType', 'customer');
+          localStorage.setItem("userFirstName", customerData.firstName);
+          localStorage.setItem("userLastName", customerData.lastName);
+          localStorage.setItem("userEmail", customerData.email);
+          localStorage.setItem("userType", "customer");
         }
       }
 
@@ -320,15 +338,16 @@ export default function CustomerRegister() {
     isValidEmail(customerData.email) &&
     isValidPhone(customerData.phone) &&
     (customerData.password === "111" || customerData.password.length >= 6) &&
-    (customerData.confirmPassword === "111" || customerData.confirmPassword.length >= 6) &&
-    (customerData.password === customerData.confirmPassword);
+    (customerData.confirmPassword === "111" ||
+      customerData.confirmPassword.length >= 6) &&
+    customerData.password === customerData.confirmPassword;
   const isStep2Valid =
     (customerData.address === "111" || customerData.address) &&
     isValidPostalCode(customerData.postalCode) &&
     (customerData.city === "111" || customerData.city) &&
     (!customerData.isBusinessAccount ||
-     (isValidKvK(customerData.kvkNumber) &&
-      (!customerData.needsVat || isValidBTW(customerData.vatNumber))));
+      (isValidKvK(customerData.kvkNumber) &&
+        (!customerData.needsVat || isValidBTW(customerData.vatNumber))));
   const isStep3Valid = customerData.termsConsent && customerData.privacyConsent;
 
   return (

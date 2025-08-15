@@ -46,10 +46,10 @@ export default function Login() {
       // Special test account - 111 always gets access
       if (formData.email === "111" && formData.password === "111") {
         // Set test user info
-        localStorage.setItem('userFirstName', 'Test');
-        localStorage.setItem('userLastName', 'Admin');
-        localStorage.setItem('userEmail', '111');
-        localStorage.setItem('userType', 'craftsman');
+        localStorage.setItem("userFirstName", "Test");
+        localStorage.setItem("userLastName", "Admin");
+        localStorage.setItem("userEmail", "111");
+        localStorage.setItem("userType", "craftsman");
 
         toast({
           title: "Admin toegang verleend",

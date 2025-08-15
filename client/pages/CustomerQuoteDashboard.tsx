@@ -55,9 +55,9 @@ interface Quote {
 export default function CustomerQuoteDashboard() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   // Get user name from localStorage
-  const firstName = localStorage.getItem('userFirstName') || 'Klant';
-  const lastName = localStorage.getItem('userLastName') || '';
-  const customerName = `${firstName}${lastName ? ' ' + lastName : ''}`;
+  const firstName = localStorage.getItem("userFirstName") || "Klant";
+  const lastName = localStorage.getItem("userLastName") || "";
+  const customerName = `${firstName}${lastName ? " " + lastName : ""}`;
 
   const handleQuoteAcceptance = (acceptanceData: any) => {
     console.log("Quote accepted:", acceptanceData);

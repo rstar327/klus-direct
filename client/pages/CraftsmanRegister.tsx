@@ -57,21 +57,21 @@ export default function CraftsmanRegister() {
     if (phone === "111") return true; // Always allow 111
     // Dutch phone number validation (06 or +31 6 format)
     const phoneRegex = /^(\+31|0)[0-9]{9}$|^06[0-9]{8}$/;
-    return phoneRegex.test(phone.replace(/\s/g, ''));
+    return phoneRegex.test(phone.replace(/\s/g, ""));
   };
 
   const isValidKvK = (kvk: string) => {
     if (kvk === "111") return true; // Always allow 111
     // KvK number should be 8 digits
     const kvkRegex = /^[0-9]{8}$/;
-    return kvkRegex.test(kvk.replace(/\s/g, ''));
+    return kvkRegex.test(kvk.replace(/\s/g, ""));
   };
 
   const isValidBTW = (btw: string) => {
     if (btw === "111") return true; // Always allow 111
     // Dutch BTW number format: NL + 9 digits + B + 2 digits
     const btwRegex = /^NL[0-9]{9}B[0-9]{2}$/;
-    return btwRegex.test(btw.replace(/\s/g, ''));
+    return btwRegex.test(btw.replace(/\s/g, ""));
   };
 
   const handleInputChange = (field: string, value: string | boolean) => {
@@ -87,7 +87,8 @@ export default function CraftsmanRegister() {
 
     try {
       // Check if using 111 test mode - skip validation
-      const isTestMode = formData.email === "111" && formData.password === "111";
+      const isTestMode =
+        formData.email === "111" && formData.password === "111";
 
       if (!isTestMode) {
         // Validate all form data before submission
@@ -112,7 +113,8 @@ export default function CraftsmanRegister() {
         if (!isValidPhone(formData.phone)) {
           toast({
             title: "Ongeldig telefoonnummer",
-            description: "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
+            description:
+              "Voer een geldig Nederlands telefoonnummer in (bijv. 06 12345678)",
             variant: "destructive",
           });
           return;
@@ -169,14 +171,14 @@ export default function CraftsmanRegister() {
 
       if (isTestMode) {
         // Test mode - simulate successful registration
-        user = { id: 'test_111_user' };
+        user = { id: "test_111_user" };
         error = null;
 
         // Save user info for test account
-        localStorage.setItem('userFirstName', 'Test');
-        localStorage.setItem('userLastName', 'Vakman');
-        localStorage.setItem('userEmail', '111');
-        localStorage.setItem('userType', 'craftsman');
+        localStorage.setItem("userFirstName", "Test");
+        localStorage.setItem("userLastName", "Vakman");
+        localStorage.setItem("userEmail", "111");
+        localStorage.setItem("userType", "craftsman");
 
         toast({
           title: "Test modus: Registratie succesvol!",
@@ -194,10 +196,10 @@ export default function CraftsmanRegister() {
 
         // Save user info if registration successful
         if (user && !error) {
-          localStorage.setItem('userFirstName', formData.firstName);
-          localStorage.setItem('userLastName', formData.lastName);
-          localStorage.setItem('userEmail', formData.email);
-          localStorage.setItem('userType', 'craftsman');
+          localStorage.setItem("userFirstName", formData.firstName);
+          localStorage.setItem("userLastName", formData.lastName);
+          localStorage.setItem("userEmail", formData.email);
+          localStorage.setItem("userType", "craftsman");
         }
       }
 
