@@ -163,7 +163,7 @@ export default function CustomerDashboard() {
             <div className="flex items-center space-x-4">
               <span className="text-premium-200">
                 Welkom,{" "}
-                <span className="text-klusdirect-blue font-medium">Jan</span>
+                <span className="text-klusdirect-blue font-medium">Klant</span>
               </span>
               <Button
                 variant="outline"
