@@ -74,7 +74,6 @@ export default function JobDetails() {
       responses: 3,
       views: 12,
       customerDetails: "Volledige contactgegevens beschikbaar",
-      category: "Sanitair & Badkamer"
     },
     2: {
       id: 2,
@@ -116,7 +115,6 @@ export default function JobDetails() {
       responses: 5,
       views: 18,
       customerDetails: "Premium klant - directe toegang",
-      category: "Keuken Installatie"
     }
   };
 
