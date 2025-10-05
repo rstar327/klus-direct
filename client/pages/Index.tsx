@@ -146,9 +146,9 @@ export default function Index() {
                 Premium Platform
               </Badge>
             </div>
-            <h2 className="text-6xl md:text-7xl font-bold text-premium-50 mb-6 leading-tight">
-              Exclusieve verbinding met
-              <span className="block text-premium-gradient animate-glow">
+             <h2 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              <span className="text-premium-50">Exclusieve verbinding met</span>
+              <span className="block mt-2 text-premium-50">
                 elite vakmensen
               </span>
             </h2>
